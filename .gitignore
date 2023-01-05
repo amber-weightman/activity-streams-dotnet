@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/ActivityStreams.Models/obj
+/src/ActivityStreams.Contract/obj
+/src/ActivityStreams.Interfaces/bin/Debug/net6.0
+/src/ActivityStreams.Interfaces/obj
+/src/ActivityStreams.Models/bin/Debug/net6.0

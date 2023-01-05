@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Extended\Activity\" />
+    <Folder Include="Extended\Actor\" />
+    <Folder Include="Extended\Object\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\activity-streams-dotnets\src\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
