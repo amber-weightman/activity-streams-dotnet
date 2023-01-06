@@ -1,0 +1,2083 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActivityStreams.Contract</name>
+    </assembly>
+    <members>
+        <member name="T:ActivityStreams.Contract.Core.Activity.IActivity">
+            <summary>
+            An <c>Activity</c> is a subtype of <c>Object</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.IObject"/>) that describes some form of 
+            action that may happen, is currently happening, or has already happened. 
+            The <c>Activity</c> type itself serves as an abstract base type for all types of 
+            activities. It is important to note that the <c>Activity</c> type itself does 
+            not carry any specific semantics about the kind of action being taken.
+            <a href="https://www.w3.org/ns/activitystreams#Activity">See w3.org for further details.</a>
+            </summary>
+            <example>
+            This shows how to increment an integer.
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Activity",
+              "summary": "Sally did something to a note",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Note",
+                "name": "A Note"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivity.Object">
+            <summary>
+            When used within an Activity, describes the direct object of the activity. 
+            For instance, in the activity "John added a movie to his wishlist", the 
+            object of the activity is the movie added.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#object">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Activity.IActivityBase">
+            <summary>
+            An <c>Activity</c> is a subtype of <c>Object</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.IObject"/>) that describes some form of 
+            action that may happen, is currently happening, or has already happened. 
+            The <c>Activity</c> type itself serves as an abstract base type for all types of 
+            activities. It is important to note that the <c>Activity</c> type itself does 
+            not carry any specific semantics about the kind of action being taken.<br/>
+            <see cref="T:ActivityStreams.Contract.Core.Activity.IActivityBase"/> acts as an abstract base class for <c>Activity</c> implementations 
+            which cannot contain an <c>object</c> property (i.e. <see cref="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity"/>).
+            <a href="https://www.w3.org/ns/activitystreams#Activity">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Type">
+            <inheritdoc cref="P:ActivityStreams.Contract.Core.ICoreType.Type" />
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Actor">
+            <summary>
+            Describes one or more entities that either performed or are 
+            expected to perform the activity. Any single activity can have 
+            multiple <c>actor</c>s. The <c>actor</c> may be specified using 
+            an indirect <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>).
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#actor">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Target">
+            <summary>
+            Describes the indirect object, or target, of the activity. The precise meaning
+            of the target is largely dependent on the type of action being described but will 
+            often be the object of the English preposition "to". For instance, in the activity
+            "John added a movie to his wishlist", the target of the activity is John's wishlist. 
+            An activity can have more than one target.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#target">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Result">
+            <summary>
+            Describes the result of the activity. For instance, if a particular action 
+            results in the creation of a new resource, the result property can be used to 
+            describe that new resource.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#result">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Origin">
+            <summary>
+            Describes an indirect object of the activity from which the activity 
+            is directed. The precise meaning of the origin is the object of the 
+            English preposition "from". For instance, in the activity "John 
+            moved an item to List B from List A", the origin of the activity is
+            "List A".
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#origin">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Activity.IActivityBase.Instrument">
+            <summary>
+            Identifies one or more objects used (or to be used) in the completion of an <c>Activity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>).
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#instrument">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity">
+            <summary>
+            Instances of <c>IntransitiveActivity</c> are a subtype of <c>Activity</c> 
+            (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>)
+            representing intransitive actions. The <c>object</c> property is therefore 
+            inappropriate for these activities.
+            <a href="https://www.w3.org/ns/activitystreams#IntransitiveActivity">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Collection.ICollection">
+            <summary>
+            A <c>Collection</c> is a subtype of <c>Object</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.IObject"/>) that represents ordered or 
+            unordered sets of <c>Object</c> or <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>) instances.<br/>
+            Refer to the <a href="https://www.w3.org/TR/activitystreams-core/#collection">Activity Streams 2.0 Core</a> specification for a complete 
+            description of the Collection type.
+            <a href="https://www.w3.org/ns/activitystreams#Collection">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally's notes",
+              "type": "Collection",
+              "totalItems": 2,
+              "items": [
+                {
+                  "type": "Note",
+                  "name": "A Simple Note"
+                },
+                {
+                "type": "Note",
+                  "name": "Another Simple Note"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.Type">
+            <inheritdoc cref="P:ActivityStreams.Contract.Core.IObject.Type" />
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.TotalItems">
+            <summary>
+            	A non-negative integer specifying the total number of objects contained by the 
+            	logical view of the collection. This number might not reflect the actual number of 
+            	items serialized within the Collection object instance.
+            <a href="https://www.w3.org/ns/activitystreams#totalItems">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.Current">
+            <summary>
+            In a paged <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>), 
+            indicates the page that contains the most recently updated 
+            member items.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.Collection.ICollectionPage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#current">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.First">
+            <summary>
+            In a paged <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>), 
+            indicates the furthest preceeding page of items in the collection.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.Collection.ICollectionPage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#first">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.Last">
+            <summary>
+            In a paged <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>), 
+            indicates the furthest proceeding page of the collection.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.Collection.ICollectionPage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#first">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollection.Items">
+            <summary>
+            Identifies the items contained in a collection. The items might be ordered or unordered.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/> or <see cref="T:ActivityStreams.Contract.Core.Collection.IOrderedCollection"/> of the same.
+            <a href="https://www.w3.org/ns/activitystreams#items">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Collection.ICollectionPage">
+            <summary>
+            Used to represent distinct subsets of items from a <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>). 
+            Refer to the <a href="https://www.w3.org/TR/activitystreams-core/#collection">Activity Streams 2.0 Core</a> specification for a complete description 
+            of the <c>CollectionPage</c> object.
+            <a href="https://www.w3.org/ns/activitystreams#CollectionPage">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Page 1 of Sally's notes",
+              "type": "CollectionPage",
+              "id": "http://example.org/foo?page=1",
+              "partOf": "http://example.org/foo",
+              "items": [
+                {
+                  "type": "Note",
+                  "name": "A Simple Note"
+                },
+                {
+                "type": "Note",
+                  "name": "Another Simple Note"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollectionPage.PartOf">
+            <summary>
+            Identifies the Collection to which a CollectionPage objects items belong.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.ILink"/> or <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>.
+            <a href="https://www.w3.org/ns/activitystreams#partOf">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollectionPage.Next">
+            <summary>
+            In a paged <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>), 
+            indicates the next page of items.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.Collection.ICollectionPage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#next">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.ICollectionPage.Prev">
+            <summary>
+            In a paged <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>),
+            identifies the previous page of items.
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Collection.IOrderedCollection">
+            <summary>
+            A subtype of <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>) in which members of the logical 
+            collection are assumed to always be strictly ordered.
+            <a href="https://www.w3.org/ns/activitystreams#OrderedCollection">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally's notes",
+              "type": "OrderedCollection",
+              "totalItems": 2,
+              "orderedItems": [
+                {
+                  "type": "Note",
+                  "name": "A Simple Note"
+                },
+                {
+                "type": "Note",
+                  "name": "Another Simple Note"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.Collection.IOrderedCollectionPage">
+            <summary>
+            Used to represent ordered subsets of items from an 
+            <c>OrderedCollection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.IOrderedCollection"/>). 
+            Refer to the <a href="https://www.w3.org/TR/activitystreams-core/#collection">Activity Streams 2.0 Core</a> specification for a 
+            complete description of the <c>OrderedCollectionPage</c> object.
+            <a href="https://www.w3.org/ns/activitystreams#OrderedCollectionPage">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Page 1 of Sally's notes",
+              "type": "OrderedCollectionPage",
+              "id": "http://example.org/foo?page=1",
+              "partOf": "http://example.org/foo",
+              "orderedItems": [
+                {
+                  "type": "Note",
+                  "name": "A Simple Note"
+                },
+                {
+                "type": "Note",
+                  "name": "Another Simple Note"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.Collection.IOrderedCollectionPage.StartIndex">
+            <summary>
+            A non-negative integer value identifying the relative position 
+            within the logical view of a strictly ordered collection.
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.ICoreType">
+            <summary>
+            A <c>CoreType</c> is an abstract base type for all ActivityStreams types.
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.Id">
+            <summary>
+            Provides the globally unique identifier for an <c>Object</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.IObject"/>) or <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>).
+            </summary>
+            <example>"http://example.org/foo"</example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.Context">
+            <summary>
+            Identifies the context within which the object exists or an 
+            activity was performed.<br/>
+            The notion of "context" used is intentionally vague.The intended
+            function is to serve as a means of grouping objects and 
+            activities that share a common originating context or purpose.
+            An example could be all activities relating to a common project 
+            or event.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#context">See w3.org for further details.</a>
+            </summary>
+            <example>"https://www.w3.org/ns/activitystreams"</example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.Type">
+            <summary>
+            <a href="https://www.w3.org/TR/activitystreams-vocabulary/#properties">W3.org</a> 
+            documentation is unclear as to whether this is a URI or not.
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.AttributedTo">
+            <summary>
+            Identifies one or more entities to which this object is attributed. 
+            The attributed entities might not be Actors. For instance, an 
+            object might be attributed to the completion of another activity.
+            <a href="https://www.w3.org/ns/activitystreams#attributedTo">See w3.org for further details.</a>
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.Preview">
+            <summary>
+            Identifies an entity that provides a preview of this object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#preview">See w3.org for further details.</a>
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.Name">
+            <summary>
+            A simple, human-readable, plain-text name for the object. HTML markup must not be included. 
+            The name may be expressed using multiple language-tagged values.
+            <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ICoreType.MediaType">
+            <summary>
+            When used on a Link, identifies the MIME media type of the referenced resource.<br/>
+            When used on an Object, identifies the MIME media type of the value of the content 
+            property.If not specified, the content property is assumed to contain text/html content.
+            <a href="https://www.w3.org/ns/activitystreams#mediaType">See w3.org for further details.</a>
+            </summary>
+            <example>"text/html"</example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.ILink">
+            <summary>
+            A <c>Link</c> is an indirect, qualified reference to a resource identified by
+            a URL. The fundamental model for links is established by [<a href="https://www.w3.org/TR/activitystreams-vocabulary/#bib-RFC5988">RFC5988</a>]. 
+            Many of the properties defined by the Activity Vocabulary allow values 
+            that are either instances of <c>Object</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.IObject"/>) or <c>Link</c>. When a <c>Link</c> is used, it 
+            establishes a qualified relation connecting the subject (the containing 
+            object) to the resource identified by the href. Properties of the <c>Link</c> 
+            are properties of the reference as opposed to properties of the resource.
+            <a href="https://www.w3.org/ns/activitystreams#Link">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Link",
+              "href": "http://example.org/abc",
+              "hreflang": "en",
+              "mediaType": "text/html",
+              "name": "An example link"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.Type">
+            <inheritdoc cref="P:ActivityStreams.Contract.Core.ICoreType.Type" />
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.Href">
+            <summary>
+            The target resource pointed to by a <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>).
+            <a href="https://www.w3.org/ns/activitystreams#href">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.Rel">
+            <summary>
+            A link relation associated with a <c>Link</c>.The value must conform to both 
+            the[HTML5] and[RFC5988] "link relation" definitions.<br/>
+            In the[HTML5], any string not containing the "space" U+0020, "tab" (U+0009), "LF" (U+000A), 
+            "FF" (U+000C), "CR" (U+000D) or "," (U+002C) characters can be used as a valid link relation.
+            <a href="https://www.w3.org/ns/activitystreams#rel">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.HrefLang">
+            <summary>
+            Hints as to the language used by the target resource. Value must be a 
+            <a href="https://www.w3.org/TR/activitystreams-vocabulary/#bib-BCP47">BCP47</a> Language-Tag.
+            <a href="https://www.w3.org/ns/activitystreams#hreflang">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.Height">
+            <summary>
+            On a <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>), specifies a hint as to the rendering height in device-independent 
+            pixels of the linked resource.
+            <a href="https://www.w3.org/ns/activitystreams#height">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.ILink.Width">
+            <summary>
+            On a <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>), specifies a hint as to the rendering width in device-independent pixels of the linked resource.
+            <a href="https://www.w3.org/ns/activitystreams#width">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Core.IObject">
+            <summary>
+            Describes an object of any kind. The <c>Object</c> type serves as the 
+            base type for most of the other kinds of objects defined in the 
+            Activity Vocabulary, including other Core types such as <c>Activity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>), 
+            <c>IntransitiveActivity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity"/>), <c>Collection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>) and 
+            <c>OrderedCollection</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.IOrderedCollection"/>).
+            <a href="https://www.w3.org/ns/activitystreams#Object">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Object",
+              "id": "http://www.test.example/object/1",
+              "name": "A Simple, non-specific object"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Type">
+            <inheritdoc cref="P:ActivityStreams.Contract.Core.ICoreType.Type" />
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Attachment">
+            <summary>
+            Identifies a resource attached or related to an object that 
+            potentially requires special handling. The intent is to provide 
+            a model that is at least semantically similar to attachments in 
+            email. Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#attachment">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Audience">
+            <summary>
+            Identifies one or more entities that represent the total 
+            population of entities for which the object can considered 
+            to be relevant.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#audience">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Content">
+            <summary>
+            The content or textual representation of the Object encoded as a JSON string. 
+            By default, the value of content is HTML.The <c>mediaType</c> property can be used in the object 
+            to indicate a different content type.<br/>
+            The content may be expressed using multiple language-tagged values.
+            <a href="https://www.w3.org/ns/activitystreams#content">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.EndTime">
+            <summary>
+            The date and time describing the actual or expected ending time of the object. When used 
+            with an Activity object, for instance, the endTime property specifies the moment the 
+            activity concluded or is expected to conclude.
+            <a href="https://www.w3.org/ns/activitystreams#endTime">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Generator">
+            <summary>
+            Identifies the entity (e.g. an application) that generated the object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#generator">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Icon">
+            <summary>
+            Indicates an entity that describes an icon for this object. The image should have an aspect 
+            ratio of one (horizontal) to one (vertical) and should be suitable for presentation at a 
+            small size.
+            Must be either <see cref="T:ActivityStreams.Contract.Extended.Object.IImage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#icon">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Image">
+            <summary>
+            Indicates an entity that describes an image for this object. Unlike the icon property, 
+            there are no aspect ratio or display size limitations assumed.
+            Must be either <see cref="T:ActivityStreams.Contract.Extended.Object.IImage"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#image">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.InReplyTo">
+            <summary>
+            Indicates one or more entities for which this object is considered a response.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#inReplyTo">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Location">
+            <summary>
+            Indicates one or more physical or logical locations associated with the object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#location">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Published">
+            <summary>
+            The date and time at which the object was published
+            <a href="https://www.w3.org/ns/activitystreams#published">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Replies">
+            <summary>
+            Identifies a <c>Collection</c> containing objects considered to be responses to this object.
+            <a href="https://www.w3.org/ns/activitystreams#replies">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.StartTime">
+            <summary>
+            The date and time describing the actual or expected starting time of the object. When used 
+            with an <c>Activity</c> object, for instance, the <c>startTime</c> property specifies the moment the 
+            activity began or is scheduled to begin.
+            <a href="https://www.w3.org/ns/activitystreams#startTime">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Summary">
+            <summary>
+            A natural language summarization of the object encoded as HTML. Multiple language tagged
+            summaries <b>may</b> be provided.
+            <a href="https://www.w3.org/ns/activitystreams#summary">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Tag">
+            <summary>
+            One or more "tags" that have been associated with an objects. A tag can be any 
+            kind of Object. The key difference between <c>attachment</c> and <c>tag</c> is that the 
+            former implies association by inclusion, while the latter implies associated 
+            by reference.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#tag">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Updated">
+            <summary>
+            The date and time at which the object was updated
+            <a href="https://www.w3.org/ns/activitystreams#updated">See w3.org for further details.</a>
+            </summary>
+            <example>"2014-12-12T12:12:12Z"</example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Url">
+            <summary>
+            Identifies one or more links to representations of the object
+            Must be either <c>xsd:anyURI</c> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#tag">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.To">
+            <summary>
+            Identifies an entity considered to be part of the public primary audience of an Object
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#to">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Bto">
+            <summary>
+            Identifies an Object that is part of the private primary 
+            audience of this Object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#bto">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Cc">
+            <summary>
+            Identifies an Object that is part of the public secondary 
+            audience of this Object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#cc">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Bcc">
+            <summary>
+            Identifies one or more Objects that are part of the private 
+            secondary audience of this Object.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#bcc">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Core.IObject.Duration">
+            <summary>
+            When the object describes a time-bound resource, such as an audio or video, a meeting, etc, 
+            the <c>duration</c> property indicates the object's approximate duration. The value <b>must</b> be expressed 
+            as an xsd:duration as defined by <a href="https://www.w3.org/TR/activitystreams-vocabulary/#bib-xmlschema11-2">xmlschema11-2</a>, section 3.3.6 (e.g. a period of 5 seconds 
+            is represented as "PT5S").
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IAccept">
+            <summary>
+            Indicates that the <c>actor</c> accepts the <c>object</c>. The <c>target</c> 
+            property can be used in certain circumstances to indicate 
+            the context into which the <c>object</c> has been accepted.
+            <a href="https://www.w3.org/ns/activitystreams#Accept">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally accepted an invitation to a party",
+              "type": "Accept",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Invite",
+                "actor": "http://john.example.org",
+                "object": {
+                    "type": "Event",
+                  "name": "Going-Away Party for Jim"
+                }
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IAdd">
+            <summary>
+            Indicates that the <c>actor</c> has added the <c>object</c> to the 
+            target. If the <c>target</c> property is not explicitly 
+            specified, the target would need to be determined 
+            implicitly by context. The <c>origin</c> can be used to 
+            identify the context from which the <c>object</c> originated.
+            <a href="https://www.w3.org/ns/activitystreams#Add">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally added an object",
+              "type": "Add",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/abc"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IAnnounce">
+            <summary>
+            Indicates that the <c>actor</c> is calling the <c>target</c>'s attention the <c>object</c>.<br/>
+            The <c>origin</c> typically has no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Announce">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally announced that she had arrived at work",
+              "type": "Announce",
+              "actor": {
+                "type": "Person",
+                "id": "http://sally.example.org",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Arrive",
+                "actor": "http://sally.example.org",
+                "location": {
+                    "type": "Place",
+                  "name": "Work"
+                }
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IArrive">
+            <summary>
+            An <c>IntransitiveActivity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity"/>) that indicates that the <c>actor</c> has 
+            arrived at the <c>location</c>. The <c>origin</c> can be used to identify 
+            the context from which the <c>actor</c> originated. The <c>target</c> 
+            typically has no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Arrive">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally arrived at work",
+              "type": "Arrive",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "location": {
+                "type": "Place",
+                "name": "Work"
+              },
+              "origin": {
+                "type": "Place",
+                "name": "Home"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IBlock">
+            <summary>
+            Indicates that the <c>actor</c> is blocking the <c>object</c>. Blocking 
+            is a stronger form of <c>Ignore</c> (here implemented as <see cref="T:ActivityStreams.Contract.Extended.Activity.IIgnore"/>). The typical use is to support 
+            social systems that allow one user to block activities or 
+            content of other users. The <c>target</c> and <c>origin</c> typically 
+            have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Block">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally blocked Joe",
+              "type": "Block",
+              "actor": "http://sally.example.org",
+              "object": "http://joe.example.org"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ICreate">
+            <summary>
+            Indicates that the <c>actor</c> has created the <c>object</c>.
+            <a href="https://www.w3.org/ns/activitystreams#Create">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally created a note",
+              "type": "Create",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Note",
+                "name": "A Simple Note",
+                "content": "This is a simple note"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IDelete">
+            <summary>
+            Indicates that the <c>actor</c> has deleted the <c>object</c>. If 
+            specified, the <c>origin</c> indicates the context from which 
+            the <c>object</c> was deleted.
+            <a href="https://www.w3.org/ns/activitystreams#Delete">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally deleted a note",
+              "type": "Delete",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/notes/1",
+              "origin": {
+                "type": "Collection",
+                "name": "Sally's Notes"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IDislike">
+            <summary>
+            Indicates that the <c>actor</c> dislikes the <c>object</c>.
+            <a href="https://www.w3.org/ns/activitystreams#Dislike">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally disliked a post",
+              "type": "Dislike",
+              "actor": "http://sally.example.org",
+              "object": "http://example.org/posts/1"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IFlag">
+            <summary>
+            Indicates that the <c>actor</c> is "flagging" the <c>object</c>. 
+            Flagging is defined in the sense common to many social 
+            platforms as reporting content as being inappropriate 
+            for any number of reasons.
+            <a href="https://www.w3.org/ns/activitystreams#Flag">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally flagged an inappropriate note",
+              "type": "Flag",
+              "actor": "http://sally.example.org",
+              "object": {
+                "type": "Note",
+                "content": "An inappropriate note"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IFollow">
+            <summary>
+            Indicates that the <c>actor</c> is "following" the <c>object</c>. 
+            Following is defined in the sense typically used within 
+            Social systems in which the actor is interested in any 
+            activity performed by or on the object. The <c>target</c> and 
+            <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Follow">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally followed John",
+              "type": "Follow",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Person",
+                "name": "John"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IIgnore">
+            <summary>
+            Indicates that the <c>actor</c> is ignoring the <c>object</c>. The <c>target</c> 
+            and <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Ignore">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally ignored a note",
+              "type": "Ignore",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/notes/1"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IInvite">
+            <summary>
+            A specialization of <c>Offer</c> (here implemented as <see cref="T:ActivityStreams.Contract.Extended.Activity.IOffer"/>) in which the <c>actor</c> is extending 
+            an invitation for the <c>object</c> to the <c>target</c>.
+            <a href="https://www.w3.org/ns/activitystreams#Invite">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally invited John and Lisa to a party",
+              "type": "Invite",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Event",
+                "name": "A Party"
+              },
+              "target": [
+                {
+                  "type": "Person",
+                  "name": "John"
+                },
+                {
+                  "type": "Person",
+                  "name": "Lisa"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IJoin">
+            <summary>
+            Indicates that the <c>actor</c> has joined the <c>object</c>. The <c>target</c> 
+            and <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Join">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally joined a group",
+              "type": "Join",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Group",
+                "name": "A Simple Group"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ILeave">
+            <summary>
+            Indicates that the <c>actor</c> has left the <c>object</c>. The <c>target</c> 
+            and <c>origin</c> typically have no meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Leave">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally left work",
+              "type": "Leave",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Place",
+                "name": "Work"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ILike">
+            <summary>
+            Indicates that the <c>actor</c> likes, recommends or endorses 
+            the <c>object</c>. The <c>target</c> and <c>origin</c> typically have no 
+            defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Like">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally liked a note",
+              "type": "Like",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/notes/1"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IListen">
+            <summary>
+            Indicates that the <c>actor</c> has listened to the <c>object</c>.
+            <a href="https://www.w3.org/ns/activitystreams#Listen">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally listened to a piece of music",
+              "type": "Listen",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/music.mp3"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IMove">
+            <summary>
+            Indicates that the <c>actor</c> has moved <c>object</c> from <c>origin</c> to 
+            <c>target</c>. If the <c>origin</c> or <c>target</c> are not specified, either 
+            can be determined by context.
+            <a href="https://www.w3.org/ns/activitystreams#Move">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally moved a post from List A to List B",
+              "type": "Move",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/posts/1",
+              "target": {
+                "type": "Collection",
+                "name": "List B"
+              },
+              "origin": {
+                "type": "Collection",
+                "name": "List A"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IOffer">
+            <summary>
+            Indicates that the <c>actor</c> is offering the <c>object</c>. If 
+            specified, the <c>target</c> indicates the entity to which 
+            the <c>object</c> is being offered.
+            <a href="https://www.w3.org/ns/activitystreams#Offer">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally offered 50% off to Lewis",
+              "type": "Offer",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "http://www.types.example/ProductOffer",
+                "name": "50% Off!"
+              },
+              "target": {
+                "type": "Person",
+                "name": "Lewis"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IQuestion">
+            <summary>
+            Represents a question being asked. Question objects are an 
+            extension of <c>IntransitiveActivity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity"/>). That is, the Question 
+            object is an Activity (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>), but the direct object is the question 
+            itself and therefore it would not contain an <c>object</c> property.<br/>
+            Either of the <c>anyOf</c> and <c>oneOf</c> properties <b>may</b> be used to 
+            express possible answers, but a Question object <b>must not</b>
+            have both properties.
+            <a href="https://www.w3.org/ns/activitystreams#Question">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Question",
+              "name": "What is the answer?",
+              "oneOf": [
+                {
+                  "type": "Note",
+                  "name": "Option A"
+                },
+                {
+                "type": "Note",
+                  "name": "Option B"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Activity.IQuestion.OneOf">
+            <summary>
+            Identifies an exclusive option for a Question. Use of <c>oneOf</c>> implies that the Question can 
+            have only a single answer. To indicate that a Question can have multiple answers, use 
+            <c>anyOf</c>.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#oneOf">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Activity.IQuestion.AnyOf">
+            <summary>
+            Identifies an inclusive option for a Question. Use of <c>anyOf</c> implies that the Question 
+            can have multiple answers. To indicate that a Question can have only one answer, use 
+            <c>oneOf</c>.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#anyOf">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Activity.IQuestion.Closed">
+            <summary>
+            Indicates that a question has been closed, and answers are no longer accepted.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/> or <c>xsd:dateTime</c> or <c>xsd:boolean</c>.
+            <a href="https://www.w3.org/ns/activitystreams#closed">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IRead">
+            <summary>
+            Indicates that the <c>actor</c> has read the <c>object</c>.
+            <a href="https://www.w3.org/ns/activitystreams#Read">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally read a blog post",
+              "type": "Read",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/posts/1"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IReject">
+            <summary>
+            Indicates that the <c>actor</c> is rejecting the <c>object</c>. The <c>target</c> 
+            and <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Reject">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally rejected an invitation to a party",
+              "type": "Reject",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Invite",
+                "actor": "http://john.example.org",
+                "object": {
+                    "type": "Event",
+                  "name": "Going-Away Party for Jim"
+                }
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IRemove">
+            <summary>
+            Indicates that the <c>actor</c> is removing the <c>object</c>. If 
+            specified, the <c>origin</c> indicates the context from which 
+            the <c>object</c> is being removed.
+            <a href="https://www.w3.org/ns/activitystreams#Remove">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally removed a note from her notes folder",
+              "type": "Remove",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/notes/1",
+              "target": {
+                "type": "Collection",
+                "name": "Notes Folder"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ITentativeAccept">
+            <summary>
+            A specialization of <c>Accept</c> (here implemented as <see cref="T:ActivityStreams.Contract.Extended.Activity.IAccept"/>) indicating that the acceptance is 
+            tentative.
+            <a href="https://www.w3.org/ns/activitystreams#TentativeAccept">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally tentatively accepted an invitation to a party",
+              "type": "TentativeAccept",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Invite",
+                "actor": "http://john.example.org",
+                "object": {
+                    "type": "Event",
+                  "name": "Going-Away Party for Jim"
+                }
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ITentativeReject">
+            <summary>
+            A specialization of <c>Reject</c> (here implemented as <see cref="T:ActivityStreams.Contract.Extended.Activity.IReject"/>) in which the rejection is 
+            considered tentative.
+            <a href="https://www.w3.org/ns/activitystreams#TentativeReject">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally tentatively rejected an invitation to a party",
+              "type": "TentativeReject",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Invite",
+                "actor": "http://john.example.org",
+                "object": {
+                    "type": "Event",
+                    "name": "Going-Away Party for Jim"
+                }
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.ITravel">
+            <summary>
+            Indicates that the <c>actor</c> is traveling to <c>target</c> from <c>origin</c>. 
+            <c>Travel</c> is an <c>IntransitiveObject</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IIntrasitiveActivity"/>) whose <c>actor</c> specifies the 
+            direct object. If the <c>target</c> or <c>origin</c> are not specified, 
+            either can be determined by context.
+            <a href="https://www.w3.org/ns/activitystreams#Travel">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally went home from work",
+              "type": "Travel",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "target": {
+                "type": "Place",
+                "name": "Home"
+              },
+              "origin": {
+                "type": "Place",
+                "name": "Work"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IUndo">
+            <summary>
+            Indicates that the <c>actor</c> is undoing the <c>object</c>. In most 
+            cases, the <c>object</c> will be an <c>Activity</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>) describing some 
+            previously performed action (for instance, a person may 
+            have previously "liked" an article but, for whatever 
+            reason, might choose to undo that like at some later 
+            point in time).<br/>
+            The <c>target</c> and <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Undo">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally retracted her offer to John",
+              "type": "Undo",
+              "actor": "http://sally.example.org",
+              "object": {
+                "type": "Offer",
+                "actor": "http://sally.example.org",
+                "object": "http://example.org/posts/1",
+                "target": "http://john.example.org"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IUpdate">
+            <summary>
+            Indicates that the <c>actor</c> has updated the <c>object</c>. Note, 
+            however, that this vocabulary does not define a mechanism 
+            for describing the actual set of modifications made to 
+            <c>object</c>.<br/>
+            The <c>target</c> and <c>origin</c> typically have no defined meaning.
+            <a href="https://www.w3.org/ns/activitystreams#Update">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally updated her note",
+              "type": "Update",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": "http://example.org/notes/1"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Activity.IView">
+            <summary>
+            Indicates that the <c>actor</c> has viewed the <c>object</c>.
+            <a href="https://www.w3.org/ns/activitystreams#View">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally read an article",
+              "type": "View",
+              "actor": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "object": {
+                "type": "Article",
+                "name": "What You Should Know About Activity Streams"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Actor.IApplication">
+            <summary>
+            Describes a software application.
+            <a href="https://www.w3.org/ns/activitystreams#Application">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Application",
+              "name": "Exampletron 3000"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Actor.IGroup">
+            <summary>
+            Represents a formal or informal collective of Actors.
+            <a href="https://www.w3.org/ns/activitystreams#Group">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Group",
+              "name": "Big Beards of Austin"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Actor.IOrganization">
+            <summary>
+            Represents an organization.
+            <a href="https://www.w3.org/ns/activitystreams#Organization">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Organization",
+              "name": "Example Co."
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Actor.IPerson">
+            <summary>
+            Represents an individual person.
+            <a href="https://www.w3.org/ns/activitystreams#Person">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Person",
+              "name": "Sally Smith"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Actor.IService">
+            <summary>
+            Represents a service of any kind.
+            <a href="https://www.w3.org/ns/activitystreams#Service">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Service",
+              "name": "Acme Web Service"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IArticle">
+            <summary>
+            Represents any kind of multi-paragraph written work.
+            <a href="https://www.w3.org/ns/activitystreams#Article">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Article",
+              "name": "What a Crazy Day I Had",
+              "content": "<div>... you will never believe ...</div>",
+              "attributedTo": "http://sally.example.org"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IAudio">
+            <summary>
+            Represents an audio document of any kind.
+            <a href="https://www.w3.org/ns/activitystreams#Audio">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Audio",
+              "name": "Interview With A Famous Technologist",
+              "url": {
+                "type": "Link",
+                "href": "http://example.org/podcast.mp3",
+                "mediaType": "audio/mp3"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IDocument">
+            <summary>
+            Represents a document of any kind.
+            <a href="https://www.w3.org/ns/activitystreams#Document">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Document",
+              "name": "4Q Sales Forecast",
+              "url": "http://example.org/4q-sales-forecast.pdf"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IEvent">
+            <summary>
+            Represents any kind of event.
+            <a href="https://www.w3.org/ns/activitystreams#Event">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Event",
+              "name": "Going-Away Party for Jim",
+              "startTime": "2014-12-31T23:00:00-08:00",
+              "endTime": "2015-01-01T06:00:00-08:00"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IImage">
+            <summary>
+            An image document of any kind
+            <a href="https://www.w3.org/ns/activitystreams#Image">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Image",
+              "name": "Cat Jumping on Wagon",
+              "url": [
+                {
+                  "type": "Link",
+                  "href": "http://example.org/image.jpeg",
+                  "mediaType": "image/jpeg"
+                },
+                {
+                "type": "Link",
+                  "href": "http://example.org/image.png",
+                  "mediaType": "image/png"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IMention">
+            <summary>
+            https://www.w3.org/ns/activitystreams#Mention<br/>
+            A specialized <c>Link</c> (here implemented as <see cref="T:ActivityStreams.Contract.Core.ILink"/>) that represents an @mention.
+            <a href="https://www.w3.org/ns/activitystreams#Mention">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Mention of Joe by Carrie in her note",
+              "type": "Mention",
+              "href": "http://example.org/joe",
+              "name": "Joe"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.INote">
+            <summary>
+            Represents a short written work typically less than a 
+            single paragraph in length.
+            <a href="https://www.w3.org/ns/activitystreams#Note">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Note",
+              "name": "A Word of Warning",
+              "content": "Looks like it is going to rain today. Bring an umbrella!"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IPage">
+            <summary>
+            Represents a Web Page.
+            <a href="https://www.w3.org/ns/activitystreams#Page">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Page",
+              "name": "Omaha Weather Report",
+              "url": "http://example.org/weather-in-omaha.html"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IPlace">
+            <summary>
+            Represents a logical or physical location. See 
+            <a href="https://www.w3.org/TR/activitystreams-vocabulary/#places">5.3 Representing Places</a> for additional information.
+            <a href="https://www.w3.org/ns/activitystreams#Place">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Place",
+              "name": "Work"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Accuracy">
+            <summary>
+            Indicates the accuracy of position coordinates on a Place objects. 
+            Expressed in properties of percentage. e.g. "94.0" means "94.0% accurate".
+            Valid range is between 0.0f and 100.0f.
+            <a href="https://www.w3.org/ns/activitystreams#accuracy">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Altitude">
+            <summary>
+            Indicates the altitude of a place. The measurement units is indicated using the 
+            units property. If units is not specified, the default is assumed to be "m" indicating meters.
+            <a href="https://www.w3.org/ns/activitystreams#altitude">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Latitude">
+            <summary>
+            The latitude of a place
+            <a href="https://www.w3.org/ns/activitystreams#latitude">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Longitude">
+            <summary>
+            The longitude of a place
+            <a href="https://www.w3.org/ns/activitystreams#longitude">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Radius">
+            <summary>
+            The radius from the given latitude and longitude for a Place. 
+            The units is expressed by the <c>units</c> property. If <c>units</c> is not specified, the default is 
+            assumed to be "m" indicating "meters".
+            <a href="https://www.w3.org/ns/activitystreams#radius">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IPlace.Units">
+            <summary>
+            Specifies the measurement units for the <c>radius</c> and <c>altitude</c> properties on a <c>Place</c> object (here implemented as <see cref="T:ActivityStreams.Contract.Extended.Object.IPlace"/>). 
+            If not specified, the default is assumed to be "m" for "meters".
+            <a href="https://www.w3.org/ns/activitystreams#units">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IProfile">
+            <summary>
+            A Profile is a content object that describes another 
+            Object, typically used to describe <c>Actor Type</c> objects. 
+            The <c>describes</c> property is used to reference the object 
+            being described by the profile.
+            <a href="https://www.w3.org/ns/activitystreams#Profile">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Profile",
+              "summary": "Sally's Profile",
+              "describes": {
+                "type": "Person",
+                "name": "Sally Smith"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IProfile.Describes">
+            <summary>
+            On a <c>Profile</c> object, the <c>describes</c> property identifies the object described
+            by the Profile.
+            <a href="https://www.w3.org/ns/activitystreams#describes">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IRelationship">
+            <summary>
+            Describes a relationship between two individuals. The <c>subject</c>
+            and <c>object</c> properties are used to identify the connected 
+            individuals.<br/>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#connections">5.2 Representing Relationships Between Entities</a> for 
+            additional information.
+            <a href="https://www.w3.org/ns/activitystreams#Relationship">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "summary": "Sally is an acquaintance of John",
+              "type": "Relationship",
+              "subject": {
+                "type": "Person",
+                "name": "Sally"
+              },
+              "relationship": "http://purl.org/vocab/relationship/acquaintanceOf",
+              "object": {
+                "type": "Person",
+                "name": "John"
+              }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IRelationship.Subject">
+            <summary>
+            On a Relationship object, the subject property identifies one of the connected individuals. 
+            For instance, for a Relationship object describing "John is related to Sally", subject would refer to John.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#subject">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IRelationship.Object">
+            <summary>
+            When used within a Relationship describes the entity to which the subject 
+            is related.
+            Must be either <see cref="T:ActivityStreams.Contract.Core.IObject"/> or <see cref="T:ActivityStreams.Contract.Core.ILink"/>.
+            <a href="https://www.w3.org/ns/activitystreams#object">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.IRelationship.Relationship">
+            <summary>
+            On a Relationship object, the relationship property identifies the kind of relationship that exists between subject and object.
+            <a href="https://www.w3.org/ns/activitystreams#relationship">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.ITombstone">
+            <summary>
+            A Tombstone represents a content object that has been 
+            deleted. It can be used in <c>Collection</c>s (here implemented as <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>) to signify that 
+            there used to be an object at this position, but it has 
+            been deleted.
+            <a href="https://www.w3.org/ns/activitystreams#Tombstone">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "type": "OrderedCollection",
+              "totalItems": 3,
+              "name": "Vacation photos 2016",
+              "orderedItems": [
+                {
+                  "type": "Image",
+                  "id": "http://image.example/1"
+                },
+                {
+                  "type": "Tombstone",
+                  "formerType": "Image",
+                  "id": "http://image.example/2",
+                  "deleted": "2016-03-17T00:00:00Z"
+                },
+                {
+                  "type": "Image",
+                  "id": "http://image.example/3"
+                }
+              ]
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.ITombstone.FormerType">
+            <summary>
+            On a Tombstone object, the formerType property identifies the type of the 
+            object that was deleted.
+            <a href="https://www.w3.org/ns/activitystreams#formerType">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="P:ActivityStreams.Contract.Extended.Object.ITombstone.Deleted">
+            <summary>
+            On a Tombstone object, the deleted property is a timestamp for when the 
+            object was deleted.
+            <a href="https://www.w3.org/ns/activitystreams#deleted">See w3.org for further details.</a>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Extended.Object.IVideo">
+            <summary>
+            Represents a video document of any kind.
+            <a href="https://www.w3.org/ns/activitystreams#Video">See w3.org for further details.</a>
+            </summary>
+            <example>
+            <code>
+            {
+              "@context": "https://www.w3.org/ns/activitystreams",
+              "type": "Video",
+              "name": "Puppy Plays With Ball",
+              "url": "http://example.org/video.mkv",
+              "duration": "PT2H"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:ActivityStreams.Contract.Types.ActivityType">
+            <summary>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#activity-types">w3.org</a>.
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Activity">
+            <summary>
+            Identifies an <c>activity</c> of general type <see cref="T:ActivityStreams.Contract.Core.Activity.IActivity"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Accept">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IAccept"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Add">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IAdd"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Announce">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IAnnounce"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Arrive">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IArrive"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Block">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IBlock"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Create">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ICreate"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Delete">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IDelete"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Dislike">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IDislike"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Flag">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IFlag"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Follow">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IFollow"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Ignore">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IIgnore"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Invite">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IInvite"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Join">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IJoin"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Leave">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ILeave"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Like">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ILike"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Listen">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IListen"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Move">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IMove"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Offer">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IOffer"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Question">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IQuestion"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Reject">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IReject"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Read">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IRead"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Remove">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IRemove"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.TentativeReject">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ITentativeReject"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.TentativeAccept">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ITentativeAccept"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Travel">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.ITravel"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Undo">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IUndo"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.Update">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IUpdate"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActivityType.View">
+            <summary>
+            Identifies an <c>activity</c> of type <see cref="T:ActivityStreams.Contract.Extended.Activity.IView"/>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Types.ActorType">
+            <summary>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#actor-types">w3.org</a>.
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Actor">
+            <summary>
+            Identifies an <c>actor</c> of unknown type
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Application">
+            <summary>
+            Identifies an <c>actor</c> of type <see cref="T:ActivityStreams.Contract.Extended.Actor.IApplication"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Group">
+            <summary>
+            Identifies an <c>actor</c> of type <see cref="T:ActivityStreams.Contract.Extended.Actor.IGroup"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Organization">
+            <summary>
+            Identifies an <c>actor</c> of type <see cref="T:ActivityStreams.Contract.Extended.Actor.IOrganization"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Person">
+            <summary>
+            Identifies an <c>actor</c> of type <see cref="T:ActivityStreams.Contract.Extended.Actor.IPerson"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ActorType.Service">
+            <summary>
+            Identifies an <c>actor</c> of type <see cref="T:ActivityStreams.Contract.Extended.Actor.IService"/>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Types.CollectionType">
+            <summary>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#object-types">w3.org</a>.
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.CollectionType.Collection">
+            <summary>
+            Identifies a <c>collection</c> of general type <see cref="T:ActivityStreams.Contract.Core.Collection.ICollection"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.CollectionType.CollectionPage">
+            <summary>
+            Identifies a <c>collection</c> of type <see cref="T:ActivityStreams.Contract.Core.Collection.ICollectionPage"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.CollectionType.OrderedCollection">
+            <summary>
+            Identifies a <c>collection</c> of type <see cref="T:ActivityStreams.Contract.Core.Collection.IOrderedCollection"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.CollectionType.OrderedCollectionPage">
+            <summary>
+            Identifies a <c>collection</c> of type <see cref="T:ActivityStreams.Contract.Core.Collection.IOrderedCollectionPage"/>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Types.LinkType">
+            <summary>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#object-types">w3.org</a>.
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.LinkType.Link">
+            <summary>
+            Identifies a <c>link</c> of general type <see cref="T:ActivityStreams.Contract.Core.ILink"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.LinkType.Mention">
+            <summary>
+            Identifies a <c>link</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IMention"/>
+            </summary>
+        </member>
+        <member name="T:ActivityStreams.Contract.Types.ObjectType">
+            <summary>
+            See <a href="https://www.w3.org/TR/activitystreams-vocabulary/#object-types">w3.org</a>.
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Object">
+            <summary>
+            Identifies an <c>object</c> of general type <see cref="T:ActivityStreams.Contract.Core.IObject"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Article">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IArticle"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Audio">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IAudio"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Document">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IDocument"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Event">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IEvent"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Image">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IImage"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Note">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.INote"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Page">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IPage"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Place">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IPlace"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Profile">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IProfile"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Relationship">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IRelationship"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Tombstone">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.ITombstone"/>
+            </summary>
+        </member>
+        <member name="F:ActivityStreams.Contract.Types.ObjectType.Video">
+            <summary>
+            Identifies an <c>object</c> of type <see cref="T:ActivityStreams.Contract.Extended.Object.IVideo"/>
+            </summary>
+        </member>
+    </members>
+</doc>
