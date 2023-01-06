@@ -1,5 +1,4 @@
 ﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
 
 namespace ActivityStreams.Contract.Extended.Activity;
 

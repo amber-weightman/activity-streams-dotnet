@@ -1,7 +1,7 @@
-﻿using ActivityStreams.Contract.Core.Activity;
-using ActivityStreams.Contract.Core.Collection;
-using ActivityStreams.Contract.Extended.Object;
+﻿using ActivityStreams.Contract.Extended.Object;
 using ActivityStreams.Contract.Types;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace ActivityStreams.Contract.Core;
 
@@ -25,8 +25,17 @@ namespace ActivityStreams.Contract.Core;
 /// </example>
 public interface IObject : ICoreType
 {
-    /// <inheritdoc cref="ICoreType.Type" />
+    /// <summary>
+    /// <a href="https://www.w3.org/TR/activitystreams-vocabulary/#properties">W3.org</a> 
+    /// documentation is unclear as to whether this is a URI or not.
+    /// </summary>
     new ObjectType[]? Type { get; }
+
+    /// <summary>
+    /// Provides the globally unique identifier for an <c>Object</c> (here implemented as <see cref="IObject"/>) or <c>Link</c> (here implemented as <see cref="ILink"/>).
+    /// </summary>
+    /// <example>"http://example.org/foo"</example>
+    Uri? Id { get; }
 
     /// <summary>
     /// Identifies a resource attached or related to an object that 
@@ -36,6 +45,14 @@ public interface IObject : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#attachment">See w3.org for further details.</a>
     /// </summary>
     ICoreType[]? Attachment { get; }
+
+    /// <summary>
+    /// Identifies one or more entities to which this object is attributed. 
+    /// The attributed entities might not be Actors. For instance, an 
+    /// object might be attributed to the completion of another activity.
+    /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
+    /// </summary>
+    ICoreType[]? AttributedTo { get; }
 
     /// <summary>
     /// Identifies one or more entities that represent the total 
@@ -54,6 +71,13 @@ public interface IObject : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#content">See w3.org for further details.</a>
     /// </summary>
     string[]? Content { get; } // TODO serialise xsd:string | rdf:langString
+
+    /// <summary>
+    /// A simple, human-readable, plain-text name for the object. HTML markup must not be included. 
+    /// The name may be expressed using multiple language-tagged values.
+    /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
+    /// </summary>
+    string[]? Name { get; } // TODO serialise xsd:string | rdf:langString
 
     /// <summary>
     /// The date and time describing the actual or expected ending time of the object. When used 
@@ -100,6 +124,13 @@ public interface IObject : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#location">See w3.org for further details.</a>
     /// </summary>
     ICoreType[]? Location { get; }
+
+    /// <summary>
+    /// Identifies an entity that provides a preview of this object.
+    /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
+    /// <a href="https://www.w3.org/ns/activitystreams#preview">See w3.org for further details.</a>
+    /// </summary>
+    ICoreType[]? Preview { get; }
 
     /// <summary>
     /// The date and time at which the object was published
@@ -165,7 +196,7 @@ public interface IObject : ICoreType
     /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
     /// <a href="https://www.w3.org/ns/activitystreams#bto">See w3.org for further details.</a>
     /// </summary>
-    ICoreType[]? Bto { get; }
+    ICoreType[] Bto { get; }
 
     /// <summary>
     /// Identifies an Object that is part of the public secondary 
@@ -173,7 +204,7 @@ public interface IObject : ICoreType
     /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
     /// <a href="https://www.w3.org/ns/activitystreams#cc">See w3.org for further details.</a>
     /// </summary>
-    ICoreType[]? Cc { get; }
+    ICoreType[] Cc { get; }
 
     /// <summary>
     /// Identifies one or more Objects that are part of the private 
@@ -181,7 +212,15 @@ public interface IObject : ICoreType
     /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
     /// <a href="https://www.w3.org/ns/activitystreams#bcc">See w3.org for further details.</a>
     /// </summary>
-    ICoreType[]? Bcc { get; }
+    ICoreType[] Bcc { get; }
+
+    /// <summary>
+    /// When used on a Link, identifies the MIME media type of the referenced resource.<br/>
+    /// When used on an Object, identifies the MIME media type of the value of the content 
+    /// property.If not specified, the content property is assumed to contain text/html content.
+    /// </summary>
+    /// <example>"text/html"</example>
+    string? MediaType { get; } // TODO MIME Media Type
 
     /// <summary>
     /// When the object describes a time-bound resource, such as an audio or video, a meeting, etc, 

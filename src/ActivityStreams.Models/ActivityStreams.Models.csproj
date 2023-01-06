@@ -4,24 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Extended\Activity\" />
     <Folder Include="Extended\Actor\" />
     <Folder Include="Extended\Object\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
+    <ProjectReference Include="..\..\..\activity-streams-dotnets\src\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
   </ItemGroup>
 
 </Project>
