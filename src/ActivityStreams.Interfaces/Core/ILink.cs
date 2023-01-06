@@ -26,11 +26,8 @@ namespace ActivityStreams.Contract.Core;
 /// </example>
 public interface ILink : ICoreType
 {
-    /// <summary>
-    /// <a href="https://www.w3.org/TR/activitystreams-vocabulary/#properties">W3.org</a> 
-    /// documentation is unclear as to whether this is a URI or not.
-    /// </summary>
-    new LinkType? Type { get; }
+    /// <inheritdoc cref="ICoreType.Type" />
+    new LinkType[]? Type { get; }
 
     /// <summary>
     /// The target resource pointed to by a <c>Link</c> (here implemented as <see cref="ILink"/>).
@@ -46,21 +43,6 @@ public interface ILink : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#rel">See w3.org for further details.</a>
     /// </summary>
     string[]? Rel { get; } // TODO [RFC5988] or [HTML5] Link Relation
-
-    /// <summary>
-    /// When used on a Link, identifies the MIME media type of the referenced resource.<br/>
-    /// When used on an Object, identifies the MIME media type of the value of the content 
-    /// property.If not specified, the content property is assumed to contain text/html content.
-    /// </summary>
-    /// <example>"text/html"</example>
-    string? MediaType { get; } // TODO MIME Media Type
-
-    /// <summary>
-    /// A simple, human-readable, plain-text name for the object. HTML markup must not be included. 
-    /// The name may be expressed using multiple language-tagged values.
-    /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
-    /// </summary>
-    string[]? Name { get; } // TODO serialise xsd:string | rdf:langString
 
     /// <summary>
     /// Hints as to the language used by the target resource. Value must be a 
@@ -81,11 +63,4 @@ public interface ILink : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#width">See w3.org for further details.</a>
     /// </summary>
     int? Width { get; } // TODO validate non-negative
-
-    /// <summary>
-    /// Identifies an entity that provides a preview of this object.
-    /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
-    /// <a href="https://www.w3.org/ns/activitystreams#preview">See w3.org for further details.</a>
-    /// </summary>
-    ICoreType[]? Preview { get; }
 }

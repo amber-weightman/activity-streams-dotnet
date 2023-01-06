@@ -8,3 +8,7 @@
 /src/ActivityStreams.Interfaces/bin/Debug/net6.0
 /src/ActivityStreams.Interfaces/obj
 /src/ActivityStreams.Models/bin/Debug/net6.0
+/src/ActivityStreams.Utilities/bin/Debug/net6.0
+/src/ActivityStreams.Utilities/obj
+/test/ActivityStreams.UnitTests/bin/Debug/net6.0
+/test/ActivityStreams.UnitTests/obj
