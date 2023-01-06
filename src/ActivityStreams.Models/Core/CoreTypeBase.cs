@@ -11,6 +11,7 @@ public abstract record CoreTypeBase : ICoreType
     /// Constructor for <see cref="CoreTypeBase"/>
     /// </summary>
     /// <param name="context"></param>
+    [JsonConstructor]
     public CoreTypeBase(ICoreType[] context)
     {
         Context = context;

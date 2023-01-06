@@ -1,5 +1,6 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core;
 
@@ -9,6 +10,7 @@ public record Link : CoreTypeBase, ILink, ICoreType
     /// <summary>
     /// Constructor for <see cref="Link"/>
     /// </summary>
+    [JsonConstructor]
     public Link(ICoreType[] context) : base(context)
     {
     }

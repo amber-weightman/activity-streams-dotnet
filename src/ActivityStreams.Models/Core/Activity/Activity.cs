@@ -1,5 +1,6 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Activity;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Activity;
 
@@ -9,6 +10,7 @@ public record Activity : ActivityBase, IActivity, IObject, ICoreType
     /// <summary>
     /// Constructor for <see cref="Activity"/>
     /// </summary>
+    [JsonConstructor]
     public Activity(ICoreType[] context) : base(context)
     {
     }

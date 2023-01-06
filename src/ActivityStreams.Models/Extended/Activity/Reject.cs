@@ -4,21 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
-/// <inheritdoc cref="IAccept" />
-public record Accept : Core.Activity.Activity, IAccept
+/// <inheritdoc cref="IReject" />
+public record Reject : Core.Activity.Activity, IReject
 {
     /// <summary>
-    /// Constructor for <see cref="Accept"/>
+    /// Constructor for <see cref="Reject"/>
     /// </summary>
     [JsonConstructor]
-    public Accept(ICoreType[] context) : base(context)
+    public Reject(ICoreType[] context) : base(context)
     {
     }
 
     /// <summary>
-    /// Constructor for <see cref="Accept"/>
+    /// Constructor for <see cref="Reject"/>
     /// </summary>
-    public Accept(ICoreType context) : base(context)
+    public Reject(ICoreType context) : base(context)
     {
     }
 }

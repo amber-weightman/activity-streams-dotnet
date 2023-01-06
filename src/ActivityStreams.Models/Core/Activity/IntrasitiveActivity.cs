@@ -1,5 +1,6 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Activity;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Activity;
 
@@ -9,6 +10,7 @@ public record IntrasitiveActivity : ActivityBase, IIntrasitiveActivity, IActivit
     /// <summary>
     /// Constructor for <see cref="IntrasitiveActivity"/>
     /// </summary>
+    [JsonConstructor]
     public IntrasitiveActivity(ICoreType[] context) : base(context)
     {
     }

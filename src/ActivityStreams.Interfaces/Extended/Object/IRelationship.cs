@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Core;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Contract.Extended.Object;
 
@@ -50,5 +51,6 @@ public interface IRelationship : IObject, ICoreType
     /// On a Relationship object, the relationship property identifies the kind of relationship that exists between subject and object.
     /// <a href="https://www.w3.org/ns/activitystreams#relationship">See w3.org for further details.</a>
     /// </summary>
-    IObject[]? Relationship { get; }
+    [JsonPropertyName("relationship")]
+    IObject[]? InnerRelationship { get; }
 }

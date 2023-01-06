@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Collection;
 
@@ -10,6 +11,7 @@ public record OrderedCollection : Collection, IOrderedCollection, ICollection, I
     /// <summary>
     /// Constructor for <see cref="OrderedCollection"/>
     /// </summary>
+    [JsonConstructor]
     public OrderedCollection(ICoreType[] context) : base(context)
     {
     }

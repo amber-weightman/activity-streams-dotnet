@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Collection;
 
@@ -10,6 +11,7 @@ public record CollectionPage : Collection, ICollectionPage, ICollection, IObject
     /// <summary>
     /// Constructor for <see cref="CollectionPage"/>
     /// </summary>
+    [JsonConstructor]
     public CollectionPage(ICoreType[] context) : base(context)
     {
     }

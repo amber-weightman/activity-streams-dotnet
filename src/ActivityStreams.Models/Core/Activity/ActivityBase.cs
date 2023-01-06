@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Activity;
 using ActivityStreams.Contract.Types;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Activity;
 
@@ -10,6 +11,7 @@ public abstract record ActivityBase : Object, IActivityBase, IObject, ICoreType
     /// <summary>
     /// Constructor for <see cref="ActivityBase"/>
     /// </summary>
+    [JsonConstructor]
     protected ActivityBase(ICoreType[] context) : base(context)
     {
     }

@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core.Collection;
 
@@ -10,6 +11,7 @@ public record Collection : Object, ICollection, IObject, ICoreType
     /// <summary>
     /// Constructor for <see cref="Collection"/>
     /// </summary>
+    [JsonConstructor]
     public Collection(ICoreType[] context) : base(context)
     {
     }
