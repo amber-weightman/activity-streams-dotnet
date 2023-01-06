@@ -1,24 +1,12 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Activity;
-using System.Text.Json.Serialization;
+using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
 /// <inheritdoc cref="IFlag" />
 public record Flag : Core.Activity.Activity, IFlag
 {
-    /// <summary>
-    /// Constructor for <see cref="Flag"/>
-    /// </summary>
-    [JsonConstructor]
-    public Flag(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Flag"/>
-    /// </summary>
-    public Flag(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Flag };
 }

@@ -1,26 +1,14 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Object;
-using System.Text.Json.Serialization;
+using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Models.Extended.Object;
 
 /// <inheritdoc cref="IPlace" />
 public record Place : Core.Object, IPlace
 {
-    /// <summary>
-    /// Constructor for <see cref="Place"/>
-    /// </summary>
-    [JsonConstructor]
-    public Place(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Place"/>
-    /// </summary>
-    public Place(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Place };
 
     /// <inheritdoc cref="IPlace.Accuracy" />
     public float? Accuracy { get; init; }

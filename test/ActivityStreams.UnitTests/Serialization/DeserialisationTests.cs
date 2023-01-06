@@ -1,18 +1,14 @@
-using ActivityStreams.Models.Extended.Activity;
-using ActivityStreams.UnitTests.Utils;
-using System.Text.Json;
-using FluentAssertions;
+using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Core;
 using ActivityStreams.Models.Core.Activity;
-using ActivityStreams.Contract.Core.Activity;
-using ActivityStreams.Contract.Extended.Activity;
-using ActivityStreams.Contract.Extended.Actor;
-using ActivityStreams.Contract.Extended.Object;
 using ActivityStreams.Models.Core.Collection;
+using ActivityStreams.Models.Extended.Activity;
 using ActivityStreams.Models.Extended.Actor;
 using ActivityStreams.Models.Extended.Object;
-using ActivityStreams.Contract.Core.Collection;
-using ActivityStreams.Contract.Core;
-using ActivityStreams.Models.Core;
+using ActivityStreams.Models.Utilities.Serialization;
+using ActivityStreams.UnitTests.Utils;
+using FluentAssertions;
+using System.Text.Json;
 
 namespace ActivityStreams.UnitTests.Serialization;
 
@@ -27,11 +23,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
         
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IAccept>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull(); // TODO assert that they are of the correct type
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Accept);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -43,11 +39,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Activity>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Activity>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IActivity>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Activity);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -60,11 +56,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IAdd>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Add);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -76,11 +72,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Announce>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Announce>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IAnnounce>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Announce);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -92,11 +88,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Application>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Application>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IApplication>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Application);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -108,11 +104,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Arrive>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Arrive>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IArrive>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Arrive);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -124,11 +120,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Article>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Article>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IArticle>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Article);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -140,11 +136,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Audio>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Audio>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IAudio>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Audio);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -156,11 +152,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Block>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Block>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IBlock>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Block);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -172,11 +168,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Collection>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Collection>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ICollection>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Collection);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -188,11 +184,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<CollectionPage>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<CollectionPage>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ICollectionPage>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.CollectionPage);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -204,11 +200,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Create>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Create>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ICreate>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Create);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -220,11 +216,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Delete>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Delete>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IDelete>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Delete);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -236,11 +232,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Dislike>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Dislike>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IDislike>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Dislike);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -252,11 +248,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Document>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Document>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IDocument>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Document);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -268,11 +264,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Event>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Event>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IEvent>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Event);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -284,11 +280,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Flag>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Flag>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IFlag>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Flag);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -300,11 +296,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Follow>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Follow>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IFollow>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Follow);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -316,11 +312,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Group>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Group>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IGroup>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Group);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -332,11 +328,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Ignore>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Ignore>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IIgnore>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Ignore);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -348,11 +344,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Image>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Image>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IImage>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Image);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -364,11 +360,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<IntrasitiveActivity>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<IntrasitiveActivity>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IIntrasitiveActivity>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.IntrasitiveActivity);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -380,11 +376,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Invite>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Invite>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IInvite>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Invite);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -396,11 +392,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Join>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Join>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IJoin>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Join);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -413,11 +409,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ILeave>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Leave);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -429,11 +425,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Like>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Like>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ILike>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Like);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -445,11 +441,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Link>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Link>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ILink>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Link);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -461,11 +457,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Listen>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Listen>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IListen>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Listen);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -477,11 +473,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Mention>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Mention>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IMention>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Mention);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -493,11 +489,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Move>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Move>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IMove>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Move);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -509,11 +505,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Note>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Note>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<INote>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Note);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -525,11 +521,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Models.Core.Object>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Models.Core.Object>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IObject>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Object);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -541,11 +537,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Offer>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Offer>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IOffer>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Offer);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -558,11 +554,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollection>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedCollection>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IOrderedCollection>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollection);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -574,11 +570,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollectionPage>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedCollectionPage>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IOrderedCollectionPage>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollectionPage);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -590,11 +586,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Organization>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Organization>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IOrganization>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Organization);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -606,11 +602,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Page>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Page>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IPage>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Page);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -622,11 +618,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Person>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Person>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IPerson>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Person);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -639,11 +635,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IPlace>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Place);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -655,11 +651,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Profile>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Profile>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IProfile>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Profile);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -672,11 +668,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IQuestion>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Question);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -688,11 +684,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Read>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Read>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IRead>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Read);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -704,11 +700,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Reject>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Reject>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IReject>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Reject);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -720,11 +716,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Relationship>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Relationship>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IRelationship>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Relationship);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -737,11 +733,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IRemove>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Remove);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -753,11 +749,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Service>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Service>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IService>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Service);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -769,11 +765,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<TentativeAccept>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<TentativeAccept>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ITentativeAccept>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeAccept);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -785,11 +781,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<TentativeReject>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<TentativeReject>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ITentativeReject>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeReject);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -801,11 +797,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Tombstone>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Tombstone>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ITombstone>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Tombstone);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -818,11 +814,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<ITravel>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Travel);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -834,11 +830,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Undo>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Undo>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IUndo>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Undo);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -850,11 +846,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Update>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Update>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IUpdate>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Update);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -866,11 +862,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Video>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<Video>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IVideo>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Video);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -882,11 +878,11 @@ public class DeserialisationTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<View>(reader.BaseStream);
+        var sut = await JsonSerializer.DeserializeAsync<View>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
-        sut.Should().NotBeNull().And.BeOfType<IView>();
-        sut.Type.Should().NotBeEmpty();
+        sut.Should().NotBeNull();
+        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.View);
         sut.Context.Should().NotBeEmpty();
     }
 }

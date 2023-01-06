@@ -1,27 +1,15 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Activity;
+using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Core.Activity;
-using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
 /// <inheritdoc cref="IQuestion" />
 public record Question : IntrasitiveActivity, IQuestion
 {
-    /// <summary>
-    /// Constructor for <see cref="Question"/>
-    /// </summary>
-    [JsonConstructor]
-    public Question(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Question"/>
-    /// </summary>
-    public Question(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Question };
 
     /// <inheritdoc cref="IQuestion.OneOf" />
     public ICoreType[]? OneOf { get; init; }

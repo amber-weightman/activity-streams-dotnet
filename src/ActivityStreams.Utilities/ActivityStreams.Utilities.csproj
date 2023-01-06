@@ -19,4 +19,8 @@
     <Folder Include="Validators\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
+  </ItemGroup>
+
 </Project>

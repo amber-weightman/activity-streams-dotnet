@@ -14,9 +14,6 @@ namespace ActivityStreams.Contract.Core.Activity;
 /// </summary>
 public interface IActivityBase : IObject, ICoreType
 {
-    /// <inheritdoc cref="ICoreType.Type" />
-    new ActivityType[]? Type { get; }
-
     /// <summary>
     /// Describes one or more entities that either performed or are 
     /// expected to perform the activity. Any single activity can have 

@@ -26,9 +26,6 @@ namespace ActivityStreams.Contract.Core;
 /// </example>
 public interface ILink : ICoreType
 {
-    /// <inheritdoc cref="ICoreType.Type" />
-    new LinkType[]? Type { get; }
-
     /// <summary>
     /// The target resource pointed to by a <c>Link</c> (here implemented as <see cref="ILink"/>).
     /// <a href="https://www.w3.org/ns/activitystreams#href">See w3.org for further details.</a>

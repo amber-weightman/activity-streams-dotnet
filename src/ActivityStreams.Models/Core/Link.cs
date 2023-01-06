@@ -1,29 +1,13 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
-using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core;
 
 /// <inheritdoc cref="ILink" />
 public record Link : CoreTypeBase, ILink, ICoreType
 {
-    /// <summary>
-    /// Constructor for <see cref="Link"/>
-    /// </summary>
-    [JsonConstructor]
-    public Link(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Link"/>
-    /// </summary>
-    public Link(ICoreType context) : base(context)
-    {
-    }
-
-    /// <inheritdoc cref="ILink.Type" />
-    public virtual new LinkType[]? Type { get; init; } = new[] { LinkType.Link };
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Link };
 
     /// <inheritdoc cref="ILink.Href" />
     public Uri? Href { get; init; }

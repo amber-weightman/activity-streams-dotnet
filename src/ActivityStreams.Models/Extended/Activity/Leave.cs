@@ -1,24 +1,12 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Activity;
-using System.Text.Json.Serialization;
+using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
 /// <inheritdoc cref="ILeave" />
 public record Leave : Core.Activity.Activity, ILeave
 {
-    /// <summary>
-    /// Constructor for <see cref="Leave"/>
-    /// </summary>
-    [JsonConstructor]
-    public Leave(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Leave"/>
-    /// </summary>
-    public Leave(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Leave };
 }

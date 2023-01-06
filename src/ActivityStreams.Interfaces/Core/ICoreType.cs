@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ActivityStreams.Contract.Types;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Contract.Core;
@@ -27,14 +28,13 @@ public interface ICoreType
     /// </summary>
     /// <example>"https://www.w3.org/ns/activitystreams"</example>
     [JsonPropertyName("@context")]
-    [Required]
-    ICoreType[] Context { get; }
+    ICoreType[]? Context { get; }
 
     /// <summary>
     /// <a href="https://www.w3.org/TR/activitystreams-vocabulary/#properties">W3.org</a> 
     /// documentation is unclear as to whether this is a URI or not.
     /// </summary>
-    abstract Enum[]? Type { get; }
+    abstract ObjectType[]? Type { get; }
 
     /// <summary>
     /// Identifies one or more entities to which this object is attributed. 

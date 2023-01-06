@@ -25,7 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
     <ProjectReference Include="..\..\src\ActivityStreams.Models\ActivityStreams.Models.csproj" />
-    <ProjectReference Include="..\..\src\ActivityStreams.Utilities\ActivityStreams.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

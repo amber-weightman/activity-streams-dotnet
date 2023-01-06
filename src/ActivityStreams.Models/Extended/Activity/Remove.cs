@@ -1,24 +1,12 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Activity;
-using System.Text.Json.Serialization;
+using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
 /// <inheritdoc cref="IRemove" />
 public record Remove : Core.Activity.Activity, IRemove
 {
-    /// <summary>
-    /// Constructor for <see cref="Remove"/>
-    /// </summary>
-    [JsonConstructor]
-    public Remove(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Remove"/>
-    /// </summary>
-    public Remove(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Remove };
 }

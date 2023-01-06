@@ -1,30 +1,14 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
-using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core;
 
 /// <inheritdoc cref="IObject" />
 public record Object : CoreTypeBase, IObject, ICoreType
 {
-    /// <summary>
-    /// Constructor for <see cref="Object"/>
-    /// </summary>
-    [JsonConstructor]
-    public Object(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Object"/>
-    /// </summary>
-    public Object(ICoreType context) : base(context)
-    {
-    }
-
-    /// <inheritdoc cref="IObject.Type" />
-    public virtual new ObjectType[]? Type { get; init; } = new[] { ObjectType.Object };
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Object };
 
     /// <inheritdoc cref="IObject.Attachment" />
     public ICoreType[]? Attachment { get; init; }
@@ -72,7 +56,7 @@ public record Object : CoreTypeBase, IObject, ICoreType
     public DateTime? Updated { get; init; }
 
     /// <inheritdoc cref="IObject.Url" />
-    public object[]? Url { get; init; }
+    public ILink[]? Url { get; init; }
 
     /// <inheritdoc cref="IObject.To" />
     public ICoreType[]? To { get; init; }

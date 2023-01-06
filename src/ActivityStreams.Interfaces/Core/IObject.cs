@@ -25,9 +25,6 @@ namespace ActivityStreams.Contract.Core;
 /// </example>
 public interface IObject : ICoreType
 {
-    /// <inheritdoc cref="ICoreType.Type" />
-    new ObjectType[]? Type { get; }
-
     /// <summary>
     /// Identifies a resource attached or related to an object that 
     /// potentially requires special handling. The intent is to provide 
@@ -150,7 +147,7 @@ public interface IObject : ICoreType
     /// Must be either <c>xsd:anyURI</c> or <see cref="ILink"/>.
     /// <a href="https://www.w3.org/ns/activitystreams#tag">See w3.org for further details.</a>
     /// </summary>
-    object[]? Url { get; } // TODO serialiser
+    ILink[]? Url { get; } // TODO serialiser
 
     /// <summary>
     /// Identifies an entity considered to be part of the public primary audience of an Object

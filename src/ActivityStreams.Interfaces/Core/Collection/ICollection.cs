@@ -31,9 +31,6 @@ namespace ActivityStreams.Contract.Core.Collection;
 /// </example>
 public interface ICollection : IObject, ICoreType
 {
-    /// <inheritdoc cref="IObject.Type" />
-    new CollectionType[]? Type { get; }
-
     /// <summary>
     /// 	A non-negative integer specifying the total number of objects contained by the 
     /// 	logical view of the collection. This number might not reflect the actual number of 

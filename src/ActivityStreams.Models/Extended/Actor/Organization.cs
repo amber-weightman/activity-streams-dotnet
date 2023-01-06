@@ -1,24 +1,12 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Actor;
-using System.Text.Json.Serialization;
+using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Models.Extended.Actor;
 
 /// <inheritdoc cref="IOrganization" />
 public record Organization : Core.Object, IOrganization
 {
-    /// <summary>
-    /// Constructor for <see cref="Organization"/>
-    /// </summary>
-    [JsonConstructor]
-    public Organization(ICoreType[] context) : base(context)
-    {
-    }
-
-    /// <summary>
-    /// Constructor for <see cref="Organization"/>
-    /// </summary>
-    public Organization(ICoreType context) : base(context)
-    {
-    }
+    /// <inheritdoc cref="ICoreType.Type" />
+    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Organization };
 }
