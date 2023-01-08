@@ -4,7 +4,7 @@ using ActivityStreams.Contract.Types;
 namespace ActivityStreams.Models.Core;
 
 /// <inheritdoc cref="ILink" />
-public record Link : CoreTypeBase, ILink, ICoreType
+public record Link : CoreTypeBase, ILink
 {
     /// <inheritdoc cref="ICoreType.Type" />
     public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Link };

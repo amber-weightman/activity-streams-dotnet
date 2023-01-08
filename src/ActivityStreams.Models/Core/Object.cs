@@ -6,7 +6,7 @@ using ActivityStreams.Contract.Types;
 namespace ActivityStreams.Models.Core;
 
 /// <inheritdoc cref="IObject" />
-public record Object : CoreTypeBase, IObject, ICoreType
+public record Object : CoreTypeBase, IObject
 {
     /// <inheritdoc cref="ICoreType.Type" />
     public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Object };
