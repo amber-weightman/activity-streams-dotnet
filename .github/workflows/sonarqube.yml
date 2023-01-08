@@ -71,7 +71,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"amber-weightman_activity-streams-dotnet" /o:"amber-weightman" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths=".\sonarqubecoverage\SonarQube.xml"
           dotnet restore ./ActivityStreams.sln
           dotnet build ./ActivityStreams.sln --configuration Release
-          dotnet test ./test/ActivityStreams.UnitTests/ActivityStreams.UnitTests.csproj --no-build --collect:"XPlat Code Coverage" --logger trx #--results-directory $GITHUB_WORKSPACE/test/testresults
+          dotnet test ./test/ActivityStreams.UnitTests/ActivityStreams.UnitTests.csproj --collect:"XPlat Code Coverage" --logger trx #--results-directory $GITHUB_WORKSPACE/test/testresults
           dotnet tool install -g dotnet-reportgenerator-globaltool
           # reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:"SonarQube"
           reportgenerator "-reports:.\test\*\TestResults\*\coverage.cobertura.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
