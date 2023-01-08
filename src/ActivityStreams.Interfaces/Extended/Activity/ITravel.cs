@@ -31,6 +31,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface ITravel : IIntrasitiveActivity, IActivityBase, IObject, ICoreType
+public interface ITravel : IIntrasitiveActivity
 {
 }

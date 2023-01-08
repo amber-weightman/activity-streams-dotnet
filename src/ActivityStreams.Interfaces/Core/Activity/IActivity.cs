@@ -28,7 +28,7 @@ namespace ActivityStreams.Contract.Core.Activity;
 /// }
 /// </code>
 /// </example>
-public interface IActivity : IActivityBase, IObject, ICoreType
+public interface IActivity : IActivityBase
 {
     /// <summary>
     /// When used within an Activity, describes the direct object of the activity. 

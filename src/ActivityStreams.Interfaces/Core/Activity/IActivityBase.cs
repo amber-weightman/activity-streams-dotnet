@@ -12,7 +12,7 @@ namespace ActivityStreams.Contract.Core.Activity;
 /// which cannot contain an <c>object</c> property (i.e. <see cref="IIntrasitiveActivity"/>).
 /// <a href="https://www.w3.org/ns/activitystreams#Activity">See w3.org for further details.</a>
 /// </summary>
-public interface IActivityBase : IObject, ICoreType
+public interface IActivityBase : IObject
 {
     /// <summary>
     /// Describes one or more entities that either performed or are 

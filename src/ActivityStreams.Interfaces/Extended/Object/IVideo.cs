@@ -17,6 +17,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IVideo : IDocument, IObject, ICoreType
+public interface IVideo : IDocument
 {
 }

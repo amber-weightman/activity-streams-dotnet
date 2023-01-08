@@ -1,7 +1,4 @@
-﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
-
-namespace ActivityStreams.Contract.Extended.Activity;
+﻿namespace ActivityStreams.Contract.Extended.Activity;
 
 /// <summary>
 /// Indicates that the <c>actor</c> is blocking the <c>object</c>. Blocking 
@@ -22,6 +19,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface IBlock : IIgnore, IActivity, IActivityBase, IObject, ICoreType
+public interface IBlock : IIgnore
 {
 }

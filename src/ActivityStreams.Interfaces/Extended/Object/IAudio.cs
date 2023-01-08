@@ -20,6 +20,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IAudio : IDocument, IObject, ICoreType
+public interface IAudio : IDocument
 {
 }

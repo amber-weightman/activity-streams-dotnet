@@ -27,7 +27,7 @@
 /// }
 /// </code>
 /// </example>
-public interface ICollectionPage : ICollection, IObject, ICoreType
+public interface ICollectionPage : ICollection
 {
     /// <summary>
     /// Identifies the Collection to which a CollectionPage objects items belong.

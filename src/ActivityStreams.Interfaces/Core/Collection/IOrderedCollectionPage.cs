@@ -28,7 +28,7 @@
 /// }
 /// </code>
 /// </example>
-public interface IOrderedCollectionPage : IOrderedCollection, ICollectionPage, ICollection, IObject, ICoreType
+public interface IOrderedCollectionPage : IOrderedCollection, ICollectionPage
 {
     /// <summary>
     /// A non-negative integer value identifying the relative position 

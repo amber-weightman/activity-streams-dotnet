@@ -18,6 +18,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IMention: ILink, ICoreType
+public interface IMention: ILink
 {
 }

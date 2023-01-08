@@ -32,7 +32,7 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface IQuestion : IIntrasitiveActivity, IActivityBase, IObject, ICoreType
+public interface IQuestion : IIntrasitiveActivity
 {
     /// <summary>
     /// Identifies an exclusive option for a Question. Use of <c>oneOf</c>> implies that the Question can 

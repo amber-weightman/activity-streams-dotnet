@@ -17,6 +17,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface INote: IObject, ICoreType
+public interface INote: IObject
 {
 }

@@ -1,5 +1,4 @@
-﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
+﻿using ActivityStreams.Contract.Core.Activity;
 
 namespace ActivityStreams.Contract.Extended.Activity;
 
@@ -21,6 +20,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface IRead : IActivity, IActivityBase, IObject, ICoreType
+public interface IRead : IActivity
 {
 }

@@ -42,7 +42,7 @@ public class DateTimeConverterTests
             .NotBeNull().And
             .BeOfType<DateTimeXsd>();
 
-        sut.ToString().Should()
+        sut!.ToString().Should()
             .NotBeEmpty().And
             .Be(date);
 

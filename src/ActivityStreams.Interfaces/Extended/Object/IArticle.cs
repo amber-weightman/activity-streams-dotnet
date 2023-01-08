@@ -17,6 +17,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IArticle : IObject, ICoreType
+public interface IArticle : IObject
 {
 }

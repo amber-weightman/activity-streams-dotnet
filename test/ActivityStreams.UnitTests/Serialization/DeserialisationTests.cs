@@ -27,7 +27,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull(); // TODO assert that they are of the correct type
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Accept);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Accept);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -43,7 +43,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Activity);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Activity);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -60,7 +60,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Add);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Add);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -76,7 +76,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Announce);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Announce);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -92,7 +92,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Application);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Application);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -108,7 +108,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Arrive);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Arrive);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -124,7 +124,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Article);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Article);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -140,7 +140,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Audio);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Audio);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -156,7 +156,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Block);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Block);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -172,7 +172,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Collection);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Collection);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -188,7 +188,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.CollectionPage);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.CollectionPage);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -204,7 +204,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Create);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Create);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -220,7 +220,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Delete);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Delete);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -236,7 +236,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Dislike);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Dislike);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -252,7 +252,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Document);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Document);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -268,7 +268,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Event);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Event);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -284,7 +284,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Flag);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Flag);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -300,7 +300,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Follow);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Follow);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -316,7 +316,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Group);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Group);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -332,7 +332,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Ignore);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Ignore);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -348,7 +348,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Image);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Image);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -364,7 +364,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.IntrasitiveActivity);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.IntrasitiveActivity);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -380,7 +380,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Invite);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Invite);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -396,7 +396,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Join);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Join);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -413,7 +413,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Leave);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Leave);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -429,7 +429,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Like);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Like);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -445,7 +445,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Link);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Link);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -461,7 +461,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Listen);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Listen);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -477,7 +477,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Mention);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Mention);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -493,7 +493,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Move);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Move);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -509,7 +509,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Note);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Note);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -525,7 +525,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Object);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Object);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -541,7 +541,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Offer);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Offer);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -558,7 +558,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollection);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollection);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -574,7 +574,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollectionPage);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.OrderedCollectionPage);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -590,7 +590,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Organization);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Organization);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -606,7 +606,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Page);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Page);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -622,7 +622,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Person);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Person);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -639,7 +639,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Place);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Place);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -655,7 +655,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Profile);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Profile);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -672,7 +672,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Question);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Question);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -688,7 +688,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Read);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Read);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -704,7 +704,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Reject);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Reject);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -720,7 +720,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Relationship);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Relationship);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -737,7 +737,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Remove);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Remove);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -753,7 +753,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Service);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Service);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -769,7 +769,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeAccept);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeAccept);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -785,7 +785,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeReject);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.TentativeReject);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -801,7 +801,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Tombstone);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Tombstone);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -818,7 +818,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Travel);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Travel);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -834,7 +834,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Undo);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Undo);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -850,7 +850,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Update);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Update);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -866,7 +866,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Video);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.Video);
         sut.Context.Should().NotBeEmpty();
     }
 
@@ -882,7 +882,7 @@ public class DeserialisationTests
 
         // Assert
         sut.Should().NotBeNull();
-        sut.Type.Should().ContainSingle().Which.Should().Be(ObjectType.View);
+        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.View);
         sut.Context.Should().NotBeEmpty();
     }
 }

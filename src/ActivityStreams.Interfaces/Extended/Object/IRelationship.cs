@@ -29,7 +29,7 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IRelationship : IObject, ICoreType
+public interface IRelationship : IObject
 {
     /// <summary>
     /// On a Relationship object, the subject property identifies one of the connected individuals. 

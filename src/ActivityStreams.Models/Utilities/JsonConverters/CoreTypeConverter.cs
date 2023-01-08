@@ -221,7 +221,6 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     {
 
         throw new NotImplementedException();
-        //writer.WriteStringValue(dateTimeValue.Value.ToString());
     }
 
 }

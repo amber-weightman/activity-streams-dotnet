@@ -16,6 +16,6 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IPage : IDocument, IObject, ICoreType
+public interface IPage : IDocument
 {
 }

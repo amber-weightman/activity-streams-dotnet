@@ -36,7 +36,7 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface ITombstone : IObject, ICoreType
+public interface ITombstone : IObject
 {
     /// <summary>
     ///	On a Tombstone object, the formerType property identifies the type of the 

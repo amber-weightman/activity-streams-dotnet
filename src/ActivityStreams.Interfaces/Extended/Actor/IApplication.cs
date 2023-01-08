@@ -15,6 +15,6 @@ namespace ActivityStreams.Contract.Extended.Actor;
 /// }
 /// </code>
 /// </example>
-public interface IApplication : IObject, ICoreType
+public interface IApplication : IObject
 {
 }

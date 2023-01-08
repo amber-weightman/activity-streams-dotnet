@@ -1,7 +1,4 @@
-﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
-
-namespace ActivityStreams.Contract.Extended.Activity;
+﻿namespace ActivityStreams.Contract.Extended.Activity;
 
 /// <summary>
 /// A specialization of <c>Offer</c> (here implemented as <see cref="IOffer"/>) in which the <c>actor</c> is extending 
@@ -35,6 +32,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface IInvite : IOffer, IActivity, IActivityBase, IObject, ICoreType
+public interface IInvite : IOffer
 {
 }

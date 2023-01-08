@@ -25,6 +25,6 @@
 /// }
 /// </code>
 /// </example>
-public interface IOrderedCollection : ICollection, IObject, ICoreType
+public interface IOrderedCollection : ICollection
 {
 }

@@ -22,7 +22,7 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IProfile : IObject, ICoreType
+public interface IProfile : IObject
 {
     /// <summary>
     /// On a <c>Profile</c> object, the <c>describes</c> property identifies the object described

@@ -29,7 +29,7 @@ namespace ActivityStreams.Contract.Core.Collection;
 /// }
 /// </code>
 /// </example>
-public interface ICollection : IObject, ICoreType
+public interface ICollection : IObject
 {
     /// <summary>
     /// 	A non-negative integer specifying the total number of objects contained by the 

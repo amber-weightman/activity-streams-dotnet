@@ -1,7 +1,4 @@
-﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
-
-namespace ActivityStreams.Contract.Extended.Activity;
+﻿namespace ActivityStreams.Contract.Extended.Activity;
 
 /// <summary>
 /// A specialization of <c>Reject</c> (here implemented as <see cref="IReject"/>) in which the rejection is 
@@ -29,6 +26,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface ITentativeReject : IReject, IActivity, IActivityBase, IObject, ICoreType
+public interface ITentativeReject : IReject
 {
 }

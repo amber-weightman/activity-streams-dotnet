@@ -1,7 +1,4 @@
-﻿using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Core.Activity;
-
-namespace ActivityStreams.Contract.Extended.Activity;
+﻿namespace ActivityStreams.Contract.Extended.Activity;
 
 /// <summary>
 /// A specialization of <c>Accept</c> (here implemented as <see cref="IAccept"/>) indicating that the acceptance is 
@@ -29,6 +26,6 @@ namespace ActivityStreams.Contract.Extended.Activity;
 /// }
 /// </code>
 /// </example>
-public interface ITentativeAccept : IAccept, IActivity, IActivityBase, IObject, ICoreType
+public interface ITentativeAccept : IAccept
 {
 }

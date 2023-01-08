@@ -16,7 +16,7 @@ namespace ActivityStreams.Contract.Extended.Object;
 /// }
 /// </code>
 /// </example>
-public interface IPlace : IObject, ICoreType
+public interface IPlace : IObject
 {
     /// <summary>
     /// Indicates the accuracy of position coordinates on a Place objects. 

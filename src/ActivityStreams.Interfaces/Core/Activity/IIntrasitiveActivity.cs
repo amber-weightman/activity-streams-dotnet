@@ -11,6 +11,6 @@
 /// <code>
 /// </code>
 /// </example>
-public interface IIntrasitiveActivity : IActivityBase, IObject, ICoreType
+public interface IIntrasitiveActivity : IActivityBase
 {
 }
