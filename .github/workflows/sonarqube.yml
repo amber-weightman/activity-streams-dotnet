@@ -74,5 +74,5 @@ jobs:
           dotnet test ./test/ActivityStreams.UnitTests/ActivityStreams.UnitTests.csproj --collect:"XPlat Code Coverage" --logger trx #--results-directory $GITHUB_WORKSPACE/test/testresults
           dotnet tool install -g dotnet-reportgenerator-globaltool
           # reportgenerator -reports:$GITHUB_WORKSPACE/test/testresults/**/coverage.cobertura.xml -targetdir:$GITHUB_WORKSPACE/test/coverlet/reports -reporttypes:"SonarQube"
-          reportgenerator "-reports:.\test\*\TestResults\*\coverage.cobertura.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
+          reportgenerator "-reports:.\test\*\TestResults\*\coverage.cobertura.xml" "-targetdir:.\test\coverlet\reports" "-reporttypes:SonarQube"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
