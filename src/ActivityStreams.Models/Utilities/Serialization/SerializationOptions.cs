@@ -12,7 +12,7 @@ public static class SerializationOptions
     /// <summary>
     /// Recommended <see cref="JsonSerializerOptions"/> settings
     /// </summary>
-    public static JsonSerializerOptions Options = new()
+    public static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         WriteIndented = true,
