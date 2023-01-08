@@ -3,6 +3,7 @@ using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Core;
 using ActivityStreams.Models.Utilities.Extensions;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
@@ -28,128 +29,184 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     /// <summary>
     /// Convert a serialized <c>string</c> to the <c>ICoreType</c> it represents
     /// </summary>
-    public override ICoreType? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ICoreType? Read(ref Utf8JsonReader reader, Type _, JsonSerializerOptions options)
     {
-        if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement) && jElement != null)
+        try
         {
-            if (jElement.Value.ValueKind == JsonValueKind.Object)
+            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement) && jElement != null &&
+                jElement.Value.ValueKind == JsonValueKind.Object)
             {
-                var newObject = Activator.CreateInstance(typeToConvert); // TODO actually calculate instance type based on data, don't trust the one passed in
+                var baseObjectType = GetObjectType(jElement.Value);
+                if (baseObjectType == null)
+                {
+                    throw new ArgumentException("Unexpected Type");
+                }
+
+                var newObject = Activator.CreateInstance(baseObjectType);
 
                 var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
+                var propertiesToPopulateInto = baseObjectType.GetProperties();
 
-                foreach (var p in typeToConvert.GetProperties())
+                foreach (var property in propertiesToPopulateInto)
                 {
-                    var camelCaseName = StringHelper.ToCamelCase(p.Name);
-                    if (camelCaseName == "context") camelCaseName = "@context"; // TODO HACK
-
-                    if (valuesToDeserialiseFrom.ContainsKey(camelCaseName))
+                    var camelCasePropertyName = GetCamelCasePropertyName(property);
+                    if (!valuesToDeserialiseFrom.ContainsKey(camelCasePropertyName))
                     {
-                        var rawValue = valuesToDeserialiseFrom[camelCaseName]; // from this we can tell the type is "Invite"
+                        continue;
+                    }
 
-                        if (rawValue.ValueKind == JsonValueKind.Object)
-                        {
-                            if (rawValue.TryGetProperty("type", out JsonElement typeElement))
+                    var serializedProperty = valuesToDeserialiseFrom[camelCasePropertyName];
+
+                    switch (serializedProperty.ValueKind)
+                    {
+                        case JsonValueKind.Object:
                             {
-                                var typeName = typeElement.GetString(); // e.g. "Invite"
-                                if (Enum.TryParse(typeName, out ObjectType objectType))
+                                var objectType = GetObjectType(serializedProperty);
+                                if (objectType != null)
                                 {
-                                    var modelType = objectType.ToType();
-                                    var typedValue = rawValue.Deserialize(modelType, options);
-
-                                    AddSingleOrArray(p, newObject, typedValue);
+                                    var typedValue = serializedProperty.Deserialize(objectType, options);
+                                    AddCoreType(property, newObject, typedValue);
                                 }
+                                break;
                             }
-                        }
-                        else if (rawValue.ValueKind == JsonValueKind.String)
-                        {
-                            string? ss = rawValue.GetString();
-
-                            if (!string.IsNullOrEmpty(ss))
+                        
+                        case JsonValueKind.Array:
                             {
-                                if (p.PropertyType.IsAssignableFrom(typeof(ObjectType[])) && Enum.TryParse(ss, out ObjectType objectType))
+                                if (typeof(ILink[]).IsAssignableFrom(property.PropertyType))
                                 {
-                                    p.SetValue(newObject, new[] { objectType });
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<ILink[]>(serializedProperty, options));
+                                    break;
                                 }
-                                else if (p.PropertyType.IsAssignableFrom(typeof(String[])))
+                                else if (typeof(IObject[]).IsAssignableFrom(property.PropertyType))
                                 {
-                                    p.SetValue(newObject, new[] { ss });
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<IObject[]>(serializedProperty, options));
+                                    break;
                                 }
-                                else if (p.PropertyType.IsAssignableFrom(typeof(Uri)))
+                                else if (typeof(ICoreType[]).IsAssignableFrom(property.PropertyType))
                                 {
-                                    p.SetValue(newObject, new Uri(ss)); // TODO validate/tryparse uri safely
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<ICoreType[]>(serializedProperty, options));
+                                    break;
                                 }
-                                else if (p.PropertyType.IsAssignableFrom(typeof(string)))
+                                break;
+                            }
+
+                        case JsonValueKind.String:
+                            {
+                                if (property.PropertyType.IsAssignableFrom(typeof(Uri)))
                                 {
-                                    p.SetValue(newObject, ss); // TODO validate/tryparse uri safely
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<Uri>(serializedProperty, options));
+                                    break;
                                 }
-                                else if (typeof(DateTimeXsd).IsAssignableFrom(p.PropertyType))
+                                else if (property.PropertyType.IsAssignableFrom(typeof(string)))
                                 {
-                                    // TODO we should throw back on default serialisers more often
-                                    p.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(rawValue, options));
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<string>(serializedProperty, options));
+                                    break;
+                                }
+                                else if (property.PropertyType.IsAssignableFrom(typeof(string[])))
+                                {
+                                    property.SetValue(newObject, new[] { JsonSerializer.Deserialize<string>(serializedProperty, options) });
+                                    break;
+                                }
+                                else if (typeof(DateTimeXsd).IsAssignableFrom(property.PropertyType))
+                                {
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(serializedProperty, options));
+                                    break;
+                                }
+                                else if (property.PropertyType.IsAssignableFrom(typeof(ObjectType[])))
+                                {
+                                    property.SetValue(newObject, new[] { JsonSerializer.Deserialize<ObjectType>(serializedProperty, options) });
+                                    break;
+                                }
+
+                                string? propertyValueString = serializedProperty.GetString();
+                                if (string.IsNullOrEmpty(propertyValueString))
+                                {
+                                    break;
+                                }
+
+                                if (Uri.TryCreate(propertyValueString, UriCreationOptions, out Uri? result))
+                                {
+                                    // Uri-only indicates 'Link' type
+                                    AddCoreType(property, newObject, new Link { Href = result });
+                                    break;
                                 }
                                 else
                                 {
-                                    var mappedString = MapLink(ss);
-
-                                    AddSingleOrArray(p, newObject, mappedString);
+                                    throw new SerializationException($"Unable to deserialize");
                                 }
                             }
-                        }
                     }
                 }
                 return newObject as ICoreType;
             }
         }
-
-
-        var serializedValue = reader.GetString();
-        if (string.IsNullOrEmpty(serializedValue))
+        catch (Exception ex)
         {
-            return null;
+            throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}", ex);
         }
 
-        try
-        {
-            return MapLink(serializedValue);
-        }
-        catch (Exception e) 
-        {
-            throw new SerializationException($"Unable to serialize to {nameof(ICoreType)}", e);
-        }
-
-        throw new SerializationException($"Unable to serialize to {nameof(ICoreType)}");
+        throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}");
     }
 
-    private ICoreType? MapLink(string? stringValue)
+    private static string GetCamelCasePropertyName(PropertyInfo property)
     {
-        if (string.IsNullOrEmpty(stringValue))
+        var jsonPropertyName = property.GetCustomAttribute<JsonPropertyNameAttribute>();
+        if (jsonPropertyName != null)
         {
-            return null;
+            return jsonPropertyName.Name;
         }
-
-        if (Uri.TryCreate(stringValue, UriCreationOptions, out Uri? result))
-        {
-            // Uri-only indicates 'Link' type
-            return new Link { Href = result };
-        }
-
-        throw new SerializationException($"Unable to deserialize {nameof(stringValue)}");
+        return StringHelper.ToCamelCase(property.Name);
     }
 
-    private void AddSingleOrArray(PropertyInfo p, object? newObject, object? typedValue)
+    private static Type? GetObjectType(JsonElement jsonElement)
     {
-        
-        if (typeof(ILink[]).IsAssignableFrom(p.PropertyType) && typedValue is ILink linkValue)
+        if (jsonElement.TryGetProperty("type", out JsonElement typeElement) && 
+            Enum.TryParse(typeElement.GetString(), out ObjectType objectType))
         {
-            p.SetValue(newObject, new ILink[] { linkValue });
+            return objectType.ToType();
         }
-        else if (typeof(ICoreType[]).IsAssignableFrom(p.PropertyType) && typedValue is ICoreType typedTypeValue)
+        return null;
+    }
+
+    // TODO what if there are multiple items in the array - is that working?
+    private static void AddCoreType(PropertyInfo p, object? newObject, object? typedValue)
+    {
+        if (typeof(ILink[]).IsAssignableFrom(p.PropertyType))
         {
-            p.SetValue(newObject, new ICoreType[] { typedTypeValue });
+            if (typedValue is ILink linkValue)
+            {
+                p.SetValue(newObject, new ILink[] { linkValue });
+            }
+            else if (typedValue is ILink[] linkArrayValue)
+            {
+                p.SetValue(newObject, linkArrayValue);
+            }
+        }
+        else if (typeof(IObject[]).IsAssignableFrom(p.PropertyType))
+        {
+            if (typedValue is IObject typedObjectValue)
+            {
+                p.SetValue(newObject, new IObject[] { typedObjectValue });
+            }
+            else if (typedValue is IObject[] typedObjectArrayValue)
+            {
+                p.SetValue(newObject, typedObjectArrayValue);
+            }
+        }
+        else if (typeof(ICoreType[]).IsAssignableFrom(p.PropertyType))
+        {
+            if (typedValue is ICoreType typedTypeValue)
+            {
+                p.SetValue(newObject, new ICoreType[] { typedTypeValue });
+            }
+            else if (typedValue is ICoreType[] typedTypeArrayValue)
+            {
+                p.SetValue(newObject, typedTypeArrayValue);
+            }
         }
         else
         {
+            // Target is a single object (presumed to be of ICoreType), not an array
             p.SetValue(newObject, typedValue);
         }
     }

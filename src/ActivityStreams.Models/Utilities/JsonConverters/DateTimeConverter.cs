@@ -26,12 +26,12 @@ public class DateTimeConverter : JsonConverter<DateTimeXsd>
         }
         catch (ArgumentException ex)
         {
-            throw new SerializationException("Unable to deserialize invalid or unrecognised date", ex);
+            throw new SerializationException($"Unable to deserialize to {nameof(DateTimeXsd)}: invalid or unrecognised date", ex);
         }
         catch (Exception ex) 
         {
             // "This can't happen" :P
-            throw new SerializationException("Unable to deserialize", ex);
+            throw new SerializationException($"Unable to deserialize to {nameof(DateTimeXsd)}", ex);
         }
     }
 
@@ -49,6 +49,7 @@ public class DateTimeConverter : JsonConverter<DateTimeXsd>
         }
         else
         {
+            // TODO ensure XSD is enforced either on the model or here
             writer.WriteStringValue(dateTimeValue.ToString());
         }
     }
