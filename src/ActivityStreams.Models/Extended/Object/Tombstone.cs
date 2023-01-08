@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Object;
 using ActivityStreams.Contract.Types;
 
@@ -14,5 +15,5 @@ public record Tombstone : Core.Object, ITombstone
     public IObject[]? FormerType { get; init; }
 
     /// <inheritdoc cref="ITombstone.Deleted" />
-    public DateTime? Deleted { get; init; }
+    public DateTimeXsd? Deleted { get; init; }
 }

@@ -1,7 +1,7 @@
-﻿using ActivityStreams.Contract.Core.Activity;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core.Activity;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Extended.Object;
-using ActivityStreams.Contract.Types;
 
 namespace ActivityStreams.Contract.Core;
 
@@ -58,7 +58,7 @@ public interface IObject : ICoreType
     /// activity concluded or is expected to conclude.
     /// <a href="https://www.w3.org/ns/activitystreams#endTime">See w3.org for further details.</a>
     /// </summary>
-    DateTime? EndTime { get; } // todo xsd:dateTime
+    DateTimeXsd? EndTime { get; }
 
     /// <summary>
     /// Identifies the entity (e.g. an application) that generated the object.
@@ -102,7 +102,7 @@ public interface IObject : ICoreType
     /// The date and time at which the object was published
     /// <a href="https://www.w3.org/ns/activitystreams#published">See w3.org for further details.</a>
     /// </summary>
-    DateTime? Published { get; } // TODO 	xsd:dateTime
+    DateTimeXsd? Published { get; }
 
     /// <summary>
     /// Identifies a <c>Collection</c> containing objects considered to be responses to this object.
@@ -116,7 +116,7 @@ public interface IObject : ICoreType
     /// activity began or is scheduled to begin.
     /// <a href="https://www.w3.org/ns/activitystreams#startTime">See w3.org for further details.</a>
     /// </summary>
-    DateTime? StartTime { get; } // TODO 	xsd:dateTime
+    DateTimeXsd? StartTime { get; }
 
     /// <summary>
     /// A natural language summarization of the object encoded as HTML. Multiple language tagged
@@ -140,7 +140,7 @@ public interface IObject : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#updated">See w3.org for further details.</a>
     /// </summary>
     /// <example>"2014-12-12T12:12:12Z"</example>
-    DateTime? Updated { get; } // TODO xsd:dateTime
+    DateTimeXsd? Updated { get; }
 
     /// <summary>
     /// Identifies one or more links to representations of the object

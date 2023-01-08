@@ -19,7 +19,8 @@ public static class SerializationOptions
         Converters =
         {
             new JsonStringEnumConverter(),
-            new CoreTypeConverter()
+            new CoreTypeConverter(),
+            new DateTimeConverter()
         }
     };
 }

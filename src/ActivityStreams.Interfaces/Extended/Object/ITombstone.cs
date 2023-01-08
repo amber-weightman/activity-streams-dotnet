@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 
 namespace ActivityStreams.Contract.Extended.Object;
@@ -49,5 +50,5 @@ public interface ITombstone : IObject, ICoreType
     /// object was deleted.
     /// <a href="https://www.w3.org/ns/activitystreams#deleted">See w3.org for further details.</a>
     /// </summary>
-    DateTime? Deleted { get; } // TODO xsd:dateTime
+    DateTimeXsd? Deleted { get; }
 }

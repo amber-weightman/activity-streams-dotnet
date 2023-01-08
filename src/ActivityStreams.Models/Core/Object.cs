@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
 
@@ -20,7 +21,7 @@ public record Object : CoreTypeBase, IObject, ICoreType
     public string[]? Content { get; init; }
     
     /// <inheritdoc cref="IObject.EndTime" />
-    public DateTime? EndTime { get; init; }
+    public DateTimeXsd? EndTime { get; init; }
 
     /// <inheritdoc cref="IObject.Generator" />
     public ICoreType[]? Generator { get; init; }
@@ -38,13 +39,13 @@ public record Object : CoreTypeBase, IObject, ICoreType
     public ICoreType[]? Location { get; init; }
 
     /// <inheritdoc cref="IObject.Published" />
-    public DateTime? Published { get; init; }
+    public DateTimeXsd? Published { get; init; }
 
     /// <inheritdoc cref="IObject.Replies" />
     public ICollection? Replies { get; init; }
 
     /// <inheritdoc cref="IObject.StartTime" />
-    public DateTime? StartTime { get; init; }
+    public DateTimeXsd? StartTime { get; init; }
 
     /// <inheritdoc cref="IObject.Summary" />
     public string[]? Summary { get; init; }
@@ -53,7 +54,7 @@ public record Object : CoreTypeBase, IObject, ICoreType
     public ICoreType[]? Tag { get; init; }
 
     /// <inheritdoc cref="IObject.Updated" />
-    public DateTime? Updated { get; init; }
+    public DateTimeXsd? Updated { get; init; }
 
     /// <inheritdoc cref="IObject.Url" />
     public ILink[]? Url { get; init; }

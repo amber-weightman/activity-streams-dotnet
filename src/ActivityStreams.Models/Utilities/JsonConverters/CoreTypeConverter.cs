@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Core;
 using ActivityStreams.Models.Utilities.Extensions;
@@ -82,14 +83,14 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
                                 {
                                     p.SetValue(newObject, ss); // TODO validate/tryparse uri safely
                                 }
-                                else if (typeof(DateTime?).IsAssignableFrom(p.PropertyType) &&
-                                            DateTime.TryParse(ss, out DateTime dateTimeValue))
+                                else if (typeof(DateTimeXsd).IsAssignableFrom(p.PropertyType))
                                 {
-                                    p.SetValue(newObject, dateTimeValue);
+                                    // TODO we should throw back on default serialisers more often
+                                    p.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(rawValue, options));
                                 }
                                 else
                                 {
-                                    var mappedString = MapString(ss);
+                                    var mappedString = MapLink(ss);
 
                                     AddSingleOrArray(p, newObject, mappedString);
                                 }
@@ -110,7 +111,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
 
         try
         {
-            return MapString(serializedValue);
+            return MapLink(serializedValue);
         }
         catch (Exception e) 
         {
@@ -120,7 +121,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         throw new SerializationException($"Unable to serialize to {nameof(ICoreType)}");
     }
 
-    private ICoreType? MapString(string? stringValue)
+    private ICoreType? MapLink(string? stringValue)
     {
         if (string.IsNullOrEmpty(stringValue))
         {
@@ -133,7 +134,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
             return new Link { Href = result };
         }
 
-        return new Core.Object { Name = new string[] { stringValue } };
+        throw new SerializationException($"Unable to deserialize {nameof(stringValue)}");
     }
 
     private void AddSingleOrArray(PropertyInfo p, object? newObject, object? typedValue)
