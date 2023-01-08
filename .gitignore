@@ -12,3 +12,5 @@
 /src/ActivityStreams.Utilities/obj
 /test/ActivityStreams.UnitTests/bin/Debug/net6.0
 /test/ActivityStreams.UnitTests/obj
+/sonarqubecoverage
+/test/ActivityStreams.UnitTests/TestResults
