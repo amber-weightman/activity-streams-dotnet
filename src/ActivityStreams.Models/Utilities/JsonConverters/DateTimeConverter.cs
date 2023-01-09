@@ -24,13 +24,8 @@ public class DateTimeConverter : JsonConverter<DateTimeXsd>
             }
             return new DateTimeXsd(stringValue);
         }
-        catch (ArgumentException ex)
-        {
-            throw new SerializationException($"Unable to deserialize to {nameof(DateTimeXsd)}: invalid or unrecognised date", ex);
-        }
         catch (Exception ex) 
         {
-            // "This can't happen" :P
             throw new SerializationException($"Unable to deserialize to {nameof(DateTimeXsd)}", ex);
         }
     }

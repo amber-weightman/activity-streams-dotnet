@@ -33,8 +33,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     {
         try
         {
-            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement) && jElement != null &&
-                jElement.Value.ValueKind == JsonValueKind.Object)
+            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
                 var baseObjectType = GetObjectType(jElement.Value);
                 if (baseObjectType == null)
@@ -61,84 +60,20 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
                     {
                         case JsonValueKind.Object:
                             {
-                                var objectType = GetObjectType(serializedProperty);
-                                if (objectType != null)
-                                {
-                                    var typedValue = serializedProperty.Deserialize(objectType, options);
-                                    AddCoreType(property, newObject, typedValue);
-                                }
+                                SetObjectProperty(newObject, property, serializedProperty, options);
                                 break;
                             }
                         
                         case JsonValueKind.Array:
                             {
-                                if (typeof(ILink[]).IsAssignableFrom(property.PropertyType))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<ILink[]>(serializedProperty, options));
-                                    break;
-                                }
-                                else if (typeof(IObject[]).IsAssignableFrom(property.PropertyType))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<IObject[]>(serializedProperty, options));
-                                    break;
-                                }
-                                else if (typeof(ICoreType[]).IsAssignableFrom(property.PropertyType))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<ICoreType[]>(serializedProperty, options));
-                                    break;
-                                }
+                                SetArrayProperty(newObject, property, serializedProperty, options);
                                 break;
                             }
 
                         case JsonValueKind.String:
                             {
-                                if (property.PropertyType.IsAssignableFrom(typeof(Uri)))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<Uri>(serializedProperty, options));
-                                    break;
-                                }
-                                else if (property.PropertyType.IsAssignableFrom(typeof(string)))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<string>(serializedProperty, options));
-                                    break;
-                                }
-                                else if (property.PropertyType.IsAssignableFrom(typeof(string[])))
-                                {
-                                    property.SetValue(newObject, new[] { JsonSerializer.Deserialize<string>(serializedProperty, options) });
-                                    break;
-                                }
-                                else if (typeof(DateTimeXsd).IsAssignableFrom(property.PropertyType))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(serializedProperty, options));
-                                    break;
-                                }
-                                else if (property.PropertyType.IsAssignableFrom(typeof(ObjectType[])))
-                                {
-                                    property.SetValue(newObject, new[] { JsonSerializer.Deserialize<ObjectType>(serializedProperty, options) });
-                                    break;
-                                }
-                                else if (typeof(IRdfLangString).IsAssignableFrom(property.PropertyType))
-                                {
-                                    property.SetValue(newObject, JsonSerializer.Deserialize<RdfLangString>(serializedProperty, options));
-                                    break;
-                                }
-
-                                string? propertyValueString = serializedProperty.GetString();
-                                if (string.IsNullOrEmpty(propertyValueString))
-                                {
-                                    break;
-                                }
-
-                                if (Uri.TryCreate(propertyValueString, UriCreationOptions, out Uri? result))
-                                {
-                                    // Uri-only indicates 'Link' type
-                                    AddCoreType(property, newObject, new Link { Href = result });
-                                    break;
-                                }
-                                else
-                                {
-                                    throw new SerializationException($"Unable to deserialize");
-                                }
+                                SetProperty(newObject, property, serializedProperty, options);
+                                break;
                             }
                     }
                 }
@@ -151,6 +86,83 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
 
         throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}");
+    }
+
+    private void SetObjectProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    {
+        var objectType = GetObjectType(serializedProperty);
+        if (objectType != null)
+        {
+            var typedValue = serializedProperty.Deserialize(objectType, options);
+            AddCoreType(newObjectProperty, newObject, typedValue);
+        }
+    }
+
+    // Only these 3 kinds of arrays are currently supported on ICoreType
+    private void SetArrayProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    {
+        if (typeof(ILink[]).IsAssignableFrom(newObjectProperty.PropertyType))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<ILink[]>(serializedProperty, options));
+        }
+        else if (typeof(IObject[]).IsAssignableFrom(newObjectProperty.PropertyType))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<IObject[]>(serializedProperty, options));
+        }
+        else if (typeof(ICoreType[]).IsAssignableFrom(newObjectProperty.PropertyType))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<ICoreType[]>(serializedProperty, options));
+        }
+    }
+
+    private void SetProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    {
+        if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(Uri)))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<Uri>(serializedProperty, options));
+            return;
+        }
+        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(string)))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<string>(serializedProperty, options));
+            return;
+        }
+        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(string[])))
+        {
+            newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<string>(serializedProperty, options) });
+            return;
+        }
+        else if (typeof(DateTimeXsd).IsAssignableFrom(newObjectProperty.PropertyType))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(serializedProperty, options));
+            return;
+        }
+        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(ObjectType[])))
+        {
+            newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<ObjectType>(serializedProperty, options) });
+            return;
+        }
+        else if (typeof(IRdfLangString).IsAssignableFrom(newObjectProperty.PropertyType))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<RdfLangString>(serializedProperty, options));
+            return;
+        }
+
+        string? propertyValueString = serializedProperty.GetString();
+        if (string.IsNullOrEmpty(propertyValueString))
+        {
+            return;
+        }
+
+        if (Uri.TryCreate(propertyValueString, UriCreationOptions, out Uri? result))
+        {
+            // Uri-only indicates 'Link' type
+            AddCoreType(newObjectProperty, newObject, new Link { Href = result });
+        }
+        else
+        {
+            throw new SerializationException($"Unable to deserialize");
+        }
     }
 
     private static Type? GetObjectType(JsonElement jsonElement)

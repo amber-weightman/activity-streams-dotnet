@@ -60,16 +60,10 @@ public class RdfLangStringConverter : JsonConverter<RdfLangString>
                             };
                         }
                 }
-
             }
-        }
-        catch (ArgumentException ex)
-        {
-            throw new SerializationException($"Unable to deserialize to {nameof(RdfLangString)}", ex);
         }
         catch (Exception ex) 
         {
-            // "This can't happen" :P
             throw new SerializationException($"Unable to deserialize to {nameof(RdfLangString)}", ex);
         }
 
