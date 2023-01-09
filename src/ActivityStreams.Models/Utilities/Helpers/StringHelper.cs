@@ -1,4 +1,4 @@
-﻿namespace ActivityStreams.Models.Utilities;
+﻿namespace ActivityStreams.Models.Utilities.Helpers;
 
 /// <summary>
 /// <see cref="string"/> utilities and helpers

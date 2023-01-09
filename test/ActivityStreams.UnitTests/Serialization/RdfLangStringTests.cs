@@ -1,8 +1,6 @@
-﻿using ActivityStreams.Contract.Common;
-using ActivityStreams.Models.Common;
+﻿using ActivityStreams.Models.Common;
 using ActivityStreams.Models.Utilities.JsonConverters;
 using FluentAssertions;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 

@@ -76,5 +76,5 @@ public record Object : CoreTypeBase, IObject
     public ICoreType[]? Bcc { get; init; }
 
     /// <inheritdoc cref="IObject.Duration" />
-    public string[]? Duration { get; init; }
+    public TimeSpan? Duration { get; init; }
 }

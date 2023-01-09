@@ -1,5 +1,4 @@
-﻿using ActivityStreams.Contract.Types;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Contract.Core;
 
@@ -47,7 +46,8 @@ public interface ILink : ICoreType
     /// <a href="https://www.w3.org/TR/activitystreams-vocabulary/#bib-BCP47">BCP47</a> Language-Tag.
     /// <a href="https://www.w3.org/ns/activitystreams#hreflang">See w3.org for further details.</a>
     /// </summary>
-    string? HrefLang { get; } // TODO [BCP47] Language Tag
+    /// <example>"en-AU"</example>
+    string? HrefLang { get; }
 
     /// <summary>
     /// On a <c>Link</c> (here implemented as <see cref="ILink"/>), specifies a hint as to the rendering height in device-independent 

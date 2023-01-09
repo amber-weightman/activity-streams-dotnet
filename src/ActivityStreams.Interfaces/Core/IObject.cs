@@ -206,6 +206,7 @@ public interface IObject : ICoreType
     /// the <c>duration</c> property indicates the object's approximate duration. The value <b>must</b> be expressed 
     /// as an xsd:duration as defined by <a href="https://www.w3.org/TR/activitystreams-vocabulary/#bib-xmlschema11-2">xmlschema11-2</a>, section 3.3.6 (e.g. a period of 5 seconds 
     /// is represented as "PT5S").
+    /// <a href="https://www.w3.org/ns/activitystreams#duration">See w3.org for further details.</a>
     /// </summary>
-    string[]? Duration { get; } // TODO type xsd:duration
+    TimeSpan? Duration { get; }
 }
