@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Models.Core.Collection;
 
@@ -11,6 +12,7 @@ public record Collection : Object, ICollection
     public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Collection };
 
     /// <inheritdoc cref="ICollection.TotalItems" />
+    [Range(0, int.MaxValue)]
     public int? TotalItems { get; init; }
 
     /// <inheritdoc cref="ICollection.Current" />

@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Contract.Core.Collection;
 
@@ -32,12 +33,13 @@ namespace ActivityStreams.Contract.Core.Collection;
 public interface ICollection : IObject
 {
     /// <summary>
-    /// 	A non-negative integer specifying the total number of objects contained by the 
-    /// 	logical view of the collection. This number might not reflect the actual number of 
-    /// 	items serialized within the Collection object instance.
+    ///  A non-negative integer specifying the total number of objects contained by the 
+    /// logical view of the collection. This number might not reflect the actual number of 
+    /// items serialized within the <c>Collection</c> (here implemented as <see cref="ICollection"/>) object instance.
     /// <a href="https://www.w3.org/ns/activitystreams#totalItems">See w3.org for further details.</a>
     /// </summary>
-    int? TotalItems { get; } // TODO >=0
+    [Range(0, int.MaxValue)]
+    int? TotalItems { get; }
 
     /// <summary>
     /// In a paged <c>Collection</c> (here implemented as <see cref="ICollection"/>), 

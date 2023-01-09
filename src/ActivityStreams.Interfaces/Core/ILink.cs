@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Contract.Core;
 
@@ -53,11 +54,13 @@ public interface ILink : ICoreType
     /// pixels of the linked resource.
     /// <a href="https://www.w3.org/ns/activitystreams#height">See w3.org for further details.</a>
     /// </summary>
-    int? Height { get; } // TODO validate non-negative
+    [Range(0, int.MaxValue)]
+    int? Height { get; }
 
     /// <summary>
     /// On a <c>Link</c> (here implemented as <see cref="ILink"/>), specifies a hint as to the rendering width in device-independent pixels of the linked resource.
     /// <a href="https://www.w3.org/ns/activitystreams#width">See w3.org for further details.</a>
     /// </summary>
-    int? Width { get; } // TODO validate non-negative
+    [Range(0, int.MaxValue)]
+    int? Width { get; }
 }

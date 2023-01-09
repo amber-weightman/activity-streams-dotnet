@@ -22,7 +22,7 @@ public interface IActivityBase : IObject
     /// Must be either <see cref="IObject"/> or <see cref="ILink"/>.
     /// <a href="https://www.w3.org/ns/activitystreams#actor">See w3.org for further details.</a>
     /// </summary>
-    ICoreType[]? Actor { get; } // TODO not string ObjectLinkSerializer?
+    ICoreType[]? Actor { get; }
 
     /// <summary>
     /// Describes the indirect object, or target, of the activity. The precise meaning

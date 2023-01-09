@@ -1,5 +1,6 @@
 ﻿using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Models.Core;
 
@@ -19,8 +20,10 @@ public record Link : CoreTypeBase, ILink
     public string? HrefLang { get; init; }
 
     /// <inheritdoc cref="ILink.Height" />
+    [Range(0, int.MaxValue)]
     public int? Height { get; init; }
 
     /// <inheritdoc cref="ILink.Width" />
+    [Range(0, int.MaxValue)]
     public int? Width { get; init; }
 }

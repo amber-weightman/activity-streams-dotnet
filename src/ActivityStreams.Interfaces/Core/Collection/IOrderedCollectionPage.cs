@@ -1,4 +1,6 @@
-﻿namespace ActivityStreams.Contract.Core.Collection;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ActivityStreams.Contract.Core.Collection;
 
 /// <summary>
 /// Used to represent ordered subsets of items from an 
@@ -33,6 +35,8 @@ public interface IOrderedCollectionPage : IOrderedCollection, ICollectionPage
     /// <summary>
     /// A non-negative integer value identifying the relative position 
     /// within the logical view of a strictly ordered collection.
+    /// <a href="https://www.w3.org/ns/activitystreams#startIndex">See w3.org for further details.</a>
     /// </summary>
-    int? StartIndex { get; } // TODO >0
+    [Range(0, int.MaxValue)]
+    int? StartIndex { get; }
 }
