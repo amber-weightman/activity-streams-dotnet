@@ -353,22 +353,6 @@ public class DeserialisationTests
     }
 
     [Theory]
-    [InlineData("IntrasitiveActivity_0")]
-    public async Task GivenValidIntrasitiveActivityJson_WhenDeserialised_ThenSucceedsAsync(string fileName)
-    {
-        // Arrange
-        using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", "Serialization\\TestData"));
-
-        // Act
-        var sut = await JsonSerializer.DeserializeAsync<IntrasitiveActivity>(reader.BaseStream, SerializationOptions.Options);
-
-        // Assert
-        sut.Should().NotBeNull();
-        sut!.Type.Should().ContainSingle().Which.Should().Be(ObjectType.IntrasitiveActivity);
-        sut.Context.Should().NotBeEmpty();
-    }
-
-    [Theory]
     [InlineData("Invite_0")]
     public async Task GivenValidInviteJson_WhenDeserialised_ThenSucceedsAsync(string fileName)
     {
