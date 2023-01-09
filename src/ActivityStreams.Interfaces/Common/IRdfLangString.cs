@@ -24,6 +24,7 @@ public interface IRdfLangString : ICollection<KeyValuePair<string, string>>, IEn
     /// MIME Media Type. If set, specifies how <see cref="IRdfLangString.String"/> or 
     /// <see cref="IRdfLangString.Map"/> are encoded.
     /// </summary>
+    /// <example>"text/html"</example>
     string? MediaType { get; init; }
 
     /// <summary>

@@ -30,5 +30,5 @@ public abstract record CoreTypeBase : ICoreType
     public IRdfLangString? NameMap => Name;
 
     /// <inheritdoc cref="ICoreType.MediaType" />
-    public string? MediaType { get; init; }
+    public string? MediaType { get; init; } = "text/html";
 }

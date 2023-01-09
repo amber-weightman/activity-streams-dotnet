@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Contract.Extended.Object;
 
@@ -51,7 +52,8 @@ public interface IPlace : IObject
     /// assumed to be "m" indicating "meters".
     /// <a href="https://www.w3.org/ns/activitystreams#radius">See w3.org for further details.</a>
     /// </summary>
-    float? Radius { get; } // TODO >= 0
+    [Range(0, float.MaxValue)]
+    float? Radius { get; }
 
     /// <summary>
     /// Specifies the measurement units for the <c>radius</c> and <c>altitude</c> properties on a <c>Place</c> object (here implemented as <see cref="IPlace"/>). 

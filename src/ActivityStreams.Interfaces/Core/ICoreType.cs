@@ -73,11 +73,13 @@ public interface ICoreType
     IRdfLangString? NameMap => Name;
 
     /// <summary>
+    /// MIME Media Type.<br/>
     /// When used on a Link, identifies the MIME media type of the referenced resource.<br/>
     /// When used on an Object, identifies the MIME media type of the value of the content 
-    /// property.If not specified, the content property is assumed to contain text/html content.
+    /// property. If not specified, the content property is assumed to contain text/html content.
     /// <a href="https://www.w3.org/ns/activitystreams#mediaType">See w3.org for further details.</a>
     /// </summary>
     /// <example>"text/html"</example>
-    string? MediaType { get; } // TODO MIME Media Type
+    /// <default>"text/html"</default>
+    string? MediaType { get; }
 }
