@@ -20,7 +20,8 @@ public static class SerializationOptions
         {
             new JsonStringEnumConverter(),
             new CoreTypeConverter(),
-            new DateTimeConverter()
+            new DateTimeConverter(),
+            new RdfLangStringConverter()
         }
     };
 }

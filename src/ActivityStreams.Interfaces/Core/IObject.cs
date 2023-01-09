@@ -44,13 +44,24 @@ public interface IObject : ICoreType
     ICoreType[]? Audience { get; }
 
     /// <summary>
-    /// The content or textual representation of the Object encoded as a JSON string. 
-    /// By default, the value of content is HTML.The <c>mediaType</c> property can be used in the object 
+    /// The content or textual representation of the Object encoded as a JSON string, expressed using a single <c>string</c> value.
+    /// By default, the value of content is HTML. The <c>mediaType</c> property can be used in the object 
     /// to indicate a different content type.<br/>
-    /// The content may be expressed using multiple language-tagged values.
+    /// If the <c>name</c> is expressed using multiple language-tagged values, <see cref="IObject.ContentMap" />
+    /// should be used <i>instead</i>.
     /// <a href="https://www.w3.org/ns/activitystreams#content">See w3.org for further details.</a>
     /// </summary>
-    string[]? Content { get; } // TODO serialise xsd:string | rdf:langString
+    IRdfLangString? Content { get; }
+
+    /// <summary>
+    /// The content or textual representation of the Object encoded as a JSON string, expressed using multiple 
+    /// language-tagged values. By default, the value of content is HTML. The <c>mediaType</c> property can be used in the object 
+    /// to indicate a different content type.<br/>
+    /// If the <c>content</c> using a single string, <see cref="IObject.Content" />
+    /// should be used <i>instead</i>.
+    /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
+    /// </summary>
+    IRdfLangString? ContentMap => Content;
 
     /// <summary>
     /// The date and time describing the actual or expected ending time of the object. When used 
@@ -119,11 +130,21 @@ public interface IObject : ICoreType
     DateTimeXsd? StartTime { get; }
 
     /// <summary>
-    /// A natural language summarization of the object encoded as HTML. Multiple language tagged
-    /// summaries <b>may</b> be provided.
+    /// A natural language summarization of the object encoded as HTML, expressed using a single <c>string</c> value.<br/>
+    /// If the <c>summary</c> is expressed using multiple language-tagged values, <see cref="IObject.SummaryMap" />
+    /// should be used <i>instead</i>.
     /// <a href="https://www.w3.org/ns/activitystreams#summary">See w3.org for further details.</a>
     /// </summary>
-    string[]? Summary { get; } // TODO xsd:string | rdf:langString
+    IRdfLangString? Summary { get; }
+
+    /// <summary>
+    /// A natural language summarization of the object encoded as HTML, expressed using multiple 
+    /// language-tagged values.<br/>
+    /// If the <c>summary</c> is expressed using a single string, <see cref="IObject.Summary" />
+    /// should be used <i>instead</i>.
+    /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
+    /// </summary>
+    IRdfLangString? SummaryMap => Summary;
 
     /// <summary>
     /// One or more "tags" that have been associated with an objects. A tag can be any 

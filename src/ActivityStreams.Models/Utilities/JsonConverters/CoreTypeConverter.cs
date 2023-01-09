@@ -1,9 +1,9 @@
 ﻿using ActivityStreams.Contract.Common;
 using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 using ActivityStreams.Models.Core;
 using ActivityStreams.Models.Utilities.Extensions;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
@@ -115,6 +115,11 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
                                 else if (property.PropertyType.IsAssignableFrom(typeof(ObjectType[])))
                                 {
                                     property.SetValue(newObject, new[] { JsonSerializer.Deserialize<ObjectType>(serializedProperty, options) });
+                                    break;
+                                }
+                                else if (typeof(IRdfLangString).IsAssignableFrom(property.PropertyType))
+                                {
+                                    property.SetValue(newObject, JsonSerializer.Deserialize<RdfLangString>(serializedProperty, options));
                                     break;
                                 }
 

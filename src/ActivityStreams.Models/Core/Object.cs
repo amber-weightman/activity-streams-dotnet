@@ -18,8 +18,10 @@ public record Object : CoreTypeBase, IObject
     public ICoreType[]? Audience { get; init; }
 
     /// <inheritdoc cref="IObject.Content" />
-    public string[]? Content { get; init; }
-    
+    public IRdfLangString? Content { get; init; }
+    /// <inheritdoc cref="IObject.ContentMap" />
+    public IRdfLangString? ContentMap => Content;
+
     /// <inheritdoc cref="IObject.EndTime" />
     public DateTimeXsd? EndTime { get; init; }
 
@@ -48,7 +50,9 @@ public record Object : CoreTypeBase, IObject
     public DateTimeXsd? StartTime { get; init; }
 
     /// <inheritdoc cref="IObject.Summary" />
-    public string[]? Summary { get; init; }
+    public IRdfLangString? Summary { get; init; }
+    /// <inheritdoc cref="IObject.SummaryMap" />
+    public IRdfLangString? SummaryMap => Summary;
 
     /// <inheritdoc cref="IObject.Tag" />
     public ICoreType[]? Tag { get; init; }

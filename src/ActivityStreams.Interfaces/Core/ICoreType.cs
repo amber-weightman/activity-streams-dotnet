@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Types;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Types;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -54,11 +55,22 @@ public interface ICoreType
     ICoreType[]? Preview { get; }
 
     /// <summary>
-    /// A simple, human-readable, plain-text name for the object. HTML markup must not be included. 
-    /// The name may be expressed using multiple language-tagged values.
+    /// A simple, human-readable, plain-text name for the object, expressed using a single <c>string</c> 
+    /// value. HTML markup must not be included.<br/>
+    /// If the <c>name</c> is expressed using multiple language-tagged values, <see cref="ICoreType.NameMap" />
+    /// should be used <i>instead</i>.
     /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
     /// </summary>
-    string[]? Name { get; } // TODO serialise xsd:string | rdf:langString
+    IRdfLangString? Name { get; }
+
+    /// <summary>
+    /// A simple, human-readable, plain-text name for the object, expressed using multiple 
+    /// language-tagged values. HTML markup must not be included.<br/>
+    /// If the <c>name</c> is expressed using a single string, <see cref="ICoreType.Name" />
+    /// should be used <i>instead</i>.
+    /// <a href="https://www.w3.org/ns/activitystreams#name">See w3.org for further details.</a>
+    /// </summary>
+    IRdfLangString? NameMap => Name;
 
     /// <summary>
     /// When used on a Link, identifies the MIME media type of the referenced resource.<br/>

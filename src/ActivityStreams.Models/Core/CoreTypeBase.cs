@@ -1,4 +1,5 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
 using System.Text.Json.Serialization;
 
@@ -24,7 +25,9 @@ public abstract record CoreTypeBase : ICoreType
     public ICoreType[]? Preview { get; init; }
 
     /// <inheritdoc cref="ICoreType.Name" />
-    public string[]? Name { get; init; }
+    public IRdfLangString? Name { get; init; }
+    /// <inheritdoc cref="ICoreType.NameMap" />
+    public IRdfLangString? NameMap => Name;
 
     /// <inheritdoc cref="ICoreType.MediaType" />
     public string? MediaType { get; init; }
