@@ -45,13 +45,13 @@ public class TimeSpanHelperTests
     [InlineData("P1MT-30.5S")] // The ·seconds· value must not be negative if the ·months· value is positive and must not be positive if the ·months· is negative.
     [InlineData("P-1MT30.5S")] // The ·seconds· value must not be negative if the ·months· value is positive and must not be positive if the ·months· is negative.
     [InlineData("")] // an empty value is not valid, unless xsi:nil is used
-    public async void GivenInvalidXsdDuration_WhenConvertedToTimeSpan_ThenThrowsException(string input)
+    public void GivenInvalidXsdDuration_WhenConvertedToTimeSpan_ThenThrowsException(string input)
     {
         // Act
-        Func<Task> act = async () => TimeSpanHelper.ToTimeSpan(input);
+        Action act = () => TimeSpanHelper.ToTimeSpan(input);
 
         // Assert
-        await act.Should().ThrowAsync<FormatException>();
+        act.Should().Throw<FormatException>();
     }
 
     [Theory]

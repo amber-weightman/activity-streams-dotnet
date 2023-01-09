@@ -88,7 +88,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}");
     }
 
-    private void SetObjectProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    private static void SetObjectProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
     {
         var objectType = GetObjectType(serializedProperty);
         if (objectType != null)
@@ -99,7 +99,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     }
 
     // Only these 3 kinds of arrays are currently supported on ICoreType
-    private void SetArrayProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    private static void SetArrayProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
     {
         if (typeof(ILink[]).IsAssignableFrom(newObjectProperty.PropertyType))
         {
@@ -115,7 +115,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
     }
 
-    private void SetProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    private static void SetProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
     {
         if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(Uri)))
         {
@@ -175,41 +175,40 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         return null;
     }
 
+    private static bool TryAddType<T>(PropertyInfo p, object? newObject, object value)
+    {
+        if (typeof(T[]).IsAssignableFrom(p.PropertyType))
+        {
+            if (value is T typedValue)
+            {
+                var array = Array.CreateInstance(typeof(T), 1);
+                array.SetValue(typedValue, 0);
+                p.SetValue(newObject, array);
+                return true;
+            }
+            else if (value is T[] typedArrayValue)
+            {
+                p.SetValue(newObject, typedArrayValue);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     // TODO what if there are multiple items in the array - is that working?
     private static void AddCoreType(PropertyInfo p, object? newObject, object? typedValue)
     {
-        if (typeof(ILink[]).IsAssignableFrom(p.PropertyType))
+        if (typedValue == null)
         {
-            if (typedValue is ILink linkValue)
-            {
-                p.SetValue(newObject, new ILink[] { linkValue });
-            }
-            else if (typedValue is ILink[] linkArrayValue)
-            {
-                p.SetValue(newObject, linkArrayValue);
-            }
+            return;
         }
-        else if (typeof(IObject[]).IsAssignableFrom(p.PropertyType))
+
+        if (TryAddType<ILink>(p, newObject, typedValue) ||
+            TryAddType<IObject>(p, newObject, typedValue) ||
+            TryAddType<ICoreType>(p, newObject, typedValue))
         {
-            if (typedValue is IObject typedObjectValue)
-            {
-                p.SetValue(newObject, new IObject[] { typedObjectValue });
-            }
-            else if (typedValue is IObject[] typedObjectArrayValue)
-            {
-                p.SetValue(newObject, typedObjectArrayValue);
-            }
-        }
-        else if (typeof(ICoreType[]).IsAssignableFrom(p.PropertyType))
-        {
-            if (typedValue is ICoreType typedTypeValue)
-            {
-                p.SetValue(newObject, new ICoreType[] { typedTypeValue });
-            }
-            else if (typedValue is ICoreType[] typedTypeArrayValue)
-            {
-                p.SetValue(newObject, typedTypeArrayValue);
-            }
+            return;
         }
         else
         {

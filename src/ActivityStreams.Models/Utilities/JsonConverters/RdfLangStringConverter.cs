@@ -17,8 +17,7 @@ public class RdfLangStringConverter : JsonConverter<RdfLangString>
     {
         try
         {
-            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement) && 
-                jElement != null)
+            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
                 switch(jElement.Value.ValueKind)
                 {
