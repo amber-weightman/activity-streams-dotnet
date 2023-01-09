@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace ActivityStreams.Models.Common;
 
 /// <inheritdoc cref="IRdfLangString"/>
-public record RdfLangString : ICollection<KeyValuePair<string, string>>, IEnumerable<KeyValuePair<string, string>>, IEnumerable, IDictionary<string, string>, IReadOnlyCollection<KeyValuePair<string, string>>, IReadOnlyDictionary<string, string>, ICollection, IDictionary, IDeserializationCallback, ISerializable
+public record RdfLangString : IDictionary<string, string>, IReadOnlyDictionary<string, string>, IDictionary, IDeserializationCallback, ISerializable
 {
     /// <inheritdoc cref="IRdfLangString.String"/>
     public string? String { get; init; }
@@ -30,7 +30,7 @@ public record RdfLangString : ICollection<KeyValuePair<string, string>>, IEnumer
     public bool IsReadOnly => true; // As a record, RdfLangString should always be ReadOnly
 
     /// <inheritdoc />
-    public ICollection<string> Keys => Map == null ? new string[0] : Map.Keys;
+    public ICollection<string> Keys => Map == null ? global::System.Array.Empty<string>() : Map.Keys;
 
     /// <inheritdoc />
     public bool IsSynchronized => false;
@@ -41,15 +41,15 @@ public record RdfLangString : ICollection<KeyValuePair<string, string>>, IEnumer
     /// <inheritdoc />
     public bool IsFixedSize => true;
 
-    ICollection<string> IDictionary<string, string>.Values => Map == null ? new string[0] : Map.Values;
+    ICollection<string> IDictionary<string, string>.Values => Map == null ? global::System.Array.Empty<string>() : Map.Values;
 
-    IEnumerable<string> IReadOnlyDictionary<string, string>.Values => Map == null ? new string[0] : Map.Values;
+    IEnumerable<string> IReadOnlyDictionary<string, string>.Values => Map == null ? global::System.Array.Empty<string>() : Map.Values;
 
-    ICollection IDictionary.Values => Map == null ? new string[0] : Map.Values;
+    ICollection IDictionary.Values => Map == null ? global::System.Array.Empty<string>() : Map.Values;
 
-    IEnumerable<string> IReadOnlyDictionary<string, string>.Keys => Map == null ? new string[0] : Map.Keys;
+    IEnumerable<string> IReadOnlyDictionary<string, string>.Keys => Map == null ? global::System.Array.Empty<string>() : Map.Keys;
 
-    ICollection IDictionary.Keys => Map == null ? new string[0] : Map.Keys;
+    ICollection IDictionary.Keys => Map == null ? global::System.Array.Empty<string>() : Map.Keys;
 
     /// <inheritdoc />
     public void Add(KeyValuePair<string, string> item) => throw new NotSupportedException($"{nameof(RdfLangString)} is Read Only");
