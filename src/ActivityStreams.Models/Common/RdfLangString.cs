@@ -176,5 +176,5 @@ public record RdfLangString : ICollection<KeyValuePair<string, string>>, IEnumer
     }
 
     /// <inheritdoc />
-    public override string? ToString() => !string.IsNullOrEmpty(String) ? String : Map == null ? null : Map.ToString();
+    public override string? ToString() => !string.IsNullOrEmpty(String) ? String : Map == null ? base.ToString() : Map.ToString();
 }
