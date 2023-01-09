@@ -12,7 +12,7 @@ namespace ActivityStreams.Contract.Common;
 /// specific content type (if any).<br/>
 /// <a href="https://www.w3.org/TR/rdf-schema/#ch_langstring">RdfLangString</a>
 /// </summary>
-public interface IRdfLangString : ICollection<KeyValuePair<string, string>>, IEnumerable<KeyValuePair<string, string>>, IEnumerable, IDictionary<string, string>, IReadOnlyCollection<KeyValuePair<string, string>>, IReadOnlyDictionary<string, string>, ICollection, IDictionary, IDeserializationCallback, ISerializable
+public interface IRdfLangString : IDictionary<string, string>, IReadOnlyDictionary<string, string>, IDictionary, IDeserializationCallback, ISerializable
 {
     /// <summary>
     /// A simple <c>string</c>, with or without encoding. If the string is encoded the encoding
@@ -30,5 +30,5 @@ public interface IRdfLangString : ICollection<KeyValuePair<string, string>>, IEn
     /// <summary>
     /// A <c>string</c> represented as multiple language-tagged values
     /// </summary>
-    Dictionary<string, string>? Map { get; init; }
+    Dictionary<string, string?>? Map { get; init; }
 }

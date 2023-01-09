@@ -49,7 +49,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
 
                 foreach (var property in propertiesToPopulateInto)
                 {
-                    var camelCasePropertyName = GetCamelCasePropertyName(property);
+                    var camelCasePropertyName = property.GetJsonPropertyName();
                     if (!valuesToDeserialiseFrom.ContainsKey(camelCasePropertyName))
                     {
                         continue;
@@ -151,16 +151,6 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
 
         throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}");
-    }
-
-    private static string GetCamelCasePropertyName(PropertyInfo property)
-    {
-        var jsonPropertyName = property.GetCustomAttribute<JsonPropertyNameAttribute>();
-        if (jsonPropertyName != null)
-        {
-            return jsonPropertyName.Name;
-        }
-        return StringHelper.ToCamelCase(property.Name);
     }
 
     private static Type? GetObjectType(JsonElement jsonElement)

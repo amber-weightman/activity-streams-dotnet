@@ -24,8 +24,8 @@ public class RdfLangStringTests
     [InlineData("\"a simple un-formatted string\"")]
     [InlineData("\"A <em>simple</em> note\"")]
     [InlineData("\"## A simple note\\nA simple markdown `note`\"")]
-    [InlineData("{{\"en\": \"A simple note\", \"es\": \"Una nota sencilla\", \"zh-Hans\": \"一段简单的笔记\" }}")]
-    [InlineData("{{\"en\": \"A simple <em>note</em>\", \"es\": \"Una <em>nota</em> sencilla\", \"zh-Hans\": \"一段<em>简单的</em>笔记\" }}")]
+    [InlineData("{\r\n    \"en\": \"A simple note\",\r\n    \"es\": \"Una nota sencilla\",\r\n    \"zh-Hans\": \"一段简单的笔记\"\r\n  }")]
+    [InlineData("{\r\n    \"en\": \"A <em>simple</em> note\",\r\n    \"es\": \"Una nota <em>sencilla</em>\",\r\n    \"zh-Hans\": \"一段<em>简单的</em>笔记\"\r\n  }")]
     public async Task GivenValidRdfLangString_WhenDeserialised_ThenSucceeds(string input)
     {
         // Arrange
@@ -37,28 +37,14 @@ public class RdfLangStringTests
         // Assert
         sut.Should()
             .NotBeNull().And
-            .BeOfType<RdfLangString>();        
+            .BeOfType<RdfLangString>();
     }
 
     [Theory]
-    [InlineData("\"not a date\"")]
-    [InlineData("\"25/25/25\"")]
     [InlineData("\" \"")]
-    public async Task GivenInvalidRdfLangString_WhenDeserialised_ThenThrowsSerializationError(string input)
-    {
-        // Arrange
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(input));
-
-        // Act
-        Func<Task> act = async () => await JsonSerializer.DeserializeAsync<RdfLangString>(stream, _options);
-
-        // Assert
-        await act.Should().ThrowAsync<SerializationException>()
-            .WithMessage("Unable to deserialize");
-    }
-
-    [Theory]
     [InlineData("\"\"")]
+    [InlineData("\"{}\"")]
+    [InlineData("{\n    \n}")]
     public async Task GivenEmptyRdfLangString_WhenDeserialised_ThenReturnsNull(string date)
     {
         // Arrange
@@ -70,5 +56,4 @@ public class RdfLangStringTests
         // Assert
         sut.Should().BeNull();
     }
-
 }
