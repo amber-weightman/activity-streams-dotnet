@@ -42,10 +42,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"amber-weightman_activity-streams-dotnet" /o:"amber-weightman" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths=".\test\TestCoverage\SonarQube.xml"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"amber-weightman_activity-streams-dotnet" /o:"amber-weightman" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths=".\test\TestCoverage\SonarQube.xml" /d:sonar.testExecutionReportPaths=.\test\TestResults\TestResults.xml
           dotnet restore ./ActivityStreams.sln
           dotnet build ./ActivityStreams.sln --configuration Release
-          dotnet test --collect:"XPlat Code Coverage" --logger trx --results-directory ./test/TestResults
+          dotnet test --collect:"XPlat Code Coverage" --logger:"trx;LogFileName=TestResults.xml" --results-directory ./test/TestResults
           dotnet tool install -g dotnet-reportgenerator-globaltool
           reportgenerator "-reports:.\test\TestResults\*\coverage.cobertura.xml" "-targetdir:./test/TestCoverage" "-reporttypes:SonarQube"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
