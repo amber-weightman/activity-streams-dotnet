@@ -46,7 +46,7 @@ jobs:
           dotnet restore ./ActivityStreams.sln
           dotnet build ./ActivityStreams.sln --configuration Release
 
-          dotnet test --collect:"XPlat Code Coverage" --logger:"trx;LogFileName=TestResults.xml" --results-directory ./test/TestResults
+          dotnet test --collect:"XPlat Code Coverage" --logger:"trx;LogFileName=TestResults.trx" --results-directory ./test/TestResults
 
           dotnet tool install --global dotnet-trx2sonar
           dotnet-trx2sonar -d ./ -o ./test/TestResults/SonarTestResults.xml
