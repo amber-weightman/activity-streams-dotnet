@@ -1,6 +1,9 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core;
 
@@ -8,7 +11,7 @@ namespace ActivityStreams.Models.Core;
 public record Link : CoreTypeBase, ILink
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Link };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Link) };
 
     /// <inheritdoc cref="ILink.Href" />
     public Uri? Href { get; init; }
@@ -17,6 +20,7 @@ public record Link : CoreTypeBase, ILink
     public string[]? Rel { get; init; }
 
     /// <inheritdoc cref="ILink.HrefLang" />
+    [JsonPropertyName("hreflang")]
     public string? HrefLang { get; init; }
 
     /// <inheritdoc cref="ILink.Height" />

@@ -75,6 +75,11 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
                                 SetProperty(newObject, property, serializedProperty, options);
                                 break;
                             }
+                        case JsonValueKind.Number:
+                            {
+                                SetNumericProperty(newObject, property, serializedProperty, options);
+                                break;
+                            }
                     }
                 }
                 return newObject as ICoreType;
@@ -98,21 +103,35 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
     }
 
-    // Only these 3 kinds of arrays are currently supported on ICoreType
     private static void SetArrayProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
     {
         if (typeof(ILink[]).IsAssignableFrom(newObjectProperty.PropertyType))
         {
-            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<ILink[]>(serializedProperty, options));
+            newObjectProperty.SetValue(newObject, HandleArray<ILink>(serializedProperty, options));
         }
         else if (typeof(IObject[]).IsAssignableFrom(newObjectProperty.PropertyType))
         {
-            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<IObject[]>(serializedProperty, options));
+            newObjectProperty.SetValue(newObject, HandleArray<IObject>(serializedProperty, options));
         }
         else if (typeof(ICoreType[]).IsAssignableFrom(newObjectProperty.PropertyType))
         {
-            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<ICoreType[]>(serializedProperty, options));
+            newObjectProperty.SetValue(newObject, HandleArray<ICoreType>(serializedProperty, options));
         }
+    }
+
+    private static T[]? HandleArray<T>(JsonElement jElement, JsonSerializerOptions options) where T : ICoreType
+    {
+        if (jElement.ValueKind == JsonValueKind.Array)
+        {
+            T[] arrayItems = jElement.EnumerateArray().Select(e =>
+            {
+                Type? baseObjectTypee = GetObjectType(e);
+                var deser = JsonSerializer.Deserialize(e, baseObjectTypee!, options);
+                return (T)deser!;
+            }).ToArray();
+            return arrayItems;
+        }
+        return null;
     }
 
     private static void SetProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
@@ -142,6 +161,11 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
             newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<ObjectType>(serializedProperty, options) });
             return;
         }
+        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(IAnyUri[])))
+        {
+            newObjectProperty.SetValue(newObject, new [] { JsonSerializer.Deserialize<IAnyUri>(serializedProperty, options) });
+            return;
+        }
         else if (typeof(IRdfLangString).IsAssignableFrom(newObjectProperty.PropertyType))
         {
             newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<RdfLangString>(serializedProperty, options));
@@ -158,21 +182,36 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         {
             // Uri-only indicates 'Link' type
             AddCoreType(newObjectProperty, newObject, new Link { Href = result });
+            return;
         }
-        else
+
+        // TODO if this fails, it silently fails (same with the other mappings)
+    }
+
+    private static void SetNumericProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
+    {
+        if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(int)))
         {
-            throw new SerializationException($"Unable to deserialize");
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<int>(serializedProperty, options));
+            return;
+        }
+        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(float)))
+        {
+            newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<float>(serializedProperty, options));
+            return;
         }
     }
 
     private static Type? GetObjectType(JsonElement jsonElement)
     {
-        if (jsonElement.TryGetProperty("type", out JsonElement typeElement) && 
+        if (jsonElement.TryGetProperty("type", out JsonElement typeElement) &&
             Enum.TryParse(typeElement.GetString(), out ObjectType objectType))
         {
             return objectType.ToType();
         }
-        return null;
+
+        // TODO is it always OK to fallback to Object where the type is not in our enum?
+        return typeof(Core.Object);
     }
 
     private static bool TryAddType<T>(PropertyInfo p, object? newObject, object value)
@@ -196,7 +235,6 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         return false;
     }
 
-    // TODO what if there are multiple items in the array - is that working?
     private static void AddCoreType(PropertyInfo p, object? newObject, object? typedValue)
     {
         if (typedValue == null)

@@ -1,6 +1,8 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace ActivityStreams.Models.Core.Collection;
@@ -9,7 +11,7 @@ namespace ActivityStreams.Models.Core.Collection;
 public record Collection : Object, ICollection
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Collection };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Collection) };
 
     /// <inheritdoc cref="ICollection.TotalItems" />
     [Range(0, int.MaxValue)]

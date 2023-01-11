@@ -2,6 +2,7 @@
 using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Collection;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 
 namespace ActivityStreams.Models.Core;
 
@@ -9,7 +10,7 @@ namespace ActivityStreams.Models.Core;
 public record Object : CoreTypeBase, IObject
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Object };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Object) };
 
     /// <inheritdoc cref="IObject.Attachment" />
     public ICoreType[]? Attachment { get; init; }
@@ -20,7 +21,11 @@ public record Object : CoreTypeBase, IObject
     /// <inheritdoc cref="IObject.Content" />
     public IRdfLangString? Content { get; init; }
     /// <inheritdoc cref="IObject.ContentMap" />
-    public IRdfLangString? ContentMap => Content;
+    public IRdfLangString? ContentMap
+    {
+        get { return Content; }
+        init { Content = value; }
+    }
 
     /// <inheritdoc cref="IObject.EndTime" />
     public DateTimeXsd? EndTime { get; init; }
@@ -52,7 +57,11 @@ public record Object : CoreTypeBase, IObject
     /// <inheritdoc cref="IObject.Summary" />
     public IRdfLangString? Summary { get; init; }
     /// <inheritdoc cref="IObject.SummaryMap" />
-    public IRdfLangString? SummaryMap => Summary;
+    public IRdfLangString? SummaryMap
+    {
+        get { return Summary; }
+        init { Summary = value; }
+    }
 
     /// <inheritdoc cref="IObject.Tag" />
     public ICoreType[]? Tag { get; init; }

@@ -1,6 +1,4 @@
 ﻿using ActivityStreams.Contract.Common;
-using ActivityStreams.Contract.Types;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Contract.Core;
@@ -32,10 +30,10 @@ public interface ICoreType
     ICoreType[]? Context { get; }
 
     /// <summary>
+    /// Identifies the <c>Object</c> (here implemented as <see cref="IObject"/>) or <c>Link</c> (here implemented as <see cref="ILink"/>) type. Multiple values may be specified.
     /// <a href="https://www.w3.org/TR/activitystreams-vocabulary/#properties">W3.org</a> 
-    /// documentation is unclear as to whether this is a URI or not.
     /// </summary>
-    abstract ObjectType[]? Type { get; }
+    IAnyUri[]? Type { get; }
 
     /// <summary>
     /// Identifies one or more entities to which this object is attributed. 

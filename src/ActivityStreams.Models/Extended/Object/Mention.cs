@@ -1,6 +1,8 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Object;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 using ActivityStreams.Models.Core;
 
 namespace ActivityStreams.Models.Extended.Object;
@@ -9,5 +11,5 @@ namespace ActivityStreams.Models.Extended.Object;
 public record Mention : Link, IMention
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Mention };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Mention) };
 }

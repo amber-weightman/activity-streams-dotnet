@@ -38,17 +38,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally accepted an invitation to a party" },
-            Type = new ObjectType[] { ObjectType.Accept },
+            Type = new[] { new AnyUri(ObjectType.Accept) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -56,12 +56,12 @@ public class CoreTypeConverterTests
             {
                 new Invite
                 {
-                    Type = new ObjectType[] { ObjectType.Invite },
+                    Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new []
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org"),
                         }
                     },
@@ -69,7 +69,7 @@ public class CoreTypeConverterTests
                     {
                         new Event
                         {
-                            Type = new ObjectType[] { ObjectType.Event },
+                            Type = new[] { new AnyUri(ObjectType.Event) },
                             Name = new RdfLangString { String = "Going-Away Party for Jim" }
                         }
                     }
@@ -95,17 +95,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally accepted Joe into the club" },
-            Type = new ObjectType[] { ObjectType.Accept },
+            Type = new[] { new AnyUri(ObjectType.Accept) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -113,7 +113,7 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Joe" },
                 }
             },
@@ -121,7 +121,7 @@ public class CoreTypeConverterTests
             {
                 new Group
                 {
-                    Type = new ObjectType[] { ObjectType.Group },
+                    Type = new[] { new AnyUri(ObjectType.Group) },
                     Name = new RdfLangString { String = "The Club" },
                 }
             }
@@ -145,17 +145,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally did something to a note" },
-            Type = new ObjectType[] { ObjectType.Activity },
+            Type = new[] { new AnyUri(ObjectType.Activity) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -163,7 +163,7 @@ public class CoreTypeConverterTests
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "A Note" }
                 }
             }
@@ -187,17 +187,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally added an object" },
-            Type = new ObjectType[] { ObjectType.Add },
+            Type = new[] { new AnyUri(ObjectType.Add) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -205,7 +205,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/abc")
                 }
             }
@@ -229,17 +229,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally added a picture of her cat to her cat picture collection" },
-            Type = new ObjectType[] { ObjectType.Add },
+            Type = new[] { new AnyUri(ObjectType.Add) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -247,13 +247,13 @@ public class CoreTypeConverterTests
             {
                 new Image
                 {
-                    Type = new ObjectType[] { ObjectType.Image },
+                    Type = new[] { new AnyUri(ObjectType.Image) },
                     Name = new RdfLangString { String = "A picture of my cat" },
                     Url = new []
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://example.org/img/cat.png")
                         }
                     }
@@ -263,7 +263,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Camera Roll" },
                 }
             },
@@ -271,7 +271,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "My Cat Pictures" },
                 }
             }
@@ -296,17 +296,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally announced that she had arrived at work" },
-            Type = new ObjectType[] { ObjectType.Announce },
+            Type = new[] { new AnyUri(ObjectType.Announce) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                     Id = new Uri("http://sally.example.org")
                 }
@@ -315,12 +315,12 @@ public class CoreTypeConverterTests
             {
                 new Arrive
                 {
-                    Type = new ObjectType[] { ObjectType.Arrive },
+                    Type = new[] { new AnyUri(ObjectType.Arrive) },
                     Actor = new[]
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://sally.example.org")
                         }
                     },
@@ -328,7 +328,7 @@ public class CoreTypeConverterTests
                     {
                         new Place
                         {
-                            Type = new ObjectType[] { ObjectType.Place },
+                            Type = new[] { new AnyUri(ObjectType.Place) },
                             Name = new RdfLangString { String = "Work" },
                         }
                     }
@@ -354,12 +354,13 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Exampletron 3000" },
-            Type = new ObjectType[] { ObjectType.Application }
+            Type = new[] { new AnyUri(ObjectType.Application) 
+            }
         });
     }
 
@@ -380,17 +381,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally arrived at work" },
-            Type = new ObjectType[] { ObjectType.Arrive },
+            Type = new[] { new AnyUri(ObjectType.Arrive) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -398,7 +399,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Work" },
                 }
             },
@@ -406,7 +407,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Home" },
                 }
             }
@@ -430,18 +431,18 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "What a Crazy Day I Had" },
             Content = new RdfLangString { String = "<div>... you will never believe ...</div>" },
-            Type = new ObjectType[] { ObjectType.Article },
+            Type = new[] { new AnyUri(ObjectType.Article) },
             AttributedTo = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
                 }
             },
@@ -465,17 +466,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Interview With A Famous Technologist" },
-            Type = new ObjectType[] { ObjectType.Audio },
+            Type = new[] { new AnyUri(ObjectType.Audio) },
             Url = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/podcast.mp3"),
                     MediaType = "audio/mp3"
                 }
@@ -500,17 +501,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally blocked Joe" },
-            Type = new ObjectType[] { ObjectType.Block },
+            Type = new[] { new AnyUri(ObjectType.Block) },
             Actor = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
                 }
             },
@@ -518,7 +519,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://joe.example.org")
                 }
             },
@@ -542,23 +543,23 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally's notes" },
-            Type = new ObjectType[] { ObjectType.Collection },
+            Type = new[] { new AnyUri(ObjectType.Collection) },
             TotalItems = 2,
             Items = new[]
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Summary = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Summary = new RdfLangString { String = "Another Simple Note" },
                 }
             }
@@ -582,28 +583,28 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Page 1 of Sally's notes" },
-            Type = new ObjectType[] { ObjectType.CollectionPage },
+            Type = new[] { new AnyUri(ObjectType.CollectionPage) },
             Id = new Uri("http://example.org/foo?page=1"),
             PartOf = new Link
             {
-                Type = new ObjectType[] { ObjectType.Link },
+                Type = new[] { new AnyUri(ObjectType.Link) },
                 Href = new Uri("http://example.org/foo")
             },
             Items = new[]
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Summary = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Summary = new RdfLangString { String = "Another Simple Note" },
                 }
             }
@@ -627,17 +628,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally created a note" },
-            Type = new ObjectType[] { ObjectType.Create },
+            Type = new[] { new AnyUri(ObjectType.Create) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -645,7 +646,7 @@ public class CoreTypeConverterTests
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "A Simple Note" },
                     Content = new RdfLangString { String = "This is a simple note" },
                 }
@@ -670,17 +671,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally deleted a note" },
-            Type = new ObjectType[] { ObjectType.Delete },
+            Type = new[] { new AnyUri(ObjectType.Delete) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -688,7 +689,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
                 }
             },
@@ -696,7 +697,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Sally's Notes" }
                 }
             },
@@ -720,17 +721,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally disliked a post" },
-            Type = new ObjectType[] { ObjectType.Dislike },
+            Type = new[] { new AnyUri(ObjectType.Dislike) },
             Actor = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
                 }
             },
@@ -738,7 +739,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
                 }
             }
@@ -762,17 +763,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "4Q Sales Forecast" },
-            Type = new ObjectType[] { ObjectType.Document },
+            Type = new[] { new AnyUri(ObjectType.Document) },
             Url = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/4q-sales-forecast.pdf")
                 }
             }
@@ -796,12 +797,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Going-Away Party for Jim" },
-            Type = new ObjectType[] { ObjectType.Event },
+            Type = new[] { new AnyUri(ObjectType.Event) },
             StartTime = new DateTimeXsd("2014-12-31T23:00:00-08:00"),
             EndTime = new DateTimeXsd("2015-01-01T06:00:00-08:00")
         });
@@ -824,17 +825,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally flagged an inappropriate note" },
-            Type = new ObjectType[] { ObjectType.Flag },
+            Type = new[] { new AnyUri(ObjectType.Flag) },
             Actor = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
                 }
             },
@@ -842,7 +843,7 @@ public class CoreTypeConverterTests
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Summary = new RdfLangString { String = "An inappropriate note" }
                 }
             }
@@ -866,17 +867,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally followed John" },
-            Type = new ObjectType[] { ObjectType.Follow },
+            Type = new[] { new AnyUri(ObjectType.Follow) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -884,7 +885,7 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "John" },
                 }
             }
@@ -908,12 +909,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Big Beards of Austin" },
-            Type = new ObjectType[] { ObjectType.Group }
+            Type = new[] { new AnyUri(ObjectType.Group) }
         });
     }
 
@@ -934,17 +935,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally ignored a note" },
-            Type = new ObjectType[] { ObjectType.Ignore },
+            Type = new[] { new AnyUri(ObjectType.Ignore) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -952,7 +953,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
                 }
             }
@@ -976,23 +977,23 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
-            Summary = new RdfLangString { String = "Cat Jumping on Wagon" },
-            Type = new ObjectType[] { ObjectType.Image },
+            Name = new RdfLangString { String = "Cat Jumping on Wagon" },
+            Type = new[] { new AnyUri(ObjectType.Image) },
             Url = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/image.jpeg"),
                     MediaType = "image/jpeg"
                 },
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/image.png"),
                     MediaType = "image/png"
                 }
@@ -1017,17 +1018,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally invited John and Lisa to a party" },
-            Type = new ObjectType[] { ObjectType.Invite },
+            Type = new[] { new AnyUri(ObjectType.Invite) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1035,7 +1036,7 @@ public class CoreTypeConverterTests
             {
                 new Event
                 {
-                    Type = new ObjectType[] { ObjectType.Event },
+                    Type = new[] { new AnyUri(ObjectType.Event) },
                     Name = new RdfLangString { String = "A Party" }
                 }
             },
@@ -1043,12 +1044,12 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "John" },
                 },
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Lisa" },
                 }
             }
@@ -1072,17 +1073,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally joined a group" },
-            Type = new ObjectType[] { ObjectType.Join },
+            Type = new[] { new AnyUri(ObjectType.Join) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1090,7 +1091,7 @@ public class CoreTypeConverterTests
             {
                 new Group
                 {
-                    Type = new ObjectType[] { ObjectType.Group },
+                    Type = new[] { new AnyUri(ObjectType.Group) },
                     Name = new RdfLangString { String = "A Simple Group" }
                 }
             }
@@ -1114,17 +1115,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally left work" },
-            Type = new ObjectType[] { ObjectType.Leave },
+            Type = new[] { new AnyUri(ObjectType.Leave) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1132,7 +1133,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Work" }
                 }
             }
@@ -1156,17 +1157,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally left a group" },
-            Type = new ObjectType[] { ObjectType.Leave },
+            Type = new[] { new AnyUri(ObjectType.Leave) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1174,7 +1175,7 @@ public class CoreTypeConverterTests
             {
                 new Group
                 {
-                    Type = new ObjectType[] { ObjectType.Group },
+                    Type = new[] { new AnyUri(ObjectType.Group) },
                     Name = new RdfLangString { String = "A Simple Group" }
                 }
             }
@@ -1198,17 +1199,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally liked a note" },
-            Type = new ObjectType[] { ObjectType.Like },
+            Type = new[] { new AnyUri(ObjectType.Like) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1216,7 +1217,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
                 }
             }
@@ -1240,11 +1241,11 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
-            Type = new ObjectType[] { ObjectType.Link },
+            Type = new[] { new AnyUri(ObjectType.Link) },
             Href = new Uri("http://example.org/abc"),
             HrefLang = "en",
             MediaType = "text/html",
@@ -1269,17 +1270,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally listened to a piece of music" },
-            Type = new ObjectType[] { ObjectType.Listen },
+            Type = new[] { new AnyUri(ObjectType.Listen) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1287,7 +1288,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/music.mp3")
                 }
             }
@@ -1311,13 +1312,13 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             // Summary is in the W3 sample data, but that looks like a mistake - according to other info on that site Summary is valid for Objects only
             //Summary = new RdfLangString { String = "Mention of Joe by Carrie in her note" },
-            Type = new ObjectType[] { ObjectType.Mention },
+            Type = new[] { new AnyUri(ObjectType.Mention) },
             Href = new Uri("http://example.org/joe"),
             Name = new RdfLangString { String = "Joe" },
         });
@@ -1340,17 +1341,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally moved a post from List A to List B" },
-            Type = new ObjectType[] { ObjectType.Move },
+            Type = new[] { new AnyUri(ObjectType.Move) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1358,7 +1359,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
                 }
             },
@@ -1366,7 +1367,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "List B" },
                 }
             },
@@ -1374,7 +1375,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "List A" },
                 }
             }
@@ -1398,11 +1399,11 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
-            Type = new ObjectType[] { ObjectType.Note },
+            Type = new[] { new AnyUri(ObjectType.Note) },
             Name = new RdfLangString { String = "A Word of Warning" },
             Content = new RdfLangString { String = "\"Looks like it is going to rain today. Bring an umbrella!\"" }
         });
@@ -1425,11 +1426,11 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
-            Type = new ObjectType[] { ObjectType.Object },
+            Type = new[] { new AnyUri(ObjectType.Object) },
             Name = new RdfLangString { String = "A Simple, non-specific object" },
             Id = new Uri("http://www.test.example/object/1")
         });
@@ -1452,17 +1453,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally offered 50% off to Lewis" },
-            Type = new ObjectType[] { ObjectType.Offer },
+            Type = new[] { new AnyUri(ObjectType.Offer) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" },
                 }
             },
@@ -1470,7 +1471,7 @@ public class CoreTypeConverterTests
             {
                 new Object
                 {
-                    //Type = new [] { "http://www.types.example/ProductOffer" }, // TODO FIX
+                    Type = new [] { new AnyUri("http://www.types.example/ProductOffer") },
                     Name = new RdfLangString { String = "50% Off!" },
                 }
             },
@@ -1478,7 +1479,7 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Lewis" }
                 }
             }
@@ -1502,23 +1503,23 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally's notes" },
-            Type = new ObjectType[] { ObjectType.OrderedCollection },
+            Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
             TotalItems = 2,
             Items = new[]
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "Another Simple Note" },
                 }
             }
@@ -1538,34 +1539,26 @@ public class CoreTypeConverterTests
         // Assert
         sut.Should().BeEquivalentTo(new OrderedCollection
         {
-            Context = new[]
-            {
-                new Link
-                {
-                    Type = new ObjectType[] { ObjectType.Link },
-                    Href = new Uri("https://www.w3.org/ns/activitystreams")
-                }
-            },
             Name = new RdfLangString { String = "Vacation photos 2016" },
-            Type = new ObjectType[] { ObjectType.OrderedCollection },
+            Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
             TotalItems = 3,
             Items = new ICoreType[]
             {
                 new Image
                 {
-                    Type = new ObjectType[] { ObjectType.Image },
+                    Type = new[] { new AnyUri(ObjectType.Image) },
                     Id = new Uri("http://image.example/1")
                 },
                 new Tombstone
                 {
-                    Type = new ObjectType[] { ObjectType.Tombstone },
-                    //FormerType = new ObjectType[] { ObjectType.Image }, // TODO FIX
+                    Type = new[] { new AnyUri(ObjectType.Tombstone) },
+                    //FormerType = new[] { new AnyUri(ObjectType.Image) }, // TODO FIX
                     Id = new Uri("http://image.example/2"),
                     Deleted = new DateTimeXsd("2016-03-17T00:00:00Z")
                 },
                 new Image
                 {
-                    Type = new ObjectType[] { ObjectType.Image },
+                    Type = new[] { new AnyUri(ObjectType.Image) },
                     Id = new Uri("http://image.example/3")
                 }
             }
@@ -1589,28 +1582,28 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Page 1 of Sally's notes" },
-            Type = new ObjectType[] { ObjectType.OrderedCollectionPage },
+            Type = new[] { new AnyUri(ObjectType.OrderedCollectionPage) },
             Id = new Uri("http://example.org/foo?page=1"),
             PartOf = new Link
             {
-                Type = new ObjectType[] { ObjectType.Link },
+                Type = new[] { new AnyUri(ObjectType.Link) },
                 Href = new Uri("http://example.org/foo")
             },
             Items = new[]
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "Another Simple Note" },
                 }
             }
@@ -1634,12 +1627,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Example Co." },
-            Type = new ObjectType[] { ObjectType.Organization }
+            Type = new[] { new AnyUri(ObjectType.Organization) }
         });
     }
 
@@ -1660,17 +1653,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Omaha Weather Report" },
-            Type = new ObjectType[] { ObjectType.Page },
+            Type = new[] { new AnyUri(ObjectType.Page) },
             Url = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/weather-in-omaha.html")
                 }
             }
@@ -1694,12 +1687,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Sally Smith" },
-            Type = new ObjectType[] { ObjectType.Person }
+            Type = new[] { new AnyUri(ObjectType.Person) }
         });
     }
 
@@ -1720,12 +1713,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Work" },
-            Type = new ObjectType[] { ObjectType.Place }
+            Type = new[] { new AnyUri(ObjectType.Place) }
         });
     }
 
@@ -1746,12 +1739,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Fresno Area" },
-            Type = new ObjectType[] { ObjectType.Place },
+            Type = new[] { new AnyUri(ObjectType.Place) },
             Latitude = (float)36.75,
             Longitude = (float)119.7667,
             Radius = 15,
@@ -1776,15 +1769,15 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally's Profile" },
-            Type = new ObjectType[] { ObjectType.Profile },
+            Type = new[] { new AnyUri(ObjectType.Profile) },
             Describes = new Person
             {
-                Type = new ObjectType[] { ObjectType.Person },
+                Type = new[] { new AnyUri(ObjectType.Person) },
                 Name = new RdfLangString { String = "Sally Smith" }
             }
         });
@@ -1807,22 +1800,22 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "What is the answer?" },
-            Type = new ObjectType[] { ObjectType.Question },
+            Type = new[] { new AnyUri(ObjectType.Question) },
             OneOf = new[]
             {
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "Option A" }
                 },
                 new Note
                 {
-                    Type = new ObjectType[] { ObjectType.Note },
+                    Type = new[] { new AnyUri(ObjectType.Note) },
                     Name = new RdfLangString { String = "Option B" }
                 }
             }
@@ -1846,12 +1839,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "What is the answer?" },
-            Type = new ObjectType[] { ObjectType.Question },
+            Type = new[] { new AnyUri(ObjectType.Question) },
             Closed = new object[] 
             {
                 new DateTimeXsd("2016-05-10T00:00:00Z")
@@ -1876,17 +1869,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally read a blog post" },
-            Type = new ObjectType[] { ObjectType.Read },
+            Type = new[] { new AnyUri(ObjectType.Read) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -1894,7 +1887,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
                 }
             }
@@ -1918,17 +1911,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally rejected an invitation to a party" },
-            Type = new ObjectType[] { ObjectType.Reject },
+            Type = new[] { new AnyUri(ObjectType.Reject) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -1936,12 +1929,12 @@ public class CoreTypeConverterTests
             {
                 new Invite
                 {
-                    Type = new ObjectType[] { ObjectType.Invite },
+                    Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
                         }
                     },
@@ -1949,7 +1942,7 @@ public class CoreTypeConverterTests
                     {
                         new Event
                         {
-                            Type = new ObjectType[] { ObjectType.Event },
+                            Type = new[] { new AnyUri(ObjectType.Event) },
                             Name = new RdfLangString { String = "Going-Away Party for Jim" }
                         }
                     }
@@ -1975,22 +1968,22 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally is an acquaintance of John" },
-            Type = new ObjectType[] { ObjectType.Relationship },
+            Type = new[] { new AnyUri(ObjectType.Relationship) },
             Subject = new Person
             {
-                Type = new ObjectType[] { ObjectType.Person },
+                Type = new[] { new AnyUri(ObjectType.Person) },
                 Name = new RdfLangString { String = "Sally" }
             },
             InnerRelationship = new [] 
             {
                 new Object // TODO I'm unsure about this data type
                 {
-                    Type = new ObjectType[] { ObjectType.Object },
+                    Type = new[] { new AnyUri(ObjectType.Object) },
                     Id = new Uri("http://purl.org/vocab/relationship/acquaintanceOf")
                 }
             },
@@ -1998,7 +1991,7 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "John" }
                 }
             }
@@ -2022,17 +2015,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally removed a note from her notes folder" },
-            Type = new ObjectType[] { ObjectType.Remove },
+            Type = new[] { new AnyUri(ObjectType.Remove) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2040,7 +2033,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
                 }
             },
@@ -2048,7 +2041,7 @@ public class CoreTypeConverterTests
             {
                 new Collection
                 {
-                    Type = new ObjectType[] { ObjectType.Collection },
+                    Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Notes Folder" }
                 }
             }
@@ -2072,17 +2065,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "The moderator removed Sally from a group" },
-            Type = new ObjectType[] { ObjectType.Remove },
+            Type = new[] { new AnyUri(ObjectType.Remove) },
             Actor = new[]
             {
                 new Object
                 {
-                    //Type = new [] { new Uri("http://example.org/Role") }, // TODO FIX
+                    Type = new [] { new AnyUri(new Uri("http://example.org/Role")) },
                     Name = new RdfLangString { String = "The Moderator" }
                 }
             },
@@ -2090,7 +2083,7 @@ public class CoreTypeConverterTests
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2098,7 +2091,7 @@ public class CoreTypeConverterTests
             {
                 new Group
                 {
-                    Type = new ObjectType[] { ObjectType.Group },
+                    Type = new[] { new AnyUri(ObjectType.Group) },
                     Name = new RdfLangString { String = "A Simple Group" }
                 }
             }
@@ -2122,12 +2115,12 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Acme Web Service" },
-            Type = new ObjectType[] { ObjectType.Service }
+            Type = new[] { new AnyUri(ObjectType.Service) }
         });
     }
 
@@ -2148,17 +2141,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally tentatively accepted an invitation to a party" },
-            Type = new ObjectType[] { ObjectType.TentativeAccept },
+            Type = new[] { new AnyUri(ObjectType.TentativeAccept) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2166,12 +2159,12 @@ public class CoreTypeConverterTests
             {
                 new Invite
                 {
-                    Type = new ObjectType[] { ObjectType.Invite },
+                    Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
                         }
                     },
@@ -2179,7 +2172,7 @@ public class CoreTypeConverterTests
                     {
                         new Event
                         {
-                            Type = new ObjectType[] { ObjectType.Event },
+                            Type = new[] { new AnyUri(ObjectType.Event) },
                             Name = new RdfLangString { String = "Going-Away Party for Jim" }
                         }
                     }
@@ -2205,17 +2198,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally tentatively rejected an invitation to a party" },
-            Type = new ObjectType[] { ObjectType.TentativeReject },
+            Type = new[] { new AnyUri(ObjectType.TentativeReject) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2223,12 +2216,12 @@ public class CoreTypeConverterTests
             {
                 new Invite
                 {
-                    Type = new ObjectType[] { ObjectType.Invite },
+                    Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
                         }
                     },
@@ -2236,7 +2229,7 @@ public class CoreTypeConverterTests
                     {
                         new Event
                         {
-                            Type = new ObjectType[] { ObjectType.Event },
+                            Type = new[] { new AnyUri(ObjectType.Event) },
                             Name = new RdfLangString { String = "Going-Away Party for Jim" }
                         }
                     }
@@ -2262,30 +2255,30 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Vacation photos 2016" },
-            Type = new ObjectType[] { ObjectType.OrderedCollection },
+            Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
             TotalItems = 3,
             Items = new ICoreType[]
             {
                 new Image
                 {
-                    Type = new ObjectType[] { ObjectType.Image },
+                    Type = new[] { new AnyUri(ObjectType.Image) },
                     Id = new Uri("http://image.example/1")
                 },
                 new Tombstone
                 {
-                    Type = new ObjectType[] { ObjectType.Tombstone },
-                    //FormerType = new ObjectType[] { ObjectType.Image }, // TODO FIX
+                    Type = new[] { new AnyUri(ObjectType.Tombstone) },
+                    //FormerType = new[] { new AnyUri(ObjectType.Image) }, // TODO FIX
                     Id = new Uri("http://image.example/2"),
                     Deleted = new DateTimeXsd("2016-03-17T00:00:00Z")
                 },
                 new Image
                 {
-                    Type = new ObjectType[] { ObjectType.Image },
+                    Type = new[] { new AnyUri(ObjectType.Image) },
                     Id = new Uri("http://image.example/3")
                 }
             }
@@ -2309,17 +2302,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally went to work" },
-            Type = new ObjectType[] { ObjectType.Travel },
+            Type = new[] { new AnyUri(ObjectType.Travel) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2327,7 +2320,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Work" }
                 }
             }
@@ -2351,17 +2344,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally went home from work" },
-            Type = new ObjectType[] { ObjectType.Travel },
+            Type = new[] { new AnyUri(ObjectType.Travel) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2369,7 +2362,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Home" }
                 }
             },
@@ -2377,7 +2370,7 @@ public class CoreTypeConverterTests
             {
                 new Place
                 {
-                    Type = new ObjectType[] { ObjectType.Place },
+                    Type = new[] { new AnyUri(ObjectType.Place) },
                     Name = new RdfLangString { String = "Work" }
                 }
             }
@@ -2401,17 +2394,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally retracted her offer to John" },
-            Type = new ObjectType[] { ObjectType.Undo },
+            Type = new[] { new AnyUri(ObjectType.Undo) },
             Actor = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
                 }
             },
@@ -2419,12 +2412,12 @@ public class CoreTypeConverterTests
             {
                 new Offer
                 {
-                    Type = new ObjectType[] { ObjectType.Offer },
+                    Type = new[] { new AnyUri(ObjectType.Offer) },
                     Actor = new[]
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://sally.example.org")
                         }
                     },
@@ -2432,7 +2425,7 @@ public class CoreTypeConverterTests
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://example.org/posts/1")
                         }
                     },
@@ -2440,7 +2433,7 @@ public class CoreTypeConverterTests
                     {
                         new Link
                         {
-                            Type = new ObjectType[] { ObjectType.Link },
+                            Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
                         }
                     }
@@ -2466,17 +2459,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally updated her note" },
-            Type = new ObjectType[] { ObjectType.Update },
+            Type = new[] { new AnyUri(ObjectType.Update) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2484,7 +2477,7 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
                 }
             }
@@ -2508,17 +2501,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Name = new RdfLangString { String = "Puppy Plays With Ball" },
-            Type = new ObjectType[] { ObjectType.Video },
+            Type = new[] { new AnyUri(ObjectType.Video) },
             Url = new[]
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/video.mkv")
                 }
             },
@@ -2543,17 +2536,17 @@ public class CoreTypeConverterTests
             {
                 new Link
                 {
-                    Type = new ObjectType[] { ObjectType.Link },
+                    Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
                 }
             },
             Summary = new RdfLangString { String = "Sally read an article" },
-            Type = new ObjectType[] { ObjectType.View },
+            Type = new[] { new AnyUri(ObjectType.View) },
             Actor = new[]
             {
                 new Person
                 {
-                    Type = new ObjectType[] { ObjectType.Person },
+                    Type = new[] { new AnyUri(ObjectType.Person) },
                     Name = new RdfLangString { String = "Sally" }
                 }
             },
@@ -2561,7 +2554,7 @@ public class CoreTypeConverterTests
             {
                 new Article
                 {
-                    Type = new ObjectType[] { ObjectType.Article },
+                    Type = new[] { new AnyUri(ObjectType.Article) },
                     Name = new RdfLangString { String = "What You Should Know About Activity Streams" }
                 }
             }

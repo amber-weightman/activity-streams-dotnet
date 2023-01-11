@@ -1,6 +1,8 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Activity;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 
 namespace ActivityStreams.Models.Extended.Activity;
 
@@ -8,5 +10,5 @@ namespace ActivityStreams.Models.Extended.Activity;
 public record Join : Core.Activity.Activity, IJoin
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Join };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Join) };
 }

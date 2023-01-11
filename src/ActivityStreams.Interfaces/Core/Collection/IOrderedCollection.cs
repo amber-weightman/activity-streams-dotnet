@@ -27,4 +27,10 @@
 /// </example>
 public interface IOrderedCollection : ICollection
 {
+    /// <summary>
+    /// Identifies the items contained in a collection. Items will be ordered.
+    /// Must be either <see cref="IObject"/> or <see cref="ILink"/> or <see cref="IOrderedCollection"/> of the same.
+    /// <a href="https://www.w3.org/ns/activitystreams#items">See w3.org for further details.</a>
+    /// </summary>
+    public ICoreType[]? OrderedItems => Items;
 }

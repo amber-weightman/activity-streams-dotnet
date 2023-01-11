@@ -1,6 +1,8 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Core.Activity;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 
 namespace ActivityStreams.Models.Core.Activity;
 
@@ -8,7 +10,7 @@ namespace ActivityStreams.Models.Core.Activity;
 public abstract record ActivityBase : Object, IActivityBase
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Activity };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Activity) };
 
     /// <inheritdoc cref="IActivityBase.Actor" />
     public ICoreType[]? Actor { get; init; }

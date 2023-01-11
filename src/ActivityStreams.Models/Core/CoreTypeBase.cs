@@ -1,6 +1,5 @@
 ﻿using ActivityStreams.Contract.Common;
 using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Types;
 using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Models.Core;
@@ -16,7 +15,7 @@ public abstract record CoreTypeBase : ICoreType
     public ICoreType[]? Context { get; init; }
 
     /// <inheritdoc cref="ICoreType.Type" />
-    public virtual ObjectType[]? Type { get; init; }
+    public virtual IAnyUri[]? Type { get; init; }
 
     /// <inheritdoc cref="ICoreType.AttributedTo" />
     public ICoreType[]? AttributedTo { get; init; }
@@ -27,7 +26,11 @@ public abstract record CoreTypeBase : ICoreType
     /// <inheritdoc cref="ICoreType.Name" />
     public IRdfLangString? Name { get; init; }
     /// <inheritdoc cref="ICoreType.NameMap" />
-    public IRdfLangString? NameMap => Name;
+    public IRdfLangString? NameMap
+    {
+        get { return Name; }
+        init { Name = value; }
+    }
 
     /// <inheritdoc cref="ICoreType.MediaType" />
     public string? MediaType { get; init; } = "text/html";

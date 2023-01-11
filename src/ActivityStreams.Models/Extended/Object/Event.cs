@@ -1,6 +1,8 @@
-﻿using ActivityStreams.Contract.Core;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Core;
 using ActivityStreams.Contract.Extended.Object;
 using ActivityStreams.Contract.Types;
+using ActivityStreams.Models.Common;
 
 namespace ActivityStreams.Models.Extended.Object;
 
@@ -8,5 +10,5 @@ namespace ActivityStreams.Models.Extended.Object;
 public record Event : Core.Object, IEvent
 {
     /// <inheritdoc cref="ICoreType.Type" />
-    public override ObjectType[]? Type { get; init; } = new[] { ObjectType.Event };
+    public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Event) };
 }

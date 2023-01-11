@@ -30,5 +30,5 @@ public interface IRdfLangString : IDictionary<string, string>, IReadOnlyDictiona
     /// <summary>
     /// A <c>string</c> represented as multiple language-tagged values
     /// </summary>
-    Dictionary<string, string?>? Map { get; init; }
+    IDictionary<string, string?>? Map { get; init; }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ActivityStreams.Contract.Core;
 
@@ -47,6 +48,7 @@ public interface ILink : ICoreType
     /// <a href="https://www.w3.org/ns/activitystreams#hreflang">See w3.org for further details.</a>
     /// </summary>
     /// <example>"en-AU"</example>
+    [JsonPropertyName("hreflang")]
     string? HrefLang { get; }
 
     /// <summary>

@@ -21,7 +21,8 @@ public static class SerializationOptions
             new JsonStringEnumConverter(),
             new CoreTypeConverter(),
             new DateTimeConverter(),
-            new RdfLangStringConverter()
+            new RdfLangStringConverter(),
+            new AnyUriConverter()
         }
     };
 }

@@ -8,6 +8,21 @@ namespace ActivityStreams.Models.Common;
 /// <inheritdoc cref="IRdfLangString"/>
 public sealed record RdfLangString : IRdfLangString
 {
+    /// <summary>
+    /// Constructor for <see cref="RdfLangString"/>
+    /// </summary>
+    public RdfLangString()
+    {
+    }
+
+    /// <summary>
+    /// Constructor for <see cref="RdfLangString"/>
+    /// </summary>
+    public RdfLangString(string value)
+    {
+        String = value;
+    }
+
     /// <inheritdoc cref="IRdfLangString.String"/>
     public string? String { get; init; }
 
@@ -15,7 +30,7 @@ public sealed record RdfLangString : IRdfLangString
     public string? MediaType { get; init; }
 
     /// <inheritdoc cref="IRdfLangString.Map"/>
-    public Dictionary<string, string?>? Map { get; init; }
+    public IDictionary<string, string?>? Map { get; init; }
 
     /// <inheritdoc />
     public string this[string key] { get => throw new NotSupportedException($"{nameof(RdfLangString)} is Read Only"); set => throw new NotSupportedException($"{nameof(RdfLangString)} is Read Only"); }
@@ -87,7 +102,7 @@ public sealed record RdfLangString : IRdfLangString
             {
                 return Array.Empty<string>();
             }
-            return Map.Keys;
+            return (ICollection)Map.Keys;
         }
     }
 
@@ -100,7 +115,7 @@ public sealed record RdfLangString : IRdfLangString
             {
                 return Array.Empty<string>();
             }
-            return Map.Values;
+            return (ICollection)Map.Values;
         }
     }
 
@@ -217,7 +232,7 @@ public sealed record RdfLangString : IRdfLangString
     public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
     {
         if (Map is null) throw new NotSupportedException();
-        return Map.GetEnumerator();
+        return ((Dictionary<string, string?>?)Map!).GetEnumerator();
     }
 
     /// <inheritdoc />
@@ -225,7 +240,7 @@ public sealed record RdfLangString : IRdfLangString
     {
         if (Map is not null)
         {
-            Map.GetObjectData(info, context);
+            ((Dictionary<string, string?>?)Map!).GetObjectData(info, context);
         }
     }
 
@@ -234,7 +249,7 @@ public sealed record RdfLangString : IRdfLangString
     {
         if (Map is not null)
         {
-            Map.OnDeserialization(sender);
+            ((Dictionary<string, string?>?)Map!).OnDeserialization(sender);
         }
     }
 
@@ -297,7 +312,7 @@ public sealed record RdfLangString : IRdfLangString
         {
             throw new NotSupportedException();
         }
-        return Map.GetEnumerator();
+        return (IDictionaryEnumerator)Map.GetEnumerator();
     }
 
     /// <inheritdoc />
@@ -307,10 +322,10 @@ public sealed record RdfLangString : IRdfLangString
         {
             return String;
         }
-        if (Map is null)
+        if (Map is not null)
         {
-            return base.ToString();
+            return Map.ToString();
         }
-        return Map.ToString();
+        return base.ToString();
     }
 }
