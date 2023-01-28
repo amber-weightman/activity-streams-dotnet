@@ -25,7 +25,8 @@ public class AnyUriConverter : JsonConverter<IAnyUri>
         try
         {
             var stringValue = reader.GetString();
-            if (string.IsNullOrEmpty(stringValue))
+            if (string.IsNullOrWhiteSpace(stringValue) ||
+                stringValue.Equals("{}") || stringValue.Equals("{ }"))
             {
                 return null;
             }

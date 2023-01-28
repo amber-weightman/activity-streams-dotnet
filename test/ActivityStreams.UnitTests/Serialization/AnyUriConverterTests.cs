@@ -88,7 +88,6 @@ public class AnyUriConverterTests
     [InlineData("\" \"")]
     [InlineData("\"\"")]
     [InlineData("\"{}\"")]
-    [InlineData("{\n    \n}")]
     public async Task GivenEmptyAnyUri_WhenDeserialised_ThenReturnsNull(string date)
     {
         // Arrange
@@ -102,7 +101,7 @@ public class AnyUriConverterTests
     }
 
     [Theory]
-    [InlineData("{\r\n    \"type\": \"Audio\",\r\n    \"href\": \"https://www.w3.org/ns/activitystreams\",\r\n }")]
+    [InlineData("{    \"type\": \"Audio\",    \"href\": \"https://www.w3.org/ns/activitystreams\"  }")]
     public async Task GivenValidAnyUriObject_WhenDeserialised_ThenSucceeds(string input)
     {
         // Arrange

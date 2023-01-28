@@ -54,7 +54,6 @@ public class DateTimeConverterTests
     [Theory]
     [InlineData("\"not a date\"")]
     [InlineData("\"25/25/25\"")]
-    [InlineData("\" \"")]
     public async Task GivenInvalidDateTime_WhenDeserialised_ThenThrowsSerializationError(string date)
     {
         // Arrange
@@ -65,11 +64,12 @@ public class DateTimeConverterTests
 
         // Assert
         await act.Should().ThrowAsync<SerializationException>()
-            .WithMessage("Unable to deserialize invalid or unrecognised date");
+            .WithMessage("Unable to deserialize to DateTimeXsd");
     }
 
     [Theory]
     [InlineData("\"\"")]
+    [InlineData("\" \"")]
     public async Task GivenEmptyDateTime_WhenDeserialised_ThenReturnsNull(string date)
     {
         // Arrange
@@ -102,7 +102,9 @@ public class DateTimeConverterTests
         stream.Position = 0;
         using var sr = new StreamReader(stream);
         var result = await sr.ReadToEndAsync();
+        var decodedResult = result.Replace("\\u002B", "+");
 
-        result.Should().Be($"\"{date}\"");
+        // Assert
+        decodedResult.Should().Be($"\"{date}\"");
     }
 }

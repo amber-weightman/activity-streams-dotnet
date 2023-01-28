@@ -173,7 +173,8 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
 
         string? propertyValueString = serializedProperty.GetString();
-        if (string.IsNullOrEmpty(propertyValueString))
+        if (string.IsNullOrWhiteSpace(propertyValueString) ||
+            propertyValueString.Equals("{}") || propertyValueString.Equals("{ }"))
         {
             return;
         }
