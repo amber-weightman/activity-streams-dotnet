@@ -16,6 +16,7 @@ TBA
 ## Contribution
 - If you want to contribute to codes, create pull request
 - If you find any bugs or error, create an issue
+- If you have any feedback or questions, contact me
 
 ## License
-This project is licensed under the MIT License
+This project is licensed under the GPL-3.0 License
