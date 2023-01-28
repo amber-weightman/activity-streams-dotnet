@@ -1,6 +1,9 @@
-﻿using ActivityStreams.Contract.Types;
+﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Common;
 using ActivityStreams.Models.Utilities.JsonConverters;
+using ActivityStreams.Models.Utilities.Serialization;
+using ActivityStreams.UnitTests.Utils;
 using FluentAssertions;
 using System.Text;
 using System.Text.Json;
@@ -10,6 +13,8 @@ namespace ActivityStreams.UnitTests.Serialization;
 // TODO this needs some heavy testing. I may not have fully understood the specification.
 public class AnyUriConverterTests
 {
+    private const string FilePath = "Serialization\\TestData";
+
     // Rather than using SerializationOptions.Options, these tests use only the converter under test
     private static readonly JsonSerializerOptions _options = new()
     {
@@ -101,15 +106,15 @@ public class AnyUriConverterTests
     }
 
     [Theory]
-    [InlineData("{    \"type\": \"Audio\",    \"href\": \"https://www.w3.org/ns/activitystreams\"  }")]
-    public async Task GivenValidAnyUriObject_WhenDeserialised_ThenSucceeds(string input)
+    [InlineData("AnyUri")]
+    public async Task GivenValidAnyUriObject_WhenDeserialised_ThenSucceeds(string fileName)
     {
         // Arrange
         var hrefUri = new Uri("https://www.w3.org/ns/activitystreams");
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(input));
+        using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<AnyUri>(stream, _options);
+        var sut = await JsonSerializer.DeserializeAsync<AnyUri>(reader.BaseStream, SerializationOptions.Options);
 
         // Assert
         sut.Should().BeEquivalentTo(new AnyUri

@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Common;
 using System.Runtime.Serialization;
 using System.Text.Json;
@@ -24,14 +25,41 @@ public class AnyUriConverter : JsonConverter<IAnyUri>
     {
         try
         {
-            var stringValue = reader.GetString();
-            if (string.IsNullOrWhiteSpace(stringValue) ||
-                stringValue.Equals("{}") || stringValue.Equals("{ }"))
+            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
-                return null;
-            }
+                switch (jElement!.Value.ValueKind)
+                {
+                    case JsonValueKind.String:
+                        {
+                            var stringValue = reader.GetString();
+                            if (string.IsNullOrWhiteSpace(stringValue) ||
+                                stringValue.Equals("{}") || stringValue.Equals("{ }"))
+                            {
+                                return null;
+                            }
+                            return new AnyUri(stringValue);
+                        }
+                    case JsonValueKind.Object:
+                        {
+                            var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
+                            if (valuesToDeserialiseFrom.Count == 0)
+                            {
+                                return null;
+                            }
 
-            return new AnyUri(stringValue);
+                            var href = valuesToDeserialiseFrom.ContainsKey("href") ? JsonSerializer.Deserialize<Uri?>(valuesToDeserialiseFrom["href"], options) : null;
+                            if (href == null)
+                            {
+                                return null;
+                            }
+
+                            var type = valuesToDeserialiseFrom.ContainsKey("type") ? JsonSerializer.Deserialize<ObjectType?>(valuesToDeserialiseFrom["type"], options) : null;
+
+                            return new AnyUri { Type = type, Href = href };
+                        }
+                }
+            }
+            return null;
         }
         catch (Exception ex) 
         {

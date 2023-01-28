@@ -29,13 +29,13 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     /// <summary>
     /// Convert a serialized <c>string</c> to the <c>ICoreType</c> it represents
     /// </summary>
-    public override ICoreType? Read(ref Utf8JsonReader reader, Type _, JsonSerializerOptions options)
+    public override ICoreType? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         try
         {
             if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
-                var baseObjectType = GetObjectType(jElement.Value);
+                var baseObjectType = GetObjectType(jElement!.Value);
                 if (baseObjectType == null)
                 {
                     throw new ArgumentException("Unexpected Type");
