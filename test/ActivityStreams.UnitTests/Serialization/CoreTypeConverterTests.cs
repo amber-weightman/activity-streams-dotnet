@@ -555,12 +555,12 @@ public class CoreTypeConverterTests
                 new Note
                 {
                     Type = new[] { new AnyUri(ObjectType.Note) },
-                    Summary = new RdfLangString { String = "A Simple Note" },
+                    Name = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
                     Type = new[] { new AnyUri(ObjectType.Note) },
-                    Summary = new RdfLangString { String = "Another Simple Note" },
+                    Name = new RdfLangString { String = "Another Simple Note" },
                 }
             }
         });
@@ -600,12 +600,12 @@ public class CoreTypeConverterTests
                 new Note
                 {
                     Type = new[] { new AnyUri(ObjectType.Note) },
-                    Summary = new RdfLangString { String = "A Simple Note" },
+                    Name = new RdfLangString { String = "A Simple Note" },
                 },
                 new Note
                 {
                     Type = new[] { new AnyUri(ObjectType.Note) },
-                    Summary = new RdfLangString { String = "Another Simple Note" },
+                    Name = new RdfLangString { String = "Another Simple Note" },
                 }
             }
         });
@@ -2252,14 +2252,6 @@ public class CoreTypeConverterTests
         // Assert
         sut.Should().BeEquivalentTo(new OrderedCollection
         {
-            Context = new[]
-            {
-                new Link
-                {
-                    Type = new[] { new AnyUri(ObjectType.Link) },
-                    Href = new Uri("https://www.w3.org/ns/activitystreams")
-                }
-            },
             Name = new RdfLangString { String = "Vacation photos 2016" },
             Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
             TotalItems = 3,

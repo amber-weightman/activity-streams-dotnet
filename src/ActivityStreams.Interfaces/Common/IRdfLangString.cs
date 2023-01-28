@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Runtime.Serialization;
-
-namespace ActivityStreams.Contract.Common;
+﻿namespace ActivityStreams.Contract.Common;
 
 /// <summary>
 /// A string, which may be expressed using either a single <c>string</c> value 
@@ -12,7 +9,7 @@ namespace ActivityStreams.Contract.Common;
 /// specific content type (if any).<br/>
 /// <a href="https://www.w3.org/TR/rdf-schema/#ch_langstring">RdfLangString</a>
 /// </summary>
-public interface IRdfLangString : IDictionary<string, string>, IReadOnlyDictionary<string, string>, IDictionary, IDeserializationCallback, ISerializable
+public interface IRdfLangString
 {
     /// <summary>
     /// A simple <c>string</c>, with or without encoding. If the string is encoded the encoding
