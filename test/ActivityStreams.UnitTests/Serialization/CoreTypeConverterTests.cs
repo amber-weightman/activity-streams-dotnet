@@ -1405,7 +1405,7 @@ public class CoreTypeConverterTests
             },
             Type = new[] { new AnyUri(ObjectType.Note) },
             Name = new RdfLangString { String = "A Word of Warning" },
-            Content = new RdfLangString { String = "\"Looks like it is going to rain today. Bring an umbrella!\"" }
+            Content = new RdfLangString { String = "Looks like it is going to rain today. Bring an umbrella!" }
         });
     }
 
@@ -1983,8 +1983,9 @@ public class CoreTypeConverterTests
             {
                 new Object // TODO I'm unsure about this data type
                 {
-                    Type = new[] { new AnyUri(ObjectType.Object) },
-                    Id = new Uri("http://purl.org/vocab/relationship/acquaintanceOf")
+                    //Type = new[] { new AnyUri(ObjectType.Object) },
+                    //Id = new Uri("http://purl.org/vocab/relationship/acquaintanceOf")
+                    Type = new[] { new AnyUri("http://purl.org/vocab/relationship/acquaintanceOf") }
                 }
             },
             Object = new[]

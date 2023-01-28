@@ -141,17 +141,22 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
             newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<Uri>(serializedProperty, options));
             return;
         }
-        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(string)))
+        else if (newObjectProperty.PropertyType == typeof(string))
         {
             newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<string>(serializedProperty, options));
             return;
         }
-        else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(string[])))
+        else if (newObjectProperty.PropertyType == typeof(string[]))
         {
             newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<string>(serializedProperty, options) });
             return;
         }
-        else if (typeof(DateTimeXsd).IsAssignableFrom(newObjectProperty.PropertyType))
+        else if (newObjectProperty.PropertyType == typeof(object[]))
+        {
+            newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<object>(serializedProperty, options) });
+            return;
+        }
+        else if (newObjectProperty.PropertyType == typeof(DateTimeXsd))
         {
             newObjectProperty.SetValue(newObject, JsonSerializer.Deserialize<DateTimeXsd>(serializedProperty, options));
             return;
@@ -181,8 +186,15 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
 
         if (Uri.TryCreate(propertyValueString, UriCreationOptions, out Uri? result))
         {
-            // Uri-only indicates 'Link' type
-            AddCoreType(newObjectProperty, newObject, new Link { Href = result });
+            if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(ILink)) || newObjectProperty.PropertyType.IsAssignableFrom(typeof(ILink[])))
+            {
+                // Uri-only usually indicates 'Link' type but not always (at least according to explicit documentation - see Relationship_0 test/s)
+                AddCoreType(newObjectProperty, newObject, new Link { Href = result });
+            }
+            else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(IObject)) || newObjectProperty.PropertyType.IsAssignableFrom(typeof(IObject[])))
+            {
+                AddCoreType(newObjectProperty, newObject, new Core.Object { Type = new[] { new AnyUri(result) } });
+            }
             return;
         }
 
