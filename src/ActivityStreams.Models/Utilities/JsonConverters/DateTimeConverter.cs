@@ -1,4 +1,5 @@
 ﻿using ActivityStreams.Contract.Common;
+using ActivityStreams.Models.Utilities.Helpers;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -18,12 +19,11 @@ public class DateTimeConverter : JsonConverter<DateTimeXsd>
         try
         {
             var stringValue = reader.GetString();
-            if (string.IsNullOrWhiteSpace(stringValue) ||
-                stringValue.Equals("{}") || stringValue.Equals("{ }"))
+            if (JsonConverterHelper.IsEmpty(stringValue))
             {
                 return null;
             }
-            return new DateTimeXsd(stringValue);
+            return new DateTimeXsd(stringValue!);
         }
         catch (Exception ex) 
         {

@@ -46,35 +46,34 @@ public sealed record RdfLangString : IRdfLangString
         }
     }
 
-    /// <inheritdoc />
-    public ICollection<string> Keys
+    /// <summary>
+    /// Get a collection containing all keys (if any)
+    /// </summary>
+    /// <returns></returns>
+    public ICollection<string> GetKeys()
     {
-        get
+        if (Map is null)
         {
-            if (Map is null)
-            {
-                return Array.Empty<string>();
-            }
-            return Map.Keys;
+            return Array.Empty<string>();
         }
+        return Map.Keys;
     }
 
-    /// <inheritdoc />
-    public ICollection<string> Values
+    /// <summary>
+    /// Get a collection containing all values
+    /// </summary>
+    public ICollection<string> GetValues()
     {
-        get
+        if (Map is null)
         {
-            if (Map is null)
+            if (!string.IsNullOrEmpty(String))
             {
-                if (!string.IsNullOrEmpty(String))
-                {
-                    return new string[] { String };
-                }
-                return Array.Empty<string>();
+                return new string[] { String };
             }
-
-            return Map.Values.Where(v => v is not null).Select(v => v!).ToArray();
+            return Array.Empty<string>();
         }
+
+        return Map.Values.Where(v => v is not null).Select(v => v!).ToArray();
     }
 
     /// <inheritdoc />

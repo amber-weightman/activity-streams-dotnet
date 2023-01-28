@@ -1,6 +1,7 @@
 ﻿using ActivityStreams.Contract.Common;
 using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Common;
+using ActivityStreams.Models.Utilities.Helpers;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -25,39 +26,40 @@ public class AnyUriConverter : JsonConverter<IAnyUri>
     {
         try
         {
-            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
+            if (!JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
-                switch (jElement!.Value.ValueKind)
-                {
-                    case JsonValueKind.String:
+                return null;
+            }
+
+            switch (jElement!.Value.ValueKind)
+            {
+                case JsonValueKind.String:
+                    {
+                        var stringValue = reader.GetString();
+                        if (JsonConverterHelper.IsEmpty(stringValue))
                         {
-                            var stringValue = reader.GetString();
-                            if (string.IsNullOrWhiteSpace(stringValue) ||
-                                stringValue.Equals("{}") || stringValue.Equals("{ }"))
-                            {
-                                return null;
-                            }
-                            return new AnyUri(stringValue);
+                            return null;
                         }
-                    case JsonValueKind.Object:
+                        return new AnyUri(stringValue!);
+                    }
+                case JsonValueKind.Object:
+                    {
+                        var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
+                        if (valuesToDeserialiseFrom.Count == 0)
                         {
-                            var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
-                            if (valuesToDeserialiseFrom.Count == 0)
-                            {
-                                return null;
-                            }
-
-                            var href = valuesToDeserialiseFrom.ContainsKey("href") ? JsonSerializer.Deserialize<Uri?>(valuesToDeserialiseFrom["href"], options) : null;
-                            if (href == null)
-                            {
-                                return null;
-                            }
-
-                            var type = valuesToDeserialiseFrom.ContainsKey("type") ? JsonSerializer.Deserialize<ObjectType?>(valuesToDeserialiseFrom["type"], options) : null;
-
-                            return new AnyUri { Type = type, Href = href };
+                            return null;
                         }
-                }
+
+                        var href = valuesToDeserialiseFrom.ContainsKey("href") ? JsonSerializer.Deserialize<Uri?>(valuesToDeserialiseFrom["href"], options) : null;
+                        if (href == null)
+                        {
+                            return null;
+                        }
+
+                        var type = valuesToDeserialiseFrom.ContainsKey("type") ? JsonSerializer.Deserialize<ObjectType?>(valuesToDeserialiseFrom["type"], options) : null;
+
+                        return new AnyUri { Type = type, Href = href };
+                    }
             }
             return null;
         }

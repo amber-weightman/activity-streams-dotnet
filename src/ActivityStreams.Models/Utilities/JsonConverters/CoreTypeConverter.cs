@@ -34,64 +34,64 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     {
         try
         {
-            if (JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
+            if (!JsonElement.TryParseValue(ref reader, out JsonElement? jElement))
             {
-                var baseObjectType = GetObjectType(jElement!.Value);
-                if (baseObjectType == null)
-                {
-                    throw new ArgumentException("Unexpected Type");
-                }
-
-                var newObject = Activator.CreateInstance(baseObjectType);
-
-                var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
-                var propertiesToPopulateInto = baseObjectType.GetProperties();
-
-                foreach (var property in propertiesToPopulateInto)
-                {
-                    var camelCasePropertyName = property.GetJsonPropertyName();
-                    if (!valuesToDeserialiseFrom.ContainsKey(camelCasePropertyName))
-                    {
-                        continue;
-                    }
-
-                    var serializedProperty = valuesToDeserialiseFrom[camelCasePropertyName];
-
-                    switch (serializedProperty.ValueKind)
-                    {
-                        case JsonValueKind.Object:
-                            {
-                                SetObjectProperty(newObject, property, serializedProperty, options);
-                                break;
-                            }
-                        
-                        case JsonValueKind.Array:
-                            {
-                                SetArrayProperty(newObject, property, serializedProperty, options);
-                                break;
-                            }
-
-                        case JsonValueKind.String:
-                            {
-                                SetProperty(newObject, property, serializedProperty, options);
-                                break;
-                            }
-                        case JsonValueKind.Number:
-                            {
-                                SetNumericProperty(newObject, property, serializedProperty, options);
-                                break;
-                            }
-                    }
-                }
-                return newObject as ICoreType;
+                return null;
             }
+
+            var baseObjectType = GetObjectType(jElement!.Value);
+            if (baseObjectType == null)
+            {
+                throw new ArgumentException("Unexpected Type");
+            }
+
+            var newObject = Activator.CreateInstance(baseObjectType);
+
+            var valuesToDeserialiseFrom = jElement.Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value);
+            var propertiesToPopulateInto = baseObjectType.GetProperties();
+
+            foreach (var property in propertiesToPopulateInto)
+            {
+                var camelCasePropertyName = property.GetJsonPropertyName();
+                if (!valuesToDeserialiseFrom.ContainsKey(camelCasePropertyName))
+                {
+                    continue;
+                }
+
+                var serializedProperty = valuesToDeserialiseFrom[camelCasePropertyName];
+
+                switch (serializedProperty.ValueKind)
+                {
+                    case JsonValueKind.Object:
+                        {
+                            SetObjectProperty(newObject, property, serializedProperty, options);
+                            break;
+                        }
+
+                    case JsonValueKind.Array:
+                        {
+                            SetArrayProperty(newObject, property, serializedProperty, options);
+                            break;
+                        }
+
+                    case JsonValueKind.String:
+                        {
+                            SetProperty(newObject, property, serializedProperty, options);
+                            break;
+                        }
+                    case JsonValueKind.Number:
+                        {
+                            SetNumericProperty(newObject, property, serializedProperty, options);
+                            break;
+                        }
+                }
+            }
+            return newObject as ICoreType;
         }
         catch (Exception ex)
         {
             throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}", ex);
         }
-
-        throw new SerializationException($"Unable to deserialize to {nameof(ICoreType)}");
     }
 
     private static void SetObjectProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
@@ -124,15 +124,9 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     {
         if (jElement.ValueKind == JsonValueKind.Array)
         {
-            T[] arrayItems = jElement.EnumerateArray().Select(e =>
-            {
-                Type? baseObjectTypee = GetObjectType(e);
-                var deser = JsonSerializer.Deserialize(e, baseObjectTypee!, options);
-                return (T)deser!;
-            }).ToArray();
-            return arrayItems;
+            return jElement.EnumerateArray().Select(e => (T)JsonSerializer.Deserialize(e, GetObjectType(e)!, options)!).ToArray();
         }
-        return null;
+        return Array.Empty<T>();
     }
 
     private static void SetProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
@@ -187,15 +181,14 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
 
         string? propertyValueString = serializedProperty.GetString();
-        if (string.IsNullOrWhiteSpace(propertyValueString) ||
-            propertyValueString.Equals("{}") || propertyValueString.Equals("{ }"))
+        if (JsonConverterHelper.IsEmpty(propertyValueString))
         {
             return;
         }
 
         if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(TimeSpan)))
         {
-            newObjectProperty.SetValue(newObject, TimeSpanHelper.ToTimeSpan(propertyValueString));
+            newObjectProperty.SetValue(newObject, TimeSpanHelper.ToTimeSpan(propertyValueString!));
             return;
         }
 
