@@ -4,6 +4,7 @@ using ActivityStreams.Contract.Types;
 using ActivityStreams.Models.Common;
 using ActivityStreams.Models.Core;
 using ActivityStreams.Models.Utilities.Extensions;
+using ActivityStreams.Models.Utilities.Helpers;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
@@ -153,7 +154,15 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         }
         else if (newObjectProperty.PropertyType == typeof(object[]))
         {
-            newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<object>(serializedProperty, options) });
+            try
+            {
+                var dateTime = JsonSerializer.Deserialize<DateTimeXsd>(serializedProperty, options);
+                newObjectProperty.SetValue(newObject, new[] { dateTime });
+            }
+            catch
+            {
+                newObjectProperty.SetValue(newObject, new[] { JsonSerializer.Deserialize<object>(serializedProperty, options) });
+            }
             return;
         }
         else if (newObjectProperty.PropertyType == typeof(DateTimeXsd))
@@ -181,6 +190,12 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
         if (string.IsNullOrWhiteSpace(propertyValueString) ||
             propertyValueString.Equals("{}") || propertyValueString.Equals("{ }"))
         {
+            return;
+        }
+
+        if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(TimeSpan)))
+        {
+            newObjectProperty.SetValue(newObject, TimeSpanHelper.ToTimeSpan(propertyValueString));
             return;
         }
 
