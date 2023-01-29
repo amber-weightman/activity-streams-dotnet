@@ -658,6 +658,73 @@ public class CoreTypeConverterTests
     }
 
     [Theory]
+    [InlineData("Create_1")]
+    public async Task GivenValidCreateJson1_WhenDeserialised_ThenSucceedsAsync(string fileName)
+    {
+        // Arrange
+        using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
+
+        // Act
+        var sut = await JsonSerializer.DeserializeAsync<Create>(reader.BaseStream, SerializationOptions.Default);
+
+        // Assert
+        sut.Should().BeEquivalentTo(new Create
+        {
+            Context = new[]
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://www.w3.org/ns/activitystreams")
+                }
+            },
+            Type = new[] { new AnyUri(ObjectType.Create) },
+            Id = new Uri("https://social.example/alyssa/posts/a29a6843-9feb-4c74-a7f7-081b9c9201d3"),
+            To = new[]
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://chatty.example/ben/")
+                }
+            },
+            Actor = new[]
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://social.example/alyssa/")
+                }
+            },
+            Object = new[]
+            {
+                new Note
+                {
+                    Type = new[] { new AnyUri(ObjectType.Note) },
+                    Id = new Uri("https://social.example/alyssa/posts/49e2d03d-b53a-4c4c-a95c-94a6abf45a19"),
+                    To = new[]
+                    {
+                        new StreamsLink
+                        {
+                            Type = new[] { new AnyUri(ObjectType.Link) },
+                            Href = new Uri("https://chatty.example/ben/")
+                        }
+                    },
+                    AttributedTo = new[]
+                    {
+                        new StreamsLink
+                        {
+                            Type = new[] { new AnyUri(ObjectType.Link) },
+                            Href = new Uri("https://social.example/alyssa/")
+                        }
+                    },
+                    Content = new RdfLangString { String = "Say, did you finish reading that book I lent you?" }
+                }
+            }
+        });
+    }
+
+    [Theory]
     [InlineData("Delete_0")]
     public async Task GivenValidDeleteJson_WhenDeserialised_ThenSucceedsAsync(string fileName)
     {
@@ -1411,6 +1478,49 @@ public class CoreTypeConverterTests
             Content = new RdfLangString { String = "Looks like it is going to rain today. Bring an umbrella!" }
         });
     }
+
+    [Theory]
+    [InlineData("Note_1")]
+    public async Task GivenValidNoteJson1_WhenDeserialised_ThenSucceedsAsync(string fileName)
+    {
+        // Arrange
+        using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
+
+        // Act
+        var sut = await JsonSerializer.DeserializeAsync<Note>(reader.BaseStream, SerializationOptions.Default);
+
+        // Assert
+        sut.Should().BeEquivalentTo(new Note
+        {
+            Context = new[]
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://www.w3.org/ns/activitystreams")
+                }
+            },
+            Type = new[] { new AnyUri(ObjectType.Note) },
+            To = new[] 
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://chatty.example/ben/")
+                }
+            },
+            AttributedTo = new[]
+            {
+                new StreamsLink
+                {
+                    Type = new[] { new AnyUri(ObjectType.Link) },
+                    Href = new Uri("https://social.example/alyssa/")
+                }
+            },
+            Content = new RdfLangString { String = "Say, did you finish reading that book I lent you?" }
+        });
+    }
+
 
     [Theory]
     [InlineData("Object_0")]

@@ -5,6 +5,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>$(AssemblyName).DotNet</PackageId>
+    <Title>A .NET 6 implementation of Activity Streams 2.0</Title>
+    <Authors>AmberWeightman</Authors>
+    <Product>$(AssemblyName).DotNet</Product>
+    <Description>A .NET 6 implementation of Activity Streams 2.0</Description>
+    <Copyright>GPL-3.0 license</Copyright>
+    <PackageProjectUrl>https://github.com/amber-weightman/activity-streams-dotnet</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/amber-weightman/activity-streams-dotnet</RepositoryUrl>
+    <PackageTags>activity; streams; activitystreams; activitypub</PackageTags>
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,5 +26,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="ActivityStreams.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

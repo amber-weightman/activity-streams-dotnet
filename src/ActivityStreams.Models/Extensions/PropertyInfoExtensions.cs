@@ -7,7 +7,7 @@ namespace ActivityStreams.Extensions;
 /// <summary>
 /// <see cref="PropertyInfo"/> extensions
 /// </summary>
-public static class PropertyInfoExtensions
+internal static class PropertyInfoExtensions
 {
     /// <summary>
     /// Get the <c>camelCase</c> JSON property name for a <see cref="PropertyInfo"/> object

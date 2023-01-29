@@ -5,7 +5,7 @@ namespace ActivityStreams.Utilities.Helpers;
 /// <summary>
 /// <see cref="TimeSpan"/> utilities and helpers
 /// </summary>
-public static class TimeSpanHelper
+internal static class TimeSpanHelper
 {
     /// <summary>
     /// Convert <c>xsd:duration</c> string to <see cref="TimeSpan" />

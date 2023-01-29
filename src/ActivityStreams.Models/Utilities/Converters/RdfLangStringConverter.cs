@@ -9,7 +9,7 @@ namespace ActivityStreams.Utilities.Converters;
 /// <summary>
 /// Converters for serializing to/from <see cref="RdfLangString"/>
 /// </summary>
-public class RdfLangStringConverter : JsonConverter<RdfLangString>
+internal class RdfLangStringConverter : JsonConverter<RdfLangString>
 {
     /// <summary>
     /// Convert a serialized <c>string</c> to the <see cref="RdfLangString"/> it represents

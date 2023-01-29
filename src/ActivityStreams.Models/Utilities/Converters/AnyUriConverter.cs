@@ -11,7 +11,7 @@ namespace ActivityStreams.Utilities.Converters;
 /// <summary>
 /// Converters for serializing to/from <see cref="IAnyUri"/>
 /// </summary>
-public class AnyUriConverter : JsonConverter<IAnyUri>
+internal class AnyUriConverter : JsonConverter<IAnyUri>
 {
     /// <inheritdoc cref="JsonConverter{T}.CanConvert(Type)" />
     public override bool CanConvert(Type typeToConvert)

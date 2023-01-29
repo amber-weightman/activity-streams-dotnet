@@ -10,6 +10,19 @@ namespace ActivityStreams.Core.Models;
 /// <inheritdoc cref="IStreamsLink" />
 public record StreamsLink : CoreTypeBase, IStreamsLink
 {
+    /// <summary>
+    /// Constructor for <see cref="StreamsLink"/>
+    /// </summary>
+    public StreamsLink(){ }
+
+    /// <summary>
+    /// Constructor for <see cref="StreamsLink"/>
+    /// </summary>
+    public StreamsLink(Uri uri)
+    {
+        Href = uri;
+    }
+
     /// <inheritdoc cref="ICoreType.Type" />
     public override IAnyUri[]? Type { get; init; } = new[] { new AnyUri(ObjectType.Link) };
 

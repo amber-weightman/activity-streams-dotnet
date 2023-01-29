@@ -3,7 +3,7 @@
 /// <summary>
 /// <see cref="string"/> utilities and helpers
 /// </summary>
-public static class StringHelper
+internal static class StringHelper
 {
     /// <summary>
     /// Convert a <c>string</c> to <c>camelCase</c>

@@ -9,7 +9,7 @@ namespace ActivityStreams.Utilities.Converters;
 /// <summary>
 /// Converters for serializing to/from <see cref="DateTimeXsd"/>
 /// </summary>
-public class DateTimeConverter : JsonConverter<DateTimeXsd>
+internal class DateTimeConverter : JsonConverter<DateTimeXsd>
 {
     /// <summary>
     /// Convert a serialized <c>string</c> to the <see cref="DateTimeXsd"/> it represents

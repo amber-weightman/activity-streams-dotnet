@@ -15,7 +15,7 @@ namespace ActivityStreams.Utilities.Converters;
 /// <summary>
 /// Converters for serializing to/from <c><see cref="ICoreType"/></c> 
 /// </summary>
-public class CoreTypeConverter : JsonConverter<ICoreType>
+internal class CoreTypeConverter : JsonConverter<ICoreType>
 {
     private static UriCreationOptions UriCreationOptions = new();
 
@@ -96,12 +96,36 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
 
     private static void SetObjectProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
     {
-        var objectType = GetObjectType(serializedProperty);
+        var prop = DeserializeJsonProperty(serializedProperty, options);
+        if (prop != null)
+        {
+            AddCoreType(newObjectProperty, newObject, prop);
+        }
+    }
+
+    private static object? DeserializeJsonProperty(JsonElement jElement, JsonSerializerOptions options)
+    {
+        var objectType = GetObjectType(jElement);
         if (objectType != null)
         {
-            var typedValue = serializedProperty.Deserialize(objectType, options);
-            AddCoreType(newObjectProperty, newObject, typedValue);
+            switch (jElement.ValueKind)
+            {
+                case JsonValueKind.Object:
+                    return jElement.Deserialize(objectType, options);
+                case JsonValueKind.String:
+                    {
+
+                        string? propertyValueString = jElement.GetString();
+                        if (JsonConverterHelper.IsEmpty(propertyValueString))
+                        {
+                            return null;
+                        }
+
+                        return DeserializeString(objectType, propertyValueString!);
+                    }
+            }
         }
+        return null;
     }
 
     private static void SetArrayProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
@@ -124,7 +148,7 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
     {
         if (jElement.ValueKind == JsonValueKind.Array)
         {
-            return jElement.EnumerateArray().Select(e => (T)JsonSerializer.Deserialize(e, GetObjectType(e)!, options)!).ToArray();
+            return jElement.EnumerateArray().Select(e => (T)DeserializeJsonProperty(e, options)!).ToArray();
         }
         return Array.Empty<T>();
     }
@@ -186,27 +210,47 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
             return;
         }
 
-        if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(TimeSpan)))
+        var typedValue = DeserializeString(newObjectProperty.PropertyType, propertyValueString!);
+        if (typedValue != null)
         {
-            newObjectProperty.SetValue(newObject, TimeSpanHelper.ToTimeSpan(propertyValueString!));
-            return;
-        }
-
-        if (Uri.TryCreate(propertyValueString, UriCreationOptions, out Uri? result))
-        {
-            if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(IStreamsLink)) || newObjectProperty.PropertyType.IsAssignableFrom(typeof(IStreamsLink[])))
-            {
-                // Uri-only usually indicates 'Link' type but not always (at least according to explicit documentation - see Relationship_0 test/s)
-                AddCoreType(newObjectProperty, newObject, new StreamsLink { Href = result });
-            }
-            else if (newObjectProperty.PropertyType.IsAssignableFrom(typeof(IStreamsObject)) || newObjectProperty.PropertyType.IsAssignableFrom(typeof(IStreamsObject[])))
-            {
-                AddCoreType(newObjectProperty, newObject, new StreamsObject { Type = new[] { new AnyUri(result) } });
-            }
+            AddCoreType(newObjectProperty, newObject, typedValue);
             return;
         }
 
         // TODO if this fails, it silently fails (same with the other mappings)
+    }
+
+    private static object? DeserializeString(Type type, string value)
+    {
+        // Handle TimeSpans
+        if (type.IsAssignableFrom(typeof(TimeSpan)))
+        {
+            return TimeSpanHelper.ToTimeSpan(value!);
+        }
+
+        // Handle URIs
+        if (Uri.TryCreate(value, UriCreationOptions, out Uri? result))
+        {
+            if (typeof(IStreamsLink).IsAssignableFrom(type) || 
+                    type.IsAssignableFrom(typeof(IStreamsLink)) ||
+                    typeof(IStreamsLink[]).IsAssignableFrom(type) ||
+                    type.IsAssignableFrom(typeof(IStreamsLink[]))
+                )
+            {
+                // Uri-only usually indicates 'Link' type but not always (at least according to explicit documentation - see Relationship_0 test/s)
+                return new StreamsLink { Href = result } as IStreamsLink;
+            }
+            else if (typeof(IStreamsObject).IsAssignableFrom(type) || 
+                    type.IsAssignableFrom(typeof(IStreamsObject)) ||
+                    typeof(IStreamsObject[]).IsAssignableFrom(type) ||
+                    type.IsAssignableFrom(typeof(IStreamsObject[]))
+                )
+            {
+                return new StreamsObject { Type = new[] { new AnyUri(result) } } as IStreamsObject;
+            }
+        }
+
+        return null;
     }
 
     private static void SetNumericProperty(object? newObject, PropertyInfo newObjectProperty, JsonElement serializedProperty, JsonSerializerOptions options)
@@ -225,14 +269,26 @@ public class CoreTypeConverter : JsonConverter<ICoreType>
 
     private static Type? GetObjectType(JsonElement jsonElement)
     {
-        if (jsonElement.TryGetProperty("type", out JsonElement typeElement) &&
-            Enum.TryParse(typeElement.GetString(), out ObjectType objectType))
+        switch (jsonElement.ValueKind)
         {
-            return objectType.ToType();
-        }
+            case JsonValueKind.Object:
+                {
+                    if (jsonElement.TryGetProperty("type", out JsonElement typeElement) &&
+                                Enum.TryParse(typeElement.GetString(), out ObjectType objectType))
+                    {
+                        return objectType.ToType();
+                    }
 
-        // TODO is it always OK to fallback to Object where the type is not in our enum?
-        return typeof(StreamsObject);
+                    // TODO is it always OK to fallback to Object where the type is not in our enum?
+                    return typeof(StreamsObject);
+                }
+            case JsonValueKind.String:
+                {
+                    return typeof(StreamsLink);
+                }
+            default:
+                return typeof(StreamsObject);
+        }
     }
 
     private static bool TryAddType<T>(PropertyInfo p, object? newObject, object value)

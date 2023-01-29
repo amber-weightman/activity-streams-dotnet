@@ -5,7 +5,7 @@ namespace ActivityStreams.Utilities.Helpers;
 /// <summary>
 /// Custom <see cref="JsonConverter"/> utilities and helpers
 /// </summary>
-public static class JsonConverterHelper
+internal static class JsonConverterHelper
 {
     /// <summary>
     /// Returns true if the given string value is null or empty or represents an empty json object.

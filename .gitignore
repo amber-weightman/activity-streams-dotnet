@@ -3,22 +3,11 @@
 ################################################################################
 
 /.vs
-/src/ActivityStreams.Models/obj
-/src/ActivityStreams.Contract/obj
-/src/ActivityStreams.Interfaces/bin/Debug/net6.0
-/src/ActivityStreams.Interfaces/obj
-/src/ActivityStreams.Models/bin/Debug/net6.0
-/src/ActivityStreams.Utilities/bin/Debug/net6.0
-/src/ActivityStreams.Utilities/obj
-/test/ActivityStreams.UnitTests/bin/Debug/net6.0
-/test/ActivityStreams.UnitTests/obj
-/sonarqubecoverage
 /test/ActivityStreams.UnitTests/TestResults
 /test/TestResults
 /test/TestCoverage
-/src/ActivityStreams.Interfaces/bin/Release/net6.0
-/src/ActivityStreams.Models/bin/Release/net6.0
-/test/ActivityStreams.UnitTests/bin/Release/net6.0
 /SonarTestResults.xml
-/src/ActivityStreams.Interfaces/bin/*
-/src/ActivityStreams.Interfaces/obj/*
+/test/ActivityStreams.UnitTests/bin/*
+/test/ActivityStreams.UnitTests/obj/*
+/src/ActivityStreams.Models/bin/*
+/src/ActivityStreams.Models/obj/*
