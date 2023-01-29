@@ -1,19 +1,22 @@
-using ActivityStreams.Contract.Common;
-using ActivityStreams.Contract.Core;
-using ActivityStreams.Contract.Types;
-using ActivityStreams.Models.Common;
-using ActivityStreams.Models.Core;
-using ActivityStreams.Models.Core.Activity;
-using ActivityStreams.Models.Core.Collection;
-using ActivityStreams.Models.Extended.Activity;
-using ActivityStreams.Models.Extended.Actor;
-using ActivityStreams.Models.Extended.Object;
-using ActivityStreams.Models.Utilities.Helpers;
-using ActivityStreams.Models.Utilities.Serialization;
+using ActivityStreams.Common;
+using ActivityStreams.Core;
+using ActivityStreams.Types;
+using ActivityStreams.Common;
+using ActivityStreams.Core.Activity.Models;
+using ActivityStreams.Core.Collection.Models;
+using ActivityStreams.Core.Interfaces;
+using ActivityStreams.Core.Models;
+using ActivityStreams.Extended.Activity.Models;
+using ActivityStreams.Extended.Actor.Models;
+using ActivityStreams.Extended.Object.Models;
+using ActivityStreams.Types;
+using ActivityStreams.Utilities.Helpers;
 using ActivityStreams.UnitTests.Utils;
 using FluentAssertions;
 using System.Text.Json;
-using Object = ActivityStreams.Models.Core.Object;
+using StreamsObject = ActivityStreams.Core.Models.StreamsObject;
+using ActivityStreams.Common.Models;
+using ActivityStreams.Config;
 
 namespace ActivityStreams.UnitTests.Serialization;
 
@@ -29,14 +32,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Accept
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -59,7 +62,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new []
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org"),
@@ -86,14 +89,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Accept>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Accept
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -136,14 +139,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Activity>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Activity>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Activity
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -178,14 +181,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Add
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -203,7 +206,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/abc")
@@ -220,14 +223,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Add>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Add
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -251,7 +254,7 @@ public class CoreTypeConverterTests
                     Name = new RdfLangString { String = "A picture of my cat" },
                     Url = new []
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://example.org/img/cat.png")
@@ -261,7 +264,7 @@ public class CoreTypeConverterTests
             },
             Origin = new[] 
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Camera Roll" },
@@ -269,7 +272,7 @@ public class CoreTypeConverterTests
             },
             Target = new[]
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "My Cat Pictures" },
@@ -287,14 +290,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Announce>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Announce>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Announce
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -318,7 +321,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Arrive) },
                     Actor = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://sally.example.org")
@@ -345,14 +348,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Application>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Application>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Application
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -372,14 +375,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Arrive>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Arrive>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Arrive
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -422,14 +425,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Article>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Article>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Article
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -440,7 +443,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Article) },
             AttributedTo = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
@@ -457,14 +460,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Audio>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Audio>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Audio
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -474,7 +477,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Audio) },
             Url = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/podcast.mp3"),
@@ -492,14 +495,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Block>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Block>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Block
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -509,7 +512,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Block) },
             Actor = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
@@ -517,7 +520,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://joe.example.org")
@@ -534,14 +537,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Collection>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<StreamsCollection>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new Collection
+        sut.Should().BeEquivalentTo(new StreamsCollection
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -574,14 +577,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<CollectionPage>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<StreamsCollectionPage>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new CollectionPage
+        sut.Should().BeEquivalentTo(new StreamsCollectionPage
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -590,7 +593,7 @@ public class CoreTypeConverterTests
             Summary = new RdfLangString { String = "Page 1 of Sally's notes" },
             Type = new[] { new AnyUri(ObjectType.CollectionPage) },
             Id = new Uri("http://example.org/foo?page=1"),
-            PartOf = new Link
+            PartOf = new StreamsLink
             {
                 Type = new[] { new AnyUri(ObjectType.Link) },
                 Href = new Uri("http://example.org/foo")
@@ -619,14 +622,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Create>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Create>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Create
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -662,14 +665,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Delete>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Delete>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Delete
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -687,7 +690,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
@@ -695,7 +698,7 @@ public class CoreTypeConverterTests
             },
             Origin = new[]
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Sally's Notes" }
@@ -712,14 +715,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Dislike>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Dislike>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Dislike
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -729,7 +732,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Dislike) },
             Actor = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
@@ -737,7 +740,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
@@ -754,14 +757,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Document>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Document>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Document
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -771,7 +774,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Document) },
             Url = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/4q-sales-forecast.pdf")
@@ -788,14 +791,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Event>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Event>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Event
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -816,14 +819,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Flag>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Flag>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Flag
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -833,7 +836,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Flag) },
             Actor = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
@@ -858,14 +861,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Follow>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Follow>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Follow
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -900,14 +903,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Group>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Group>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Group
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -926,14 +929,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Ignore>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Ignore>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Ignore
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -951,7 +954,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
@@ -968,14 +971,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Image>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Image>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Image
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -985,13 +988,13 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Image) },
             Url = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/image.jpeg"),
                     MediaType = "image/jpeg"
                 },
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/image.png"),
@@ -1009,14 +1012,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Invite>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Invite>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Invite
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1064,14 +1067,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Join>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Join>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Join
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1106,14 +1109,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Leave
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1148,14 +1151,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Leave>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Leave
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1190,14 +1193,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Like>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Like>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Like
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1215,7 +1218,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
@@ -1232,14 +1235,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Link>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<StreamsLink>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new Link
+        sut.Should().BeEquivalentTo(new StreamsLink
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1261,14 +1264,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Listen>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Listen>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Listen
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1286,7 +1289,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/music.mp3")
@@ -1303,14 +1306,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Mention>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Mention>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Mention
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1332,14 +1335,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Move>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Move>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Move
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1357,7 +1360,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
@@ -1365,7 +1368,7 @@ public class CoreTypeConverterTests
             },
             Target = new[]
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "List B" },
@@ -1373,7 +1376,7 @@ public class CoreTypeConverterTests
             },
             Origin = new[]
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "List A" },
@@ -1390,14 +1393,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Note>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Note>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Note
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1417,14 +1420,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Object>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<StreamsObject>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new Object
+        sut.Should().BeEquivalentTo(new StreamsObject
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1444,14 +1447,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Offer>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Offer>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Offer
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1469,7 +1472,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Object
+                new StreamsObject
                 {
                     Type = new [] { new AnyUri("http://www.types.example/ProductOffer") },
                     Name = new RdfLangString { String = "50% Off!" },
@@ -1494,14 +1497,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollection>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedStreamsCollection>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new OrderedCollection
+        sut.Should().BeEquivalentTo(new OrderedStreamsCollection
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1534,10 +1537,10 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollection>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedStreamsCollection>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new OrderedCollection
+        sut.Should().BeEquivalentTo(new OrderedStreamsCollection
         {
             Name = new RdfLangString { String = "Vacation photos 2016" },
             Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
@@ -1573,14 +1576,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollectionPage>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedStreamsCollectionPage>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new OrderedCollectionPage
+        sut.Should().BeEquivalentTo(new OrderedStreamsCollectionPage
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1589,7 +1592,7 @@ public class CoreTypeConverterTests
             Summary = new RdfLangString { String = "Page 1 of Sally's notes" },
             Type = new[] { new AnyUri(ObjectType.OrderedCollectionPage) },
             Id = new Uri("http://example.org/foo?page=1"),
-            PartOf = new Link
+            PartOf = new StreamsLink
             {
                 Type = new[] { new AnyUri(ObjectType.Link) },
                 Href = new Uri("http://example.org/foo")
@@ -1618,14 +1621,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Organization>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Organization>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Organization
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1644,14 +1647,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Page>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Page>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Page
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1661,7 +1664,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Page) },
             Url = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/weather-in-omaha.html")
@@ -1678,14 +1681,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Person>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Person>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Person
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1704,14 +1707,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Place
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1730,14 +1733,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Place>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Place
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1760,14 +1763,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Profile>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Profile>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Profile
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1791,14 +1794,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Question
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1830,14 +1833,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Question>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Question
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1860,14 +1863,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Read>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Read>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Read
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1885,7 +1888,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/posts/1")
@@ -1902,14 +1905,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Reject>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Reject>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Reject
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1932,7 +1935,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
@@ -1959,14 +1962,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Relationship>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Relationship>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Relationship
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -1981,7 +1984,7 @@ public class CoreTypeConverterTests
             },
             InnerRelationship = new [] 
             {
-                new Object // TODO I'm unsure about this data type
+                new StreamsObject // TODO I'm unsure about this data type
                 {
                     //Type = new[] { new AnyUri(ObjectType.Object) },
                     //Id = new Uri("http://purl.org/vocab/relationship/acquaintanceOf")
@@ -2007,14 +2010,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Remove
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2032,7 +2035,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
@@ -2040,7 +2043,7 @@ public class CoreTypeConverterTests
             },
             Target = new[]
             {
-                new Collection
+                new StreamsCollection
                 {
                     Type = new[] { new AnyUri(ObjectType.Collection) },
                     Name = new RdfLangString { String = "Notes Folder" }
@@ -2057,14 +2060,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Remove>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Remove
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2074,7 +2077,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Remove) },
             Actor = new[]
             {
-                new Object
+                new StreamsObject
                 {
                     Type = new [] { new AnyUri(new Uri("http://example.org/Role")) },
                     Name = new RdfLangString { String = "The Moderator" }
@@ -2107,14 +2110,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Service>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Service>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Service
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2133,14 +2136,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<TentativeAccept>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<TentativeAccept>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new TentativeAccept
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2163,7 +2166,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
@@ -2190,14 +2193,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<TentativeReject>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<TentativeReject>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new TentativeReject
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2220,7 +2223,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Invite) },
                     Actor = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
@@ -2247,10 +2250,10 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<OrderedCollection>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<OrderedStreamsCollection>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
-        sut.Should().BeEquivalentTo(new OrderedCollection
+        sut.Should().BeEquivalentTo(new OrderedStreamsCollection
         {
             Name = new RdfLangString { String = "Vacation photos 2016" },
             Type = new[] { new AnyUri(ObjectType.OrderedCollection) },
@@ -2286,14 +2289,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Travel
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2328,14 +2331,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Travel>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Travel
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2378,14 +2381,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Undo>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Undo>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Undo
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2395,7 +2398,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Undo) },
             Actor = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://sally.example.org")
@@ -2408,7 +2411,7 @@ public class CoreTypeConverterTests
                     Type = new[] { new AnyUri(ObjectType.Offer) },
                     Actor = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://sally.example.org")
@@ -2416,7 +2419,7 @@ public class CoreTypeConverterTests
                     },
                     Object = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://example.org/posts/1")
@@ -2424,7 +2427,7 @@ public class CoreTypeConverterTests
                     },
                     Target = new[]
                     {
-                        new Link
+                        new StreamsLink
                         {
                             Type = new[] { new AnyUri(ObjectType.Link) },
                             Href = new Uri("http://john.example.org")
@@ -2443,14 +2446,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Update>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Update>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Update
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2468,7 +2471,7 @@ public class CoreTypeConverterTests
             },
             Object = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/notes/1")
@@ -2485,14 +2488,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<Video>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<Video>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new Video
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")
@@ -2502,7 +2505,7 @@ public class CoreTypeConverterTests
             Type = new[] { new AnyUri(ObjectType.Video) },
             Url = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("http://example.org/video.mkv")
@@ -2520,14 +2523,14 @@ public class CoreTypeConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<View>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<View>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new View
         {
             Context = new[]
             {
-                new Link
+                new StreamsLink
                 {
                     Type = new[] { new AnyUri(ObjectType.Link) },
                     Href = new Uri("https://www.w3.org/ns/activitystreams")

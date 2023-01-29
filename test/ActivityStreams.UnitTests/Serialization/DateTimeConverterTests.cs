@@ -1,5 +1,5 @@
-﻿using ActivityStreams.Contract.Common;
-using ActivityStreams.Models.Utilities.JsonConverters;
+﻿using ActivityStreams.Common.Models;
+using ActivityStreams.Utilities.Converters;
 using FluentAssertions;
 using System.Runtime.Serialization;
 using System.Text;
@@ -106,5 +106,21 @@ public class DateTimeConverterTests
 
         // Assert
         decodedResult.Should().Be($"\"{date}\"");
+    }
+
+    [Fact]
+    public async Task GivenNullDateTimeXsd_WhenSerialized_ThenReturnsNull()
+    {
+        // Arrange
+        using MemoryStream stream = new MemoryStream();
+
+        // Act
+        await JsonSerializer.SerializeAsync<DateTimeXsd>(stream, default(DateTimeXsd?), _options);
+        stream.Position = 0;
+        using var sr = new StreamReader(stream);
+        var result = await sr.ReadToEndAsync();
+        
+        // Assert
+        result.Should().Be("null");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace ActivityStreams.Models.Utilities.Helpers;
+namespace ActivityStreams.Utilities.Helpers;
 
 /// <summary>
 /// <see cref="TimeSpan"/> utilities and helpers

@@ -20,3 +20,5 @@
 /src/ActivityStreams.Models/bin/Release/net6.0
 /test/ActivityStreams.UnitTests/bin/Release/net6.0
 /SonarTestResults.xml
+/src/ActivityStreams.Interfaces/bin/*
+/src/ActivityStreams.Interfaces/obj/*

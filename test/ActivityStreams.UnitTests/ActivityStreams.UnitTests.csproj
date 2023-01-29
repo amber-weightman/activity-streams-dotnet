@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj" />
-    <ProjectReference Include="..\..\src\ActivityStreams.Models\ActivityStreams.Models.csproj" />
+    <ProjectReference Include="..\..\src\ActivityStreams.Models\ActivityStreams.csproj" />
   </ItemGroup>
 
   <ItemGroup>

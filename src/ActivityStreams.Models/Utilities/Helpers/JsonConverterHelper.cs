@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ActivityStreams.Models.Utilities.Helpers;
+namespace ActivityStreams.Utilities.Helpers;
 
 /// <summary>
 /// Custom <see cref="JsonConverter"/> utilities and helpers

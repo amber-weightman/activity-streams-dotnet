@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityStreams.Models", "src\ActivityStreams.Models\ActivityStreams.Models.csproj", "{3D00233E-BB53-4D22-B001-45186C9FF8E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityStreams", "src\ActivityStreams.Models\ActivityStreams.csproj", "{3D00233E-BB53-4D22-B001-45186C9FF8E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A50DFF06-CB70-4E4A-8649-55C38717F863}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		.github\workflows\sonarqube.yml = .github\workflows\sonarqube.yml
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityStreams.Contract", "src\ActivityStreams.Interfaces\ActivityStreams.Contract.csproj", "{1070E5B0-BE13-47D0-906C-BEE840601433}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{293C6A40-E437-44CB-B238-02F8177B3B09}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{3D00233E-BB53-4D22-B001-45186C9FF8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D00233E-BB53-4D22-B001-45186C9FF8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D00233E-BB53-4D22-B001-45186C9FF8E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1070E5B0-BE13-47D0-906C-BEE840601433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1070E5B0-BE13-47D0-906C-BEE840601433}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1070E5B0-BE13-47D0-906C-BEE840601433}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1070E5B0-BE13-47D0-906C-BEE840601433}.Release|Any CPU.Build.0 = Release|Any CPU
 		{316730EA-B25B-4CE2-B9BC-500B862661B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{316730EA-B25B-4CE2-B9BC-500B862661B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{316730EA-B25B-4CE2-B9BC-500B862661B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,7 +39,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3D00233E-BB53-4D22-B001-45186C9FF8E4} = {293C6A40-E437-44CB-B238-02F8177B3B09}
-		{1070E5B0-BE13-47D0-906C-BEE840601433} = {293C6A40-E437-44CB-B238-02F8177B3B09}
 		{316730EA-B25B-4CE2-B9BC-500B862661B1} = {AEE7B644-EC9C-4CAA-9A8A-54F9F723518E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

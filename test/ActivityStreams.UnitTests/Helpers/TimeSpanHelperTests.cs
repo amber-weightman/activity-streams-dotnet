@@ -1,4 +1,4 @@
-﻿using ActivityStreams.Models.Utilities.Helpers;
+﻿using ActivityStreams.Utilities.Helpers;
 using FluentAssertions;
 
 namespace ActivityStreams.UnitTests.Helpers;

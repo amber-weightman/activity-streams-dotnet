@@ -1,12 +1,13 @@
-﻿using ActivityStreams.Contract.Common;
-using ActivityStreams.Contract.Types;
-using ActivityStreams.Models.Common;
-using ActivityStreams.Models.Utilities.JsonConverters;
-using ActivityStreams.Models.Utilities.Serialization;
+﻿using ActivityStreams.Common;
+using ActivityStreams.Types;
+using ActivityStreams.Common.Models;
+using ActivityStreams.Types;
+using ActivityStreams.Utilities.Converters;
 using ActivityStreams.UnitTests.Utils;
 using FluentAssertions;
 using System.Text;
 using System.Text.Json;
+using ActivityStreams.Config;
 
 namespace ActivityStreams.UnitTests.Serialization;
 
@@ -114,7 +115,7 @@ public class AnyUriConverterTests
         using var reader = new StreamReader(FileHelper.GetFileLocation($"{fileName}.json", FilePath));
 
         // Act
-        var sut = await JsonSerializer.DeserializeAsync<AnyUri>(reader.BaseStream, SerializationOptions.Options);
+        var sut = await JsonSerializer.DeserializeAsync<AnyUri>(reader.BaseStream, SerializationOptions.Default);
 
         // Assert
         sut.Should().BeEquivalentTo(new AnyUri

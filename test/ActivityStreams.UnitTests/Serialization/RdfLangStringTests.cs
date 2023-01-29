@@ -1,5 +1,5 @@
-﻿using ActivityStreams.Models.Common;
-using ActivityStreams.Models.Utilities.JsonConverters;
+﻿using ActivityStreams.Common.Models;
+using ActivityStreams.Utilities.Converters;
 using FluentAssertions;
 using System.Text;
 using System.Text.Json;
